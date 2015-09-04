@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSite", "WebSite", "{5983FA33-AE90-4EDA-8E58-86C3F690BF69}"
+	ProjectSection(SolutionItems) = preProject
+		default.htm = default.htm
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{8742E007-CDC2-4C2C-A1B5-4A78658EF2B7}"
+	ProjectSection(SolutionItems) = preProject
+		js\bootstrap.js = js\bootstrap.js
+		js\bootstrap.min.js = js\bootstrap.min.js
+		js\npm.js = js\npm.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{EBDD424E-0361-447E-AAD4-249C3CB3BF7F}"
+	ProjectSection(SolutionItems) = preProject
+		css\bootstrap-theme.css = css\bootstrap-theme.css
+		css\bootstrap-theme.css.map = css\bootstrap-theme.css.map
+		css\bootstrap-theme.min.css = css\bootstrap-theme.min.css
+		css\bootstrap.css = css\bootstrap.css
+		css\bootstrap.css.map = css\bootstrap.css.map
+		css\bootstrap.min.css = css\bootstrap.min.css
+		css\default.css = css\default.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fonts", "fonts", "{6A6E0EA8-1AC1-4078-9361-511097E389C7}"
+	ProjectSection(SolutionItems) = preProject
+		fonts\glyphicons-halflings-regular.eot = fonts\glyphicons-halflings-regular.eot
+		fonts\glyphicons-halflings-regular.svg = fonts\glyphicons-halflings-regular.svg
+		fonts\glyphicons-halflings-regular.ttf = fonts\glyphicons-halflings-regular.ttf
+		fonts\glyphicons-halflings-regular.woff = fonts\glyphicons-halflings-regular.woff
+		fonts\glyphicons-halflings-regular.woff2 = fonts\glyphicons-halflings-regular.woff2
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8742E007-CDC2-4C2C-A1B5-4A78658EF2B7} = {5983FA33-AE90-4EDA-8E58-86C3F690BF69}
+		{EBDD424E-0361-447E-AAD4-249C3CB3BF7F} = {5983FA33-AE90-4EDA-8E58-86C3F690BF69}
+		{6A6E0EA8-1AC1-4078-9361-511097E389C7} = {5983FA33-AE90-4EDA-8E58-86C3F690BF69}
+	EndGlobalSection
+EndGlobal
