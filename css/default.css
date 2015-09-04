@@ -1,4 +1,23 @@
-﻿body
-{
+﻿body {
     padding-top: 60px;
 }
+
+.offers {
+    margin:10px;
+}
+
+.offer {
+    background-color:#fff;
+    border-radius:5px;
+    padding:5px;
+    text-align:center;
+    border:2px solid #cff0f8;
+    display:table-cell;
+}
+
+    .offer h2 {
+        color:#00b9ff;
+        font-size:13px;
+        margin-top:5px;
+        font-weight:bold;
+    }
