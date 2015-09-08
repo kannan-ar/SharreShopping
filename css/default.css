@@ -3,21 +3,81 @@
 }
 
 .offers {
-    margin:10px;
+    margin: 10px;
+    text-align:center;
+}
+
+.navbar-default {
+    background-color: #72a3b5 !important;
+}
+
+.navbar-brand {
+    color: #fff !important;
+    font-size: 20px !important;
+}
+
+.clear {
+    clear:both;
 }
 
 .offer {
-    background-color:#fff;
-    border-radius:5px;
-    padding:5px;
-    text-align:center;
-    border:2px solid #cff0f8;
-    display:table-cell;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #4aa1c1;
+    width: 200px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    float:left;
 }
 
-    .offer h2 {
-        color:#00b9ff;
-        font-size:13px;
-        margin-top:5px;
-        font-weight:bold;
+    .offer .title {
+        padding: 2px;
+        background-color: #4aa1c1;
+        border-radius: 4px;
     }
+
+        .offer .title a {
+            color: #fff;
+            text-decoration:none;
+        }
+
+    .offer img {
+        max-width: 100%;
+        margin:1px;
+    }
+
+    
+
+    .offer .footer {
+        text-align:left;
+        clear:both;
+    }
+
+        .offer .footer .logo {
+            float:left;
+        }
+
+        .offer .footer .price {
+            font-size: 22px;
+            color: #037ba7;
+            border: 1px solid #4aa1c1;
+            border-left: 3px solid #4aa1c1;
+            border-right: 3px solid #4aa1c1;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px;
+            float: left;
+        }
+
+        .offer .footer .rate {
+            background-color:#4aa1c1;
+            color:#fff;
+            padding:5px;
+            font-weight:bold;
+            text-align:right;
+            float:right;
+            font-size:24px;
+        }
