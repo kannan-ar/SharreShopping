@@ -2,6 +2,10 @@
 obj
 bin
 Temp
+node_modules/
+typings
+css/
+js/
 
 # Compiled source #
 ###################
