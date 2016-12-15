@@ -43,7 +43,7 @@ gulp.task("js", ["clean"], function() {
 });
 
 gulp.task("copyFiles", ["clean"], function() {
-    return gulp.src(['*.html'])
+    return gulp.src(['**/*.html', '!node_modules/**'])
         .pipe(gulp.dest('../js/app'));
 });
 
@@ -61,4 +61,8 @@ gulp.task("compress", ["ts"], function(cb){
     );
 });
 
-gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "copyFiles", "copyCSS", "compress"]);
+gulp.task("watch", function() {
+    gulp.watch(['**/*.*'], ["clean", "ts", "angular", "rxjs", "js", "copyFiles", "copyCSS", "compress"]);
+});
+
+gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "copyFiles", "copyCSS", "compress", "watch"]);
