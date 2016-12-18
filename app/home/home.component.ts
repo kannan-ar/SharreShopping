@@ -1,10 +1,11 @@
 import {Component} from "@angular/core";
 
-
-
 @Component({
     selector: "home",
-    templateUrl: "js/app/home/home.component.html"
+    template: `
+    <search></search>
+    <deal-of-day></deal-of-day>
+    `
 })
 
 export class HomeComponent {
