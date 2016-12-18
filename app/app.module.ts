@@ -25,25 +25,22 @@ import {DealOfDayService} from "./services/deal-of-day.service";
         SearchComponent,
         DealOfDayComponent,
         FlipkartDealOfDayComponent,
-        PageNotFoundComponent
-    ],
+        PageNotFoundComponent],
     imports: [
         NgbModule.forRoot(),
         BrowserModule,
         HttpModule,
         RouterModule,
         FormsModule,
-        AppRouting
-    ],
+        AppRouting],
     providers: [
-        DealOfDayService
-    ],
-    entryComponents: [DealOfDayComponent, FlipkartDealOfDayComponent],
+        DealOfDayService],
+    entryComponents: [
+        DealOfDayComponent, 
+        FlipkartDealOfDayComponent],
     bootstrap: [
-        AppComponent
-    ]
+        AppComponent]
 })
 
 export class AppModule {
-
 }
