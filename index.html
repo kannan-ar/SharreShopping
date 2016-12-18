@@ -12,11 +12,18 @@
     <script src="/js/system.src.js"></script>
     <script src="systemjs.config.js"></script>
     <script>
-            System.import('app').catch(function(err){console.err(err);})
+            System.import('app').catch(function(err){console.error(err);})
         </script>
 </head>
 
 <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Sharreshopping</a>
+            </div>
+        </div>
+    </nav>
     <div class="container-fluid">
         <div class="row">
             <shopping>Loading...</shopping>

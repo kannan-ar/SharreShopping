@@ -61,8 +61,4 @@ gulp.task("compress", ["ts"], function(cb){
     );
 });
 
-gulp.task("watch", function() {
-    gulp.watch(['**/*.*'], ["clean", "ts", "angular", "rxjs", "js", "copyFiles", "copyCSS", "compress"]);
-});
-
-gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "copyFiles", "copyCSS", "compress", "watch"]);
+gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "copyFiles", "copyCSS", "compress"]);

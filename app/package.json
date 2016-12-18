@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently  \"gulp\"  \"lite-server  -c my-bs-config.js\""
+    "dev": "gulp && lite-server -c my-bs-config.js"
   },
   "author": "Kannan",
   "license": "ISC",
@@ -27,7 +27,7 @@
     "@angular/router": "^3.3.0",
     "@angular/router-deprecated": "^2.0.0-rc.2",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.14",
-    "bootstrap": "^4.0.0-alpha.5",
+    "bootstrap": "^3.3.7",
     "concurrently": "^3.1.0",
     "core-js": "^2.4.1",
     "es6-shim": "^0.35.2",
