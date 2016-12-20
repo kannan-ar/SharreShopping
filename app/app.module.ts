@@ -12,19 +12,14 @@ import {AppRouting} from "./app.routing";
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 import {SearchComponent} from "./home/search.component";
-import {DealOfDayComponent} from "./home/deal-of-day.component";
-import {FlipkartDealOfDayComponent} from "./views/flipkart/flipkart-deal-of-day.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
-
-import {DealOfDayService} from "./services/deal-of-day.service";
+import {DealOfDayModule} from "./deal-of-day.module";
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         SearchComponent,
-        DealOfDayComponent,
-        FlipkartDealOfDayComponent,
         PageNotFoundComponent],
     imports: [
         NgbModule.forRoot(),
@@ -32,12 +27,8 @@ import {DealOfDayService} from "./services/deal-of-day.service";
         HttpModule,
         RouterModule,
         FormsModule,
-        AppRouting],
-    providers: [
-        DealOfDayService],
-    entryComponents: [
-        DealOfDayComponent, 
-        FlipkartDealOfDayComponent],
+        AppRouting,
+        DealOfDayModule],
     bootstrap: [
         AppComponent]
 })
