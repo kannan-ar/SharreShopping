@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import {NgModule } from "@angular/core";
 import {CommonModule} from "@angular/common";
 
 import {DealOfDayComponent} from "./home/deal-of-day.component";
@@ -22,8 +22,9 @@ import {FlipkartDealOfDayService} from "./services/flipkart/flipkart-deal-of-day
     ],
     providers: [
         DealOfDayService,
-        FlipkartDealOfDayService]
+        {provide: 'DealOfDayServices', useClass: FlipkartDealOfDayService, multi: true}]
 })
 
 export class DealOfDayModule {
 }
+
