@@ -18,6 +18,7 @@ export class DealOfDayComponent {
     }
 
     ngOnInit() {
-       this.dealOfDayService.getDeal(this.deal);
+      // this.dealOfDayService.loadItem(this.deal);
+      this.dealOfDayService.getDeal();
     }
 }

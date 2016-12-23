@@ -51,3 +51,6 @@ TestResult.xml
 #Solution generated files#
 ##########################
 *.suo
+
+#files#
+project.lock.json
