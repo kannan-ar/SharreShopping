@@ -38,6 +38,7 @@ namespace server
             loggerFactory.AddDebug();
 
             app.UseMvc();
+            app.UseStaticFiles();
         }
     }
 }

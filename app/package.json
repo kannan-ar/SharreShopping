@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp && lite-server -c my-bs-config.js"
+    "dev": "gulp"
   },
   "author": "Kannan",
   "license": "ISC",

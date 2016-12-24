@@ -6,7 +6,7 @@ import { IDealOfDayService } from "../deal-of-day.service";
 
 @Injectable()
 export class FlipkartDealOfDayService implements IDealOfDayService {
-    url: string = "https://affiliate-api.flipkart.net/affiliate/offers/v1/dotd/json";
+    url: string = "https://affiliate-api.flipkart.net/affiliate/offers/v1/all/json";
 
     constructor(
         private http: Http,
