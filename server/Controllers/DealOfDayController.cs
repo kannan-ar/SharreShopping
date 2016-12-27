@@ -3,7 +3,8 @@ namespace server.Controllers
         using Microsoft.AspNetCore.Mvc;
         using server.Services;
         using System.Threading.Tasks;
-
+        using server.Services.Flipkart;
+        
         [Route("api/[controller]")]
         public class DealOfDayController : Controller
         {
@@ -14,11 +15,13 @@ namespace server.Controllers
                         this.service = service;
                 }
 
-                [HttpGet("flipkart")]
-                public async Task<string> GetFlipkart()
+                [HttpGet("flipkart/{pageNumber}/{pageCount}")]
+                public async Task<JsonResult> GetFlipkart(int pageNumber, int pageCount)
                 {
-                        return await service.Get(server.Services.Flipkart.FlipkartService.DealOfDayApi,
-                            server.Services.Flipkart.FlipkartService.DefaultHeaders);
+                        FlipkartService flipkartService = new FlipkartService(service);
+                        var result = await flipkartService.GetDealOfDay(pageNumber, pageCount);
+
+                        return new JsonResult(result);
                 }
         }
 }

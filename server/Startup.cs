@@ -25,7 +25,7 @@ namespace server
         {
             // Add framework services.
             services.AddMvc();
-
+            services.AddMemoryCache();
             services.AddTransient<IShoppingService, ShoppingCachedHttpService>();
         }
 
@@ -36,6 +36,7 @@ namespace server
             loggerFactory.AddDebug();
 
             app.UseMvc();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
         }
     }
