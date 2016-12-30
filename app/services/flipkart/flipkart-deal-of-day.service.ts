@@ -5,7 +5,7 @@ import { Observer } from "rxjs/Observer";
 
 import { FlipkartDealOfDayComponent } from "../../views/flipkart/flipkart-deal-of-day.component";
 import { IDealOfDayService } from "../deal-of-day.service";
-import { FlipkartDealOfDay } from "../../models/flipkart/dealofday/flipkart-deal-of-day";
+import { FlipkartDealOfDay } from "../../models/flipkart/flipkart-deal-of-day";
 
 @Injectable()
 export class FlipkartDealOfDayService implements IDealOfDayService {
