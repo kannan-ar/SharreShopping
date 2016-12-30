@@ -1,27 +1,33 @@
-import {Injectable, ViewContainerRef, Inject} from "@angular/core";
+import { Injectable, ViewContainerRef, Inject } from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 export interface IDealOfDayService {
-    getItem(container: ViewContainerRef): void;
-    getDeals(): void;
+    data: Observable<any>;
+    
+    loadItem(container: ViewContainerRef, items: any[]): void;
+    getDeals(itemCount: number): void;
 }
 
 @Injectable()
 export class DealOfDayService {
+    loadedItemCount: number;
 
     constructor(
-        @Inject('DealOfDayServices')  private services) {
+        @Inject('DealOfDayServices') private services) {
     }
 
-    getDeal(): void {
-         this.services.forEach(item =>{
-             let service: IDealOfDayService = item as IDealOfDayService;
-             service.getDeals();
-         });
-    }
+    loadDeal(itemCount: number, container: ViewContainerRef): void {
+        
+        let self = this;
+        let countPerService: number = itemCount / this.services.length;
 
-    loadItem(container: ViewContainerRef): void {
-        let service: IDealOfDayService = this.services[0] as IDealOfDayService;
-         service.getItem(container);
+        this.services.forEach(item => {
+            let service: IDealOfDayService = item as IDealOfDayService;
+            service.getDeals(countPerService);
+            service.data.subscribe(items => {
+                service.loadItem(container, items);
+            });
+        });
     }
 }
 
