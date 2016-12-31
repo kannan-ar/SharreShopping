@@ -5,8 +5,23 @@ import {DealOfDayService} from "../services/deal-of-day.service";
 @Component({
     selector: 'deal-of-day',
     template: `
-    <div #deal class="row"></div>
-    `
+       <div class="row">
+            <div class="col-sm-12">
+                <div class="deal-of-day-header">
+                    <h4>Deal of the day</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div #deal></div>
+        </div>
+    `,
+    styles:[`
+        .deal-of-day-header {
+            background-color: #14819C;
+            padding: 1px 10px 1px 20px;
+        }
+    `]
 })
 
 export class DealOfDayComponent {
