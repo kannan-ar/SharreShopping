@@ -18,8 +18,8 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
-        this.currentIndex = 0;
-        this.data = new Observable(o => this.observer = o);
+            this.currentIndex = 0;
+            this.data = new Observable(o => this.observer = o);
     }
 
     loadItem(container: ViewContainerRef, items: any[]): void {
@@ -29,7 +29,6 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
             let flipkartComponent = container.createComponent(componentFactory);
             flipkartComponent.instance.item = deal;
         });
-
     }
 
     getDeals(itemCount: number): void {

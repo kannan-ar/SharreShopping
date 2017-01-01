@@ -1,18 +1,16 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
 import {Observable} from "rxjs/Observable";
 
-export interface IDealOfDayService {
+export interface IOfferService {
     data: Observable<any>;
     
     loadItem(container: ViewContainerRef, items: any[]): void;
-    getDeals(itemCount: number): void;
+    getOffers(itemCount: number): void;
 }
 
-@Injectable()
-export class DealOfDayService {
-
+export class OfferService {
     constructor(
-        @Inject('DealOfDayServices') private services) {
+        @Inject('OfferServices') private services) {
     }
 
     loadDeal(itemCount: number, container: ViewContainerRef): void {
@@ -20,12 +18,11 @@ export class DealOfDayService {
         let countPerService: number = itemCount / this.services.length;
 
         this.services.forEach(item => {
-            let service: IDealOfDayService = item as IDealOfDayService;
-            service.getDeals(countPerService);
+            let service: IOfferService = item as IOfferService;
+            service.getOffers(countPerService);
             service.data.subscribe(items => {
                 service.loadItem(container, items);
             });
         });
     }
 }
-

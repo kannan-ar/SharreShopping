@@ -14,6 +14,7 @@ import {HomeComponent} from "./home/home.component";
 import {SearchComponent} from "./home/search.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {DealOfDayModule} from "./deal-of-day.module";
+import {OfferModule} from "./offer.module";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {DealOfDayModule} from "./deal-of-day.module";
         RouterModule,
         FormsModule,
         AppRouting,
-        DealOfDayModule],
+        DealOfDayModule,
+        OfferModule],
     bootstrap: [
         AppComponent]
 })

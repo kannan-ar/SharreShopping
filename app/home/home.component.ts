@@ -5,6 +5,7 @@ import {Component} from "@angular/core";
     template: `
     <search></search>
     <deal-of-day></deal-of-day>
+    <offers></offers>
     `
 })
 

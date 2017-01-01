@@ -15,7 +15,8 @@ var jsFiles = [
 ];
 
 var cssFiles = [
-    'node_modules/bootstrap/dist/css/bootstrap.min.css'
+    'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    'shared/styles/styles.css'
 ];
 
 gulp.task("clean", function() {
