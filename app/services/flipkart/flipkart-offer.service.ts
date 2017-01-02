@@ -7,6 +7,7 @@ import {IOfferService} from "../offer.service";
 import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
 import {FlipkartOfferComponent} from "../../views/flipkart/flipkart-offer.component";
 
+@Injectable()
 export class FlipkartOfferService implements IOfferService {
         url: string = "/api/offer/flipkart";
         currentIndex: number;
@@ -19,7 +20,7 @@ export class FlipkartOfferService implements IOfferService {
                 private componentFactoryResolver: ComponentFactoryResolver) {
                         this.currentIndex = 0;
                         this.data = new Observable(o => this.observer = o);
-    }
+        }
 
         loadItem(container: ViewContainerRef, items: any[]): void {
                  items.forEach(item => {
@@ -31,6 +32,13 @@ export class FlipkartOfferService implements IOfferService {
         }
 
         getOffers(itemCount: number): void {
-                
+                 var self = this;
+
+                this.http.get(this.url + "/" + this.currentIndex + "/" + itemCount)
+                .map(response => response.json())
+                .subscribe(items => {
+                        self.currentIndex += itemCount;
+                        self.observer.next(items);
+                }, error => console.error(error));
         }
 }

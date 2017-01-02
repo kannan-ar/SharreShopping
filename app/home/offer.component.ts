@@ -1,12 +1,14 @@
 import {Component, ViewChild, ViewContainerRef, OnInit} from "@angular/core";
 
+import {OfferService} from "../services/offer.service";
+
 @Component({
         selector: 'offers',
         template: `
-        <div class="row">
+        <div class="row top5">
                 <div class="col-sm-12">
                         <div class="offers-header">
-                                <h4>Deal of the day</h4>
+                                <h4>Offers</h4>
                         </div>
                 </div>
         </div>
@@ -31,4 +33,12 @@ export class OfferComponent {
         itemCount: number = 4;
 
         @ViewChild('offer', {read: ViewContainerRef}) offer: ViewContainerRef;
+
+         constructor(
+                private offerService: OfferService) {
+        }
+
+        ngOnInit() {
+                this.offerService.loadOffers(this.itemCount, this.offer);
+        }
 }

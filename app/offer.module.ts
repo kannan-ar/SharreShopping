@@ -3,12 +3,12 @@ import {CommonModule} from "@angular/common";
 
 import {OfferService} from "./services/offer.service"
 import {FlipkartOfferService} from "./services/flipkart/flipkart-offer.service";
-import {ImageHolderComponent} from "./shared/image-holder.component";
 import {OfferComponent} from "./home/offer.component";
 import {FlipkartOfferComponent} from "./views/flipkart/flipkart-offer.component";
+import {SharedModule} from "./shared.module";
 
 @NgModule({
-        imports: [CommonModule],
+        imports: [CommonModule, SharedModule],
         exports: [
                 OfferComponent,
                 FlipkartOfferComponent],
@@ -17,8 +17,7 @@ import {FlipkartOfferComponent} from "./views/flipkart/flipkart-offer.component"
                 FlipkartOfferComponent],
         declarations: [
                 OfferComponent,
-                FlipkartOfferComponent,
-                ImageHolderComponent],
+                FlipkartOfferComponent],
         providers: [
                 OfferService,
                 {provide: "OfferServices", useClass: FlipkartOfferService, multi: true}

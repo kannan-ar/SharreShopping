@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 
 import {FlipkartDealOfDay} from "../../models/flipkart/flipkart-deal-of-day";
-import {ImageHolderComponent} from "../../shared/image-holder.component";
 
 @Component({
     selector: 'flipkart-deal',

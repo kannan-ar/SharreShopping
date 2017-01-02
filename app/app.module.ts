@@ -15,6 +15,7 @@ import {SearchComponent} from "./home/search.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {DealOfDayModule} from "./deal-of-day.module";
 import {OfferModule} from "./offer.module";
+import {SharedModule} from "./shared.module";
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import {OfferModule} from "./offer.module";
         RouterModule,
         FormsModule,
         AppRouting,
+        SharedModule,
         DealOfDayModule,
         OfferModule],
     bootstrap: [

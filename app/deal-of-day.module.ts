@@ -3,12 +3,12 @@ import {CommonModule} from "@angular/common";
 
 import {DealOfDayComponent} from "./home/deal-of-day.component";
 import {FlipkartDealOfDayComponent} from "./views/flipkart/flipkart-deal-of-day.component";
-import {ImageHolderComponent} from "./shared/image-holder.component";
 import {DealOfDayService} from "./services/deal-of-day.service";
-import {FlipkartDealOfDayService} from "./services/flipkart/flipkart-deal-of-day.service"
+import {FlipkartDealOfDayService} from "./services/flipkart/flipkart-deal-of-day.service";
+import {SharedModule} from "./shared.module";
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     exports: [
         FlipkartDealOfDayComponent,
         DealOfDayComponent
@@ -19,8 +19,7 @@ import {FlipkartDealOfDayService} from "./services/flipkart/flipkart-deal-of-day
     ],
     declarations: [
         DealOfDayComponent,
-        FlipkartDealOfDayComponent,
-        ImageHolderComponent
+        FlipkartDealOfDayComponent
     ],
     providers: [
         DealOfDayService,

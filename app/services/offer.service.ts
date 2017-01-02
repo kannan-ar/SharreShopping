@@ -8,12 +8,13 @@ export interface IOfferService {
     getOffers(itemCount: number): void;
 }
 
+@Injectable()
 export class OfferService {
     constructor(
         @Inject('OfferServices') private services) {
     }
 
-    loadDeal(itemCount: number, container: ViewContainerRef): void {
+    loadOffers(itemCount: number, container: ViewContainerRef): void {
         let self = this;
         let countPerService: number = itemCount / this.services.length;
 
