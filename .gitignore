@@ -6,6 +6,8 @@ node_modules/
 typings
 css/
 js/
+.vs
+packages
 
 # Compiled source #
 ###################

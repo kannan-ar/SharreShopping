@@ -1,9 +1,10 @@
-namespace server
+﻿namespace server
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Configuration;
     using System.IO;
+
     public class Program
     {
         public static void Main(string[] args)
