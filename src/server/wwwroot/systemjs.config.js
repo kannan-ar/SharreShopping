@@ -3,12 +3,14 @@
         'app': 'js/app',
         '@angular': 'js/@angular',
         'rxjs': 'js/rxjs',
-        '@ng-bootstrap/ng-bootstrap': 'js/ng-bootstrap.js'
+        '@ng-bootstrap/ng-bootstrap': 'js/ng-bootstrap.js',
+        'angular2-infinite-scroll': 'js/angular2-infinite-scroll.js'
     };
 
     var packages = {
         'app': { main: 'main.js', defaultExtension: 'js' },
-        'rxjs': { defaultExtension: 'js' }
+        'rxjs': { defaultExtension: 'js' },
+        'js/src': { defaultExtension: 'js' }
     };
 
     var ngPackageNames = [

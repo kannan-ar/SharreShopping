@@ -5,14 +5,25 @@ var pump = require("pump");
 var clean = require("gulp-clean");
 
 var tsProject = ts.createProject("tsconfig.json");
+
 var jsFiles = [
     'node_modules/core-js/client/shim.min.js',
     'node_modules/zone.js/dist/zone.js',
     'node_modules/reflect-metadata/Reflect.js',
     'node_modules/systemjs/dist/system.src.js',
     'node_modules/typescript/lib/typescript.js',
-    'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
+    'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+    'node_modules/angular2-infinite-scroll/bundles/angular2-infinite-scroll.js',
+    'node_modules/angular2-infinite-scroll/src/infinite-scroll.js',
+    'node_modules/angular2-infinite-scroll/src/axis-resolver.js',
+    'node_modules/angular2-infinite-scroll/src/index.js',
+    'node_modules/angular2-infinite-scroll/src/position-resolver.js',
+    'node_modules/angular2-infinite-scroll/src/scroller.js'
 ];
+
+var jsFilesWithDest = {
+
+}
 
 var cssFiles = [
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
