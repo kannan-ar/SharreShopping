@@ -6,15 +6,35 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
         selector: 'flipkart-offer',
         template: `
         <div class="col-md-3 col-sm-4 col-xs-12">
-                <div class="text-center flipkart-offer-item">
-                        <h4><a href="{{item.url}}">{{item.title}}</a></h4>
-                         <img-holder [thumbnail]="imageUrl"></img-holder>
-                        <p>{{item.description}}</p>
-                </div>
+            <div class="text-center flipkart-offer-item">
+                <h4 class="title"><a href="{{item.url}}" target="_blank">{{item.title}}</a></h4>
+                <img-holder [thumbnail]="imageUrl" [url]="item.url"></img-holder>
+               <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
+            </div>
         </div>`,
         styles: [`
                 .flipkart-offer-item {
-                        border: 1px solid #14819C;
+                    border: 1px solid #f8f8f8;
+                    background-color: #fff;
+                    padding: 5px;
+                }
+
+                .flipkart-offer-item .title {
+                    color: #383f76;
+                }
+
+                .flipkart-offer-item .title a {
+                    text-decoration: none;
+                }
+
+                 .flipkart-offer-item .description {
+                    margin-top: 10px;
+                    font-weight: bold;
+                }
+
+                .flipkart-offer-item .description a {
+                    text-decoration: none;
+                    color: #000000;
                 }
         `]
 })

@@ -1,3 +1,4 @@
+/// <binding BeforeBuild='default' />
 var gulp = require("gulp");
 var ts = require("gulp-typescript");
 var uglify = require("gulp-uglify");
@@ -13,17 +14,16 @@ var jsFiles = [
     'node_modules/systemjs/dist/system.src.js',
     'node_modules/typescript/lib/typescript.js',
     'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
-    'node_modules/angular2-infinite-scroll/bundles/angular2-infinite-scroll.js',
+    'node_modules/angular2-infinite-scroll/bundles/angular2-infinite-scroll.js'
+];
+
+var jsSrcFiles = [
     'node_modules/angular2-infinite-scroll/src/infinite-scroll.js',
     'node_modules/angular2-infinite-scroll/src/axis-resolver.js',
     'node_modules/angular2-infinite-scroll/src/index.js',
     'node_modules/angular2-infinite-scroll/src/position-resolver.js',
     'node_modules/angular2-infinite-scroll/src/scroller.js'
-];
-
-var jsFilesWithDest = {
-
-}
+]
 
 var cssFiles = [
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -54,6 +54,11 @@ gulp.task("js", ["clean"], function() {
         .pipe(gulp.dest('../server/wwwroot/js'));
 });
 
+gulp.task("jsSrc", ["clean"], function () {
+    return gulp.src(jsSrcFiles)
+        .pipe(gulp.dest('../server/wwwroot/js/src'));
+});
+
 gulp.task("copyCSS",  ["clean"], function() {
     return gulp.src(cssFiles)
         .pipe(gulp.dest("../server/wwwroot/css"));
@@ -68,4 +73,4 @@ gulp.task("compress", ["ts"], function(cb){
     );
 });
 
-gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "copyCSS", "compress"]);
+gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "jsSrc", "copyCSS", "compress"]);
