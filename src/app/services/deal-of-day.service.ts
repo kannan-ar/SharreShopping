@@ -1,10 +1,12 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
 import {Observable} from "rxjs/Observable";
 
+import {RowSeparator} from "./row-separator";
+
 export interface IDealOfDayService {
     data: Observable<any>;
 
-    loadItem(container: ViewContainerRef, items: any[]): void;
+    loadItem(container: ViewContainerRef, rowSeparator: RowSeparator, items: any[]): void;
     getDeals(itemCount: number): void;
 }
 
@@ -12,7 +14,8 @@ export interface IDealOfDayService {
 export class DealOfDayService {
 
     constructor(
-        @Inject('DealOfDayServices') private services) {
+        @Inject('DealOfDayServices') private services, private rowSeparator: RowSeparator) {
+        this.rowSeparator.init();
     }
 
     loadDeal(itemCount: number, container: ViewContainerRef): void {
@@ -23,7 +26,7 @@ export class DealOfDayService {
             let service: IDealOfDayService = item as IDealOfDayService;
             service.getDeals(countPerService);
             service.data.subscribe(items => {
-                service.loadItem(container, items);
+                service.loadItem(container, this.rowSeparator, items);
             });
         });
     }

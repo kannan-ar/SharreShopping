@@ -6,6 +6,7 @@ import { Observer } from "rxjs/Observer";
 import { FlipkartDealOfDayComponent } from "../../views/flipkart/flipkart-deal-of-day.component";
 import { IDealOfDayService } from "../deal-of-day.service";
 import { FlipkartDealOfDay } from "../../models/flipkart/flipkart-deal-of-day";
+import {RowSeparator} from "../row-separator";
 
 @Injectable()
 export class FlipkartDealOfDayService implements IDealOfDayService {
@@ -22,12 +23,14 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
         this.data = new Observable(o => this.observer = o);
     }
 
-    loadItem(container: ViewContainerRef, items: any[]): void {
+    loadItem(container: ViewContainerRef, rowSeparator: RowSeparator, items: any[]): void {
         items.forEach(item => {
             const deal: FlipkartDealOfDay = item as FlipkartDealOfDay;
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartDealOfDayComponent);
+
             let flipkartComponent = container.createComponent(componentFactory);
             flipkartComponent.instance.item = deal;
+            rowSeparator.check(container);
         });
     }
 

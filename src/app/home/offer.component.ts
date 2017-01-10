@@ -30,19 +30,19 @@ import {OfferService} from "../services/offer.service";
 })
 
 export class OfferComponent {
-    itemCount: number = 4;
+    itemCount: number = 6;
 
     @ViewChild('offer', { read: ViewContainerRef }) offer: ViewContainerRef;
 
     constructor(
-        private offerService: OfferService, private renderer: Renderer) {
+        private offerService: OfferService) {
     }
 
     ngOnInit() {
-        this.offerService.loadOffers(this.itemCount, this.offer, this.renderer);
+        this.offerService.loadOffers(this.itemCount, this.offer);
     }
 
     onScroll() {
-        this.offerService.loadOffers(this.itemCount, this.offer, this.renderer);
+        this.offerService.loadOffers(this.itemCount, this.offer);
     }
 }

@@ -16,7 +16,7 @@ export class RowSeparator {
         this.lgCount = 0;
     }
 
-    check(container: ViewContainerRef, renderer: Renderer): void {
+    check(container: ViewContainerRef): void {
         this.smCount += 1;
         this.mdCount += 1;
         this.lgCount += 1;
