@@ -121,6 +121,7 @@
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-offer.service.ts" />
     <TypeScriptCompile Include="services\offer.service.ts" />
+    <TypeScriptCompile Include="services\row-separator.ts" />
     <TypeScriptCompile Include="shared.module.ts" />
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-deal-of-day.component.ts" />

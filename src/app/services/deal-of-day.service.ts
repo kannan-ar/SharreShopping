@@ -3,7 +3,7 @@ import {Observable} from "rxjs/Observable";
 
 export interface IDealOfDayService {
     data: Observable<any>;
-    
+
     loadItem(container: ViewContainerRef, items: any[]): void;
     getDeals(itemCount: number): void;
 }

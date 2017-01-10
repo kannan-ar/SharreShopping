@@ -1,4 +1,4 @@
-import {NgModule } from "@angular/core";
+import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 
@@ -7,9 +7,10 @@ import {FlipkartOfferService} from "./services/flipkart/flipkart-offer.service";
 import {OfferComponent} from "./home/offer.component";
 import {FlipkartOfferComponent} from "./views/flipkart/flipkart-offer.component";
 import {SharedModule} from "./shared.module";
+import {RowSeparator} from "./services/row-separator";
 
 @NgModule({
-    imports: [CommonModule, InfiniteScrollModule , SharedModule],
+    imports: [CommonModule, InfiniteScrollModule, SharedModule],
     exports: [
         OfferComponent,
         FlipkartOfferComponent],
@@ -20,6 +21,7 @@ import {SharedModule} from "./shared.module";
         OfferComponent,
         FlipkartOfferComponent],
     providers: [
+        RowSeparator,
         OfferService,
         { provide: "OfferServices", useClass: FlipkartOfferService, multi: true }
     ]

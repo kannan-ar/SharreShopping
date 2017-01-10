@@ -42,8 +42,8 @@ import {FlipkartDealOfDay} from "../../models/flipkart/flipkart-deal-of-day";
 export class FlipkartDealOfDayComponent {
     item: FlipkartDealOfDay;
     imageUrl: string;
-    
+
     ngOnInit() {
-       this.imageUrl =  this.item.imageUrls.filter((url) => {return url.resolutionType === "low"})[0].url;
+        this.imageUrl = this.item.imageUrls.filter((url) => { return url.resolutionType === "low" })[0].url;
     }
 }

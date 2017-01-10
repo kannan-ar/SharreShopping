@@ -1,4 +1,4 @@
-import {Component, ViewChild, ViewContainerRef, OnInit} from "@angular/core";
+import {Component, ViewChild, ViewContainerRef, OnInit, Renderer} from "@angular/core";
 
 import {OfferService} from "../services/offer.service";
 
@@ -13,7 +13,9 @@ import {OfferService} from "../services/offer.service";
             </div>
         </div>
         <div class="row top5">
-            <div #offer class="search-results" infinite-scroll [infiniteScrollDistance]="4" [infiniteScrollThrottle]="500" (scrolled)="onScroll()"></div>
+            <div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+                <template #offer></template>
+            </div>
         </div>
         `,
     styles: [`
@@ -35,14 +37,14 @@ export class OfferComponent {
     @ViewChild('offer', { read: ViewContainerRef }) offer: ViewContainerRef;
 
     constructor(
-        private offerService: OfferService) {
+        private offerService: OfferService, private renderer: Renderer) {
     }
 
     ngOnInit() {
-        this.offerService.loadOffers(this.itemCount, this.offer);
+        this.offerService.loadOffers(this.itemCount, this.offer, this.renderer);
     }
 
     onScroll() {
-        console.log("scrolled");
+        this.offerService.loadOffers(this.itemCount, this.offer, this.renderer);
     }
 }

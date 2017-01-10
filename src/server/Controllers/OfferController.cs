@@ -16,10 +16,10 @@ namespace server.Controllers
                  }
 
                   [HttpGet("flipkart/{pageNumber}/{pageCount}")]
-                public async Task<JsonResult> GetFlipkart(int currentIndex, int pageCount)
+                public async Task<JsonResult> GetFlipkart(int pageNumber, int pageCount)
                 {
                         FlipkartService flipkartService = new FlipkartService(service);
-                        var result = await flipkartService.GetOffers(currentIndex, pageCount);
+                        var result = await flipkartService.GetOffers(pageNumber, pageCount);
 
                         return new JsonResult(result);
                 }

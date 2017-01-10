@@ -23,7 +23,7 @@ import {SharedModule} from "./shared.module";
     ],
     providers: [
         DealOfDayService,
-        {provide: 'DealOfDayServices', useClass: FlipkartDealOfDayService, multi: true}]
+        { provide: 'DealOfDayServices', useClass: FlipkartDealOfDayService, multi: true }]
 })
 
 export class DealOfDayModule {

@@ -3,8 +3,8 @@ import {Component, OnInit} from "@angular/core";
 import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
 
 @Component({
-        selector: 'flipkart-offer',
-        template: `
+    selector: 'flipkart-offer',
+    template: `
         <div class="col-md-3 col-sm-4 col-xs-12">
             <div class="text-center flipkart-offer-item">
                 <h4 class="title"><a href="{{item.url}}" target="_blank">{{item.title}}</a></h4>
@@ -12,7 +12,7 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
                <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
             </div>
         </div>`,
-        styles: [`
+    styles: [`
                 .flipkart-offer-item {
                     border: 1px solid #f8f8f8;
                     background-color: #fff;
@@ -27,7 +27,7 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
                     text-decoration: none;
                 }
 
-                 .flipkart-offer-item .description {
+                .flipkart-offer-item .description {
                     margin-top: 10px;
                     font-weight: bold;
                 }
@@ -40,10 +40,10 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
 })
 
 export class FlipkartOfferComponent {
-        item: FlipkartOffer;
-        imageUrl: string;
+    item: FlipkartOffer;
+    imageUrl: string;
 
-        ngOnInit() {
-                this.imageUrl =  this.item.imageUrls.filter((url) => {return url.resolutionType === "low"})[0].url;
-        }
+    ngOnInit() {
+        this.imageUrl = this.item.imageUrls.filter((url) => { return url.resolutionType === "low" })[0].url;
+    }
 }
