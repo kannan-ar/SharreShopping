@@ -16,4 +16,8 @@ export class RowSeparatorComponent {
     @HostBinding('class.visible-sm-block')
     @Input()
     isSmBlock: boolean;
+
+    @HostBinding('class.visible-lg-block')
+    @Input()
+    isLgBlock: boolean;
 }

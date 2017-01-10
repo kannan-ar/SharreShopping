@@ -4,7 +4,7 @@ import {Component, Input} from "@angular/core";
     selector: 'img-holder',
     template: `
     <div>
-        <a class="img-holder" href="{{url}}"><img src="{{thumbnail}}" alt="" border="0" target="_blank" /></a>
+        <a class="img-holder" href="{{url}}" target="_blank"><img src="{{thumbnail}}" alt="" border="0" class="img-responsive center-block" /></a>
     </div>
     `,
     styles: [`
