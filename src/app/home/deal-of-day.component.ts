@@ -13,7 +13,7 @@ import {DealOfDayService} from "../services/deal-of-day.service";
             </div>
         </div>
         <div class="row top5">
-            <div #deal></div>
+            <template #deal></template>
         </div>
     `,
     styles:[`

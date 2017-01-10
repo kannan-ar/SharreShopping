@@ -8,6 +8,7 @@ import {OfferComponent} from "./home/offer.component";
 import {FlipkartOfferComponent} from "./views/flipkart/flipkart-offer.component";
 import {SharedModule} from "./shared.module";
 import {RowSeparator} from "./services/row-separator";
+import {RowSeparatorComponent} from "./views/row-separator.component";
 
 @NgModule({
     imports: [CommonModule, InfiniteScrollModule, SharedModule],
@@ -16,10 +17,12 @@ import {RowSeparator} from "./services/row-separator";
         FlipkartOfferComponent],
     entryComponents: [
         OfferComponent,
-        FlipkartOfferComponent],
+        FlipkartOfferComponent,
+        RowSeparatorComponent],
     declarations: [
         OfferComponent,
-        FlipkartOfferComponent],
+        FlipkartOfferComponent,
+        RowSeparatorComponent],
     providers: [
         RowSeparator,
         OfferService,

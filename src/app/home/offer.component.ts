@@ -12,10 +12,8 @@ import {OfferService} from "../services/offer.service";
                 </div>
             </div>
         </div>
-        <div class="row top5">
-            <div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-                <template #offer></template>
-            </div>
+        <div class="row top5" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+            <template #offer></template>
         </div>
         `,
     styles: [`

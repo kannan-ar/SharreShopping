@@ -3,15 +3,13 @@ import {Component, OnInit} from "@angular/core";
 import {FlipkartDealOfDay} from "../../models/flipkart/flipkart-deal-of-day";
 
 @Component({
-    selector: 'flipkart-deal',
+    selector: '[flipkartDeal]',
     template: `
-    <div class="col-md-3 col-sm-4 col-xs-12">
         <div class="text-center flipkart-deal-item">
             <h4 class="title"><a href="{{item.url}}" target="_blank">{{item.title}}</a></h4>
             <img-holder [thumbnail]="imageUrl" [url]="item.url"></img-holder>
             <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
-        </div>
-    </div>`,
+        </div>`,
     styles: [`
         .flipkart-deal-item {
             border: 1px solid #f8f8f8;
@@ -36,7 +34,8 @@ import {FlipkartDealOfDay} from "../../models/flipkart/flipkart-deal-of-day";
             text-decoration: none;
             color: #000000;
         }
-    `]
+    `],
+    host: { 'class': 'col-md-3 col-sm-4 col-xs-12' }
 })
 
 export class FlipkartDealOfDayComponent {

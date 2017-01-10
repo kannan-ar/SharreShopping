@@ -126,6 +126,7 @@
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-deal-of-day.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-offer.component.ts" />
+    <TypeScriptCompile Include="views\row-separator.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gulpfile.js" />

@@ -27,6 +27,7 @@ export class FlipkartOfferService implements IOfferService {
         items.forEach(item => {
             const offer: FlipkartOffer = item as FlipkartOffer;
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartOfferComponent);
+            
             let flipkartComponent = container.createComponent(componentFactory);
             flipkartComponent.instance.item = offer;
             rowSeparator.check(container, renderer);
