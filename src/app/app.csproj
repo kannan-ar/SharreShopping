@@ -107,6 +107,7 @@
     <TypeScriptCompile Include="app.module.ts" />
     <TypeScriptCompile Include="app.routing.ts" />
     <TypeScriptCompile Include="deal-of-day.module.ts" />
+    <TypeScriptCompile Include="environment.ts" />
     <TypeScriptCompile Include="home\deal-of-day.component.ts" />
     <TypeScriptCompile Include="home\home.component.ts" />
     <TypeScriptCompile Include="home\offer.component.ts" />

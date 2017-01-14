@@ -39,10 +39,10 @@ export class OfferComponent {
     }
 
     ngOnInit() {
-        this.offerService.loadOffers(this.itemCount, this.offer);
+        this.offerService.loadOffers(this.offer);
     }
 
     onScroll() {
-        this.offerService.loadOffers(this.itemCount, this.offer);
+        this.offerService.loadOffers(this.offer);
     }
 }

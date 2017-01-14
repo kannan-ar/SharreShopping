@@ -1,13 +1,13 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs/Rx";
 
 import {RowSeparator} from "./row-separator";
 
 export interface IOfferService {
-    data: Observable<any>;
-
-    loadItem(container: ViewContainerRef, rowSeparator: RowSeparator, items: any[]): void;
-    getOffers(itemCount: number): void;
+    loadItem(container: ViewContainerRef, items: any[]): void;
+    getOffers(): Observable<any>;
+    incrementCount(): void;
+    resetCount(): void;
 }
 
 @Injectable()
@@ -17,16 +17,43 @@ export class OfferService {
         this.rowSeparator.init();
     }
 
-    loadOffers(itemCount: number, container: ViewContainerRef): void {
-        let self = this;
-        let countPerService: number = itemCount / this.services.length;
+    loadOffers(container: ViewContainerRef): void {
+        const serviceCount: number = this.services.length;
+        let rowCount: number = this.rowSeparator.rowCount;
+        let index: number = 0;
+        let arr: Observable<any>[] = [];
 
         this.services.forEach(item => {
             let service: IOfferService = item as IOfferService;
-            service.getOffers(countPerService);
-            service.data.subscribe(items => {
-                service.loadItem(container, this.rowSeparator, items);
-            });
+            service.resetCount();
         });
+
+        while (rowCount > 0) {
+            this.services[index].incrementCount();
+            rowCount -= 1;
+            index += 1;
+
+            if (index == serviceCount) {
+                index = 0;
+            }
+        }
+        
+        this.services.forEach(item => {
+            let service: IOfferService = item as IOfferService;
+            arr.push(service.getOffers());
+        });
+
+        index = 0;
+
+        Observable.forkJoin(arr).subscribe(results => {
+            while (index < serviceCount) {
+                this.services[index].loadItem(container, results[index]);
+                index += 1;
+            }
+        },
+            (err) => { console.error(err); },
+            () => {
+                this.rowSeparator.add(container);
+            });
     }
 }

@@ -30,7 +30,6 @@ import {DealOfDayService} from "../services/deal-of-day.service";
 })
 
 export class DealOfDayComponent {
-    itemCount: number = 6;
 
     @ViewChild('deal', {read: ViewContainerRef}) deal: ViewContainerRef;
     
@@ -39,6 +38,6 @@ export class DealOfDayComponent {
     }
 
     ngOnInit() {
-      this.dealOfDayService.loadDeal(this.itemCount, this.deal);
+      this.dealOfDayService.loadDeal(this.deal);
     }
 }

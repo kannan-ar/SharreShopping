@@ -2,7 +2,12 @@
 
 @Component({
     selector: '[rowSeparator]',
-    template: ``,
+    template: `<div class="shopping-row-separator"></div>`,
+    styles: [`
+        .shopping-row-separator {
+            margin-top: 5px;
+        }
+    `],
     host: {
         'class': 'clearfix'
     }

@@ -4,7 +4,8 @@
         '@angular': 'js/@angular',
         'rxjs': 'js/rxjs',
         '@ng-bootstrap/ng-bootstrap': 'js/ng-bootstrap.js',
-        'angular2-infinite-scroll': 'js/angular2-infinite-scroll.js'
+        'angular2-infinite-scroll': 'js/angular2-infinite-scroll.js',
+        'jquery': 'js/jquery.min.js'
     };
 
     var packages = {

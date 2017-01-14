@@ -4,10 +4,10 @@ import {Observable} from "rxjs/Observable";
 import {RowSeparator} from "./row-separator";
 
 export interface IDealOfDayService {
-    data: Observable<any>;
-
-    loadItem(container: ViewContainerRef, rowSeparator: RowSeparator, items: any[]): void;
-    getDeals(itemCount: number): void;
+    loadItem(container: ViewContainerRef, items: any[]): void;
+    getDeals(): Observable<any>;
+    incrementCount(): void;
+    resetCount(): void;
 }
 
 @Injectable()
@@ -18,15 +18,31 @@ export class DealOfDayService {
         this.rowSeparator.init();
     }
 
-    loadDeal(itemCount: number, container: ViewContainerRef): void {
-        let self = this;
-        let countPerService: number = itemCount / this.services.length;
+    loadDeal(container: ViewContainerRef): void {
+        const serviceCount: number = this.services.length;
+        let rowCount: number = this.rowSeparator.rowCount;
+        let index: number = 0;
+        let arr: Observable<any>[] = [];
 
         this.services.forEach(item => {
             let service: IDealOfDayService = item as IDealOfDayService;
-            service.getDeals(countPerService);
-            service.data.subscribe(items => {
-                service.loadItem(container, this.rowSeparator, items);
+            service.resetCount();
+        });
+
+        while (rowCount > 0) {
+            this.services[index].incrementCount();
+            rowCount -= 1;
+            index += 1;
+
+            if (index == serviceCount) {
+                index = 0;
+            }
+        }
+
+        this.services.forEach(item => {
+            let service: IDealOfDayService = item as IDealOfDayService;
+            service.getDeals().subscribe(items => {
+                service.loadItem(container, items);
             });
         });
     }
