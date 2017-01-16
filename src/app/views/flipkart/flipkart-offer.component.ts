@@ -15,6 +15,7 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
                     border: 1px solid #f8f8f8;
                     background-color: #fff;
                     padding: 5px;
+                    margin-top: 5px;
                 }
 
                 .flipkart-offer-item .title {
@@ -35,7 +36,7 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
                     color: #000000;
                 }
         `],
-    host: { 'class': 'col-lg-2 col-md-3 col-sm-4 col-xs-12' }
+    host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
 })
 
 export class FlipkartOfferComponent {

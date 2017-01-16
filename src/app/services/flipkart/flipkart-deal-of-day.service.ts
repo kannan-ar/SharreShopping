@@ -32,8 +32,6 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
     }
 
     getDeals(): Observable<any> {
-        console.log(this.currentIndex);
-        console.log(this.count);
         return this.http.get(this.url + "/" + this.currentIndex + "/" + this.count)
             .map(response => response.json());
     }

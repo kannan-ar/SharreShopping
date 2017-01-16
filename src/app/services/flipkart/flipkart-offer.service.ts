@@ -24,13 +24,22 @@ export class FlipkartOfferService implements IOfferService {
         //this.data = new Observable(o => this.observer = o);
     }
 
-    loadItem(container: ViewContainerRef, items: any[]): void {
+    loadItem(containers: ViewContainerRef[], items: any[]): void {
+
+        let index = 0;
+
         items.forEach(item => {
             const offer: FlipkartOffer = item as FlipkartOffer;
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartOfferComponent);
             
-            let flipkartComponent = container.createComponent(componentFactory);
+            let flipkartComponent = containers[index].createComponent(componentFactory);
             flipkartComponent.instance.item = offer;
+            
+            index += 1;
+
+            if (index == containers.length) {
+                index = 0;
+            }
         });
 
         this.currentIndex += this.count;
