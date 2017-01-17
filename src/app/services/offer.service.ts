@@ -50,26 +50,5 @@ export class OfferService {
 
             index += 1;
         }
-
-        /*
-        this.services.forEach(item => {
-            let service: IOfferService = item as IOfferService;
-            arr.push(service.getOffers());
-        });
-
-        
-        index = 0;
-
-        Observable.forkJoin(arr).subscribe(results => {
-            while (index < serviceCount) {
-                this.services[index].loadItem(containers[index], results[index]);
-                index += 1;
-            }
-        },
-            (err) => { console.error(err); },
-            () => {
-                this.rowSeparator.add(container);
-            });
-        */
     }
 }

@@ -35,7 +35,8 @@ namespace server.Services.Flipkart
         public async Task<List<FlipkartDealOfDayItem>> GetDealOfDay(int currentIndex, int itemCount)
         {
             FlipkartDealOfDayList list = await service.Get<FlipkartDealOfDayList>(DealOfDayCacheKey, DealOfDayApi, GetHeaders());
-            return list.DealOfDay.Skip((currentIndex) * itemCount).Take(itemCount).ToList();
+            var items = list.DealOfDay.Where(d => d.ImageUrls.Where(i => !string.IsNullOrEmpty(i.Url)).Any());
+            return items.Skip((currentIndex) * itemCount).Take(itemCount).ToList();
         }
 
         public async Task<List<FlipkartOfferItem>> GetOffers(int currentIndex, int itemCount)

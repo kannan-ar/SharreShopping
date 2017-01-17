@@ -12,24 +12,36 @@ import {OfferService} from "../services/offer.service";
                 </div>
             </div>
         </div>
-        <div class="row top5" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+        <div class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                <template #row1></template>
+                <div class="row">
+                    <template #row1></template>
+                </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 hidden-xs-up">
-                <template #row2></template>
+                <div class="row">
+                    <template #row2></template>
+                </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 hidden-xs-up">
-                <template #row3></template>
+                <div class="row">
+                    <template #row3></template>
+                </div>
             </div>
             <div class="col-lg-2 col-md-3 hidden-xs-up hidden-sm-up">
-                <template #row4></template>
+                <div class="row">
+                    <template #row4></template>
+                </div>
             </div>
             <div class="col-lg-2 hidden-xs-up hidden-sm-up hidden-md-up">
-                <template #row5></template>
+                <div class="row">
+                    <template #row5></template>
+                </div>
             </div>
             <div class="col-lg-2 hidden-xs-up hidden-sm-up hidden-md-up">
-                <template #row6></template>
+                <div class="row">
+                    <template #row6></template>
+                </div>
             </div>
         </div>
         `,
@@ -42,6 +54,11 @@ import {OfferService} from "../services/offer.service";
             .offers-header h4 {
                 margin-top: 5px;
                 margin-bottom: 5px;
+            }
+
+            .offer-list .col-lg-12 {
+                padding-left:0;
+                padding-right:0;
             }
         `]
 })

@@ -14,14 +14,10 @@ export class FlipkartOfferService implements IOfferService {
     currentIndex: number;
     count: number;
 
-    //data: Observable<any>;
-    //private observer: Observer<any>;
-
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.currentIndex = 0;
-        //this.data = new Observable(o => this.observer = o);
     }
 
     loadItem(containers: ViewContainerRef[], items: any[]): void {

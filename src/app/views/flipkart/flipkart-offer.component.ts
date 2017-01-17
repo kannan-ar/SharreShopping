@@ -14,8 +14,9 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
                 .flipkart-offer-item {
                     border: 1px solid #f8f8f8;
                     background-color: #fff;
-                    padding: 5px;
+                    padding: 5px 15px 5px 15px;
                     margin-top: 5px;
+                    border-radius: 20px;
                 }
 
                 .flipkart-offer-item .title {
