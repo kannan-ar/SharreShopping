@@ -30,7 +30,8 @@
             // Add framework services.
             services.AddMvc();
             services.AddMemoryCache();
-            services.AddTransient<IShoppingService, ShoppingCachedHttpService>();
+
+            services.AddTransient<IHttpService, HttpService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

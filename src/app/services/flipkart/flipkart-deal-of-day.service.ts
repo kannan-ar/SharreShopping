@@ -43,4 +43,8 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
     resetCount(): void {
         this.count = 0;
     }
+
+    resetIndex(): void {
+        this.currentIndex = 0;
+    }
 }

@@ -1,15 +1,14 @@
-import { Http } from "@angular/http";
+﻿import { Http } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
-import {IOfferService} from "../offer.service";
-import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
-import {FlipkartOfferComponent} from "../../views/flipkart/flipkart-offer.component";
-import {RowSeparator} from "../row-separator";
+import {ISearchService} from "../search.service";
+import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
+import {FlipkartSearchComponent} from "../../views/flipkart/flipkart-search.component";
 
 @Injectable()
-export class FlipkartOfferService implements IOfferService {
-    url: string = "/api/offer/flipkart";
+export class FlipkartSearchService implements ISearchService {
+    url: string = "/api/search/flipkart";
     currentIndex: number;
     count: number;
 
@@ -20,16 +19,15 @@ export class FlipkartOfferService implements IOfferService {
     }
 
     loadItem(containers: ViewContainerRef[], items: any[]): void {
-
         let index = 0;
 
         items.forEach(item => {
-            const offer: FlipkartOffer = item as FlipkartOffer;
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartOfferComponent);
-            
+            const model: FlipkartSearch = item as FlipkartSearch;
+            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
+
             let flipkartComponent = containers[index].createComponent(componentFactory);
-            flipkartComponent.instance.item = offer;
-            
+            flipkartComponent.instance.item = model;
+
             index += 1;
 
             if (index == containers.length) {
@@ -40,8 +38,8 @@ export class FlipkartOfferService implements IOfferService {
         this.currentIndex += this.count;
     }
 
-    getOffers(): Observable<any> {
-        return this.http.get(this.url + "/" + this.currentIndex + "/" + this.count)
+    getResults(query: string): Observable<any> {
+        return this.http.get(this.url + "/" + this.currentIndex + "/" + this.count + "?query=" + query)
             .map(response => response.json());
     }
 

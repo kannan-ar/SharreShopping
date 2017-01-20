@@ -8,6 +8,7 @@ export interface IDealOfDayService {
     getDeals(): Observable<any>;
     incrementCount(): void;
     resetCount(): void;
+    resetIndex(): void;
 }
 
 @Injectable()
@@ -44,6 +45,13 @@ export class DealOfDayService {
             service.getDeals().subscribe(items => {
                 service.loadItem(container, items);
             });
+        });
+    }
+
+    resetIndex(): void {
+        this.services.forEach(item => {
+            let service: IDealOfDayService = item as IDealOfDayService;
+            service.resetIndex();
         });
     }
 }

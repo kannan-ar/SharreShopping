@@ -16,7 +16,7 @@ import {DealOfDayService} from "../services/deal-of-day.service";
             <template #deal></template>
         </div>
     `,
-    styles:[`
+    styles: [`
         .deal-of-day-header {
             background-color: #14819C;
             padding: 1px 10px 1px 20px;
@@ -31,13 +31,14 @@ import {DealOfDayService} from "../services/deal-of-day.service";
 
 export class DealOfDayComponent {
 
-    @ViewChild('deal', {read: ViewContainerRef}) deal: ViewContainerRef;
-    
+    @ViewChild('deal', { read: ViewContainerRef }) deal: ViewContainerRef;
+
     constructor(
         private dealOfDayService: DealOfDayService) {
     }
 
     ngOnInit() {
-      this.dealOfDayService.loadDeal(this.deal);
+        this.dealOfDayService.resetIndex();
+        this.dealOfDayService.loadDeal(this.deal);
     }
 }

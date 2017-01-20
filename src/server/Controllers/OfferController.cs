@@ -8,17 +8,17 @@ namespace server.Controllers
     [Route("api/[controller]")]
     public class OfferController : Controller
     {
-        private readonly IShoppingService service;
+        private readonly IHttpService httpService;
 
-        public OfferController(IShoppingService service)
+        public OfferController(IHttpService httpService)
         {
-            this.service = service;
+            this.httpService = httpService;
         }
 
         [HttpGet("flipkart/{pageNumber}/{pageCount}")]
         public async Task<JsonResult> GetFlipkart(int pageNumber, int pageCount)
         {
-            FlipkartService flipkartService = new FlipkartService(service);
+            FlipkartOfferService flipkartService = new FlipkartOfferService(httpService);
             var result = await flipkartService.GetOffers(pageNumber, pageCount);
 
             return new JsonResult(result);

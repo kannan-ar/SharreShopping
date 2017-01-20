@@ -4,7 +4,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import "rxjs/Rx";
 
 import {AppRouting} from "./app.routing";
@@ -14,13 +14,13 @@ import {SearchComponent} from "./home/search.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {DealOfDayModule} from "./deal-of-day.module";
 import {OfferModule} from "./offer.module";
+import {SearchModule} from "./search.module";
 import {SharedModule} from "./shared.module";
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
-        SearchComponent,
         PageNotFoundComponent],
     imports: [
         NgbModule.forRoot(),
@@ -31,7 +31,8 @@ import {SharedModule} from "./shared.module";
         AppRouting,
         SharedModule,
         DealOfDayModule,
-        OfferModule],
+        OfferModule,
+        SearchModule],
     bootstrap: [
         AppComponent]
 })

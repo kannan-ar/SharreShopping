@@ -1,4 +1,4 @@
-import {Component, ViewChild, ViewContainerRef, OnInit, Renderer} from "@angular/core";
+import {Component, ViewChild, ViewContainerRef, OnInit} from "@angular/core";
 
 import {OfferService} from "../services/offer.service";
 
@@ -90,6 +90,7 @@ export class OfferComponent {
 
     ngOnInit() {
         this.initContainers();
+        this.offerService.resetIndex();
         this.offerService.loadOffers(this.containers);
     }
 

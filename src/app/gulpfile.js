@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='default' />
+/// <binding />
 var gulp = require("gulp");
 var ts = require("gulp-typescript");
 var uglify = require("gulp-uglify");

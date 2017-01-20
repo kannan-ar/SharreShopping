@@ -8,6 +8,7 @@ export interface IOfferService {
     getOffers(): Observable<any>;
     incrementCount(): void;
     resetCount(): void;
+    resetIndex(): void;
 }
 
 @Injectable()
@@ -50,5 +51,12 @@ export class OfferService {
 
             index += 1;
         }
+    }
+
+    resetIndex(): void {
+        this.services.forEach(item => {
+            let service: IOfferService = item as IOfferService;
+            service.resetIndex();
+        });
     }
 }

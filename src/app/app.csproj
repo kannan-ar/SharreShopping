@@ -116,17 +116,22 @@
     <TypeScriptCompile Include="models\flipkart\flipkart-deal-of-day.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-image.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-offer.ts" />
+    <TypeScriptCompile Include="models\flipkart\flipkart-search.ts" />
     <TypeScriptCompile Include="offer.module.ts" />
     <TypeScriptCompile Include="page-not-found.component.ts" />
+    <TypeScriptCompile Include="search.module.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-offer.service.ts" />
+    <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />
     <TypeScriptCompile Include="services\offer.service.ts" />
     <TypeScriptCompile Include="services\row-separator.ts" />
+    <TypeScriptCompile Include="services\search.service.ts" />
     <TypeScriptCompile Include="shared.module.ts" />
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-deal-of-day.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-offer.component.ts" />
+    <TypeScriptCompile Include="views\flipkart\flipkart-search.component.ts" />
     <TypeScriptCompile Include="views\row-separator.component.ts" />
   </ItemGroup>
   <ItemGroup>

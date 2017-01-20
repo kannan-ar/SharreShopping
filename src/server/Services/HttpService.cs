@@ -1,12 +1,13 @@
 namespace server.Services
 {
+    using System;
     using System.Collections.Generic;
-    using System.Net.Http;
     using Microsoft.Extensions.Caching.Memory;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
+    using System.Net.Http;
 
-    public class ShoppingCachedHttpService : IShoppingService
+    internal class HttpService : IHttpService
     {
         private IMemoryCache memoryCache;
 
@@ -29,47 +30,35 @@ namespace server.Services
             }
         }
 
-        private async Task<T> GetSource<T>(string cacheKey, string url, Dictionary<string, string> headers = null)
+        private async Task<T> GetSource<T>(string cacheKey, string url, Dictionary<string, string> headers = null, Func<string, T> converter = null)
         {
             T item = default(T);
 
             string content = await DownloadData(url, headers);
-            item = JsonConvert.DeserializeObject<T>(content);
+            item = converter(content);
             memoryCache.Set<T>(cacheKey, item);
 
             return item;
         }
 
-        public ShoppingCachedHttpService(IMemoryCache memoryCache)
+        public HttpService(IMemoryCache memoryCache)
         {
             this.memoryCache = memoryCache;
         }
 
-        public async Task<List<T>> GetList<T>(string cacheKey, string url, Dictionary<string, string> headers = null)
-        {
-            object data;
-            List<T> list;
-
-            if (!memoryCache.TryGetValue(cacheKey, out data))
-            {
-                list = await GetSource<List<T>>(cacheKey, url, headers);
-            }
-            else
-            {
-                list = (List<T>)data;
-            }
-
-            return list;
-        }
-
-        public async Task<T> Get<T>(string cacheKey, string url, Dictionary<string, string> headers = null)
+        public async Task<T> Get<T>(string cacheKey, string url, Dictionary<string, string> headers = null, Func<string, T> converter = null)
         {
             object data;
             T item = default(T);
 
             if (!memoryCache.TryGetValue(cacheKey, out data))
             {
-                item = await GetSource<T>(cacheKey, url, headers);
+                if (converter == null)
+                {
+                    converter = (content) => { return JsonConvert.DeserializeObject<T>(content); };
+                }
+
+                item = await GetSource<T>(cacheKey, url, headers, converter);
             }
             else
             {
