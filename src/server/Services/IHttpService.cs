@@ -7,5 +7,6 @@ namespace server.Services
     public interface IHttpService
     {
         Task<T> Get<T>(string cacheKey, string url, Dictionary<string, string> headers = null, Func<string, T> func = null);
+        Task<T> Get<T>(string url, Dictionary<string, string> headers = null, Func<string, T> func = null);
     }
 }

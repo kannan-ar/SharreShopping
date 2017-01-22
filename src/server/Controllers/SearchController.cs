@@ -15,11 +15,11 @@
             this.httpService = httpService;
         }
 
-        [HttpGet("flipkart/{pageNumber}/{pageCount}")]
-        public async Task<JsonResult> SearchFlipkart(int pageNumber, int pageCount, [FromQuery] string query)
+        [HttpGet("flipkart")]
+        public async Task<JsonResult> SearchFlipkart([FromQuery] string query)
         {
             FlipkartSearchService flipkartService = new FlipkartSearchService(httpService);
-            var result = await flipkartService.Search(query, pageNumber, pageCount);
+            var result = await flipkartService.Search(query);
 
             return new JsonResult(result);
         }

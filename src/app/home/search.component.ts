@@ -1,5 +1,6 @@
 import {Component, Output, ViewContainerRef, ViewChild, EventEmitter, OnInit} from "@angular/core";
 import { FormControl } from "@angular/forms";
+import {Observable} from "rxjs/Rx";
 
 import {SearchService} from "../services/search.service";
 
@@ -64,6 +65,7 @@ export class SearchComponent {
 
     @Output() onItemsLoad = new EventEmitter<boolean>();
     search = new FormControl();
+    hasItems: boolean;
 
     initContainers() {
         this.containers = new Array<ViewContainerRef>();
@@ -80,15 +82,33 @@ export class SearchComponent {
         this.search.valueChanges
             .debounceTime(400)
             .distinctUntilChanged()
-            .switchMap(term => this.searchService.getResults(term))
+            .switchMap(term => {
+                if (term === "") {
+                    this.renderSearchResults(false);
+                    return Observable.of();
+                }
+                else {
+                    return this.searchService.getResults(term);
+                }
+            })
             .subscribe(results => {
-                this.onItemsLoad.emit(true);
-                this.searchService.loadSearch(this.containers, results);
+                this.renderSearchResults(true);
+                //this.searchService.loadSearch(this.containers, results);
+                this.searchService.saveResults(results);
+                this.searchService.loadInitialResults(this.containers);
             });
     }
 
     ngOnInit() {
         this.initContainers();
+    }
+
+    renderSearchResults(hasData: boolean) {
+        if (!hasData) {
+            this.searchService.removeComponents(this.containers);
+        }
+
+        this.onItemsLoad.emit(hasData);
     }
 
     onScroll() {

@@ -6,7 +6,7 @@ import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
     selector: '[flipkartSearch]',
     template: `
     <div class="text-center flipkart-search-item">
-        <h4 class="title"><a href="{{item.productUrl}}" target="_blank">{{item.title}}</a></h4>
+        <div class="title"><a href="{{item.productUrl}}" target="_blank">{{item.title}}</a></div>
         <img-holder [thumbnail]="item.imageUrl" [url]="item.url"></img-holder>
         <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
     </div>

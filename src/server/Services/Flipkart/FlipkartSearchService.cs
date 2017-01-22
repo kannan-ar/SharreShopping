@@ -9,7 +9,6 @@
     internal class FlipkartSearchService : FlipkartService
     {
         private const string SearchApi = "https://affiliate-api.flipkart.net/affiliate/search/json?query={0}&resultCount={1}";
-        private const string SearchCacheKey = "flipkartsearch";
         private const int SearchApiCount = 10;
 
         private List<FlipkartSearch> ConvertFlipkartSearch(string content)
@@ -56,12 +55,12 @@
 
         internal FlipkartSearchService(IHttpService httpService) : base(httpService) { }
 
-        internal async Task<List<FlipkartSearch>> Search(string query, int currentIndex, int itemCount)
+        internal async Task<List<FlipkartSearch>> Search(string query)
         {
-            List<FlipkartSearch> list = await httpService.Get<List<FlipkartSearch>>(SearchCacheKey,
-                string.Format(SearchApi, query, SearchApiCount.ToString()), GetHeaders(), ConvertFlipkartSearch);
-
-            return list.Skip(currentIndex * itemCount).Take(itemCount).ToList();
+            return await httpService.Get<List<FlipkartSearch>>(
+                string.Format(SearchApi, query, SearchApiCount.ToString()),
+                GetHeaders(),
+                ConvertFlipkartSearch);
         }
     }
 }

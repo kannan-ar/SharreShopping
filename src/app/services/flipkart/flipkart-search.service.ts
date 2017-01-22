@@ -10,17 +10,39 @@ import {FlipkartSearchComponent} from "../../views/flipkart/flipkart-search.comp
 export class FlipkartSearchService implements ISearchService {
     url: string = "/api/search/flipkart";
     currentIndex: number;
-    count: number;
+    results: FlipkartSearch[];
 
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
-        this.currentIndex = 0;
     }
 
-    loadItem(containers: ViewContainerRef[], items: any[]): void {
+    loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void {
+        const itemsLeft = this.results.length - this.currentIndex;
         let index = 0;
+        let rowIndex = 0;
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
 
+        if (count > itemsLeft) {
+            count = itemsLeft;
+        }
+
+        while (index < count) {
+            const model: FlipkartSearch = this.results[this.currentIndex++];
+
+            let flipkartComponent = containers[rowIndex].createComponent(componentFactory);
+            flipkartComponent.instance.item = model;
+
+            ++rowIndex;
+            ++index;
+
+            if (rowIndex == rowCount) {
+                rowIndex = 0;
+            }
+
+        }
+
+        /*
         items.forEach(item => {
             const model: FlipkartSearch = item as FlipkartSearch;
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
@@ -36,22 +58,21 @@ export class FlipkartSearchService implements ISearchService {
         });
 
         this.currentIndex += this.count;
+        */
     }
 
     getResults(query: string): Observable<any> {
-        return this.http.get(this.url + "/" + this.currentIndex + "/" + this.count + "?query=" + query)
+        return this.http.get(this.url + "?query=" + query)
             .map(response => response.json());
     }
 
-    incrementCount() {
-        this.count += 1;
-    }
+    saveResults(items: any[]): void {
+        this.results = new Array<FlipkartSearch>();
 
-    resetCount(): void {
-        this.count = 0;
-    }
+        items.forEach(item => {
+            this.results.push(item);
+        });
 
-    resetIndex(): void {
         this.currentIndex = 0;
     }
 }

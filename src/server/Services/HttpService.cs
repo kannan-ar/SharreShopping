@@ -30,14 +30,16 @@ namespace server.Services
             }
         }
 
+        private async Task<T> GetSource<T>(string url, Dictionary<string, string> headers = null, Func<string, T> converter = null)
+        {
+            string content = await DownloadData(url, headers);
+            return converter(content);
+        }
+
         private async Task<T> GetSource<T>(string cacheKey, string url, Dictionary<string, string> headers = null, Func<string, T> converter = null)
         {
-            T item = default(T);
-
-            string content = await DownloadData(url, headers);
-            item = converter(content);
+            T item = await GetSource<T>(url, headers, converter);
             memoryCache.Set<T>(cacheKey, item);
-
             return item;
         }
 
@@ -66,6 +68,16 @@ namespace server.Services
             }
 
             return item;
+        }
+
+        public async Task<T> Get<T>(string url, Dictionary<string, string> headers = null, Func<string, T> converter = null)
+        {
+            if (converter == null)
+            {
+                converter = (content) => { return JsonConvert.DeserializeObject<T>(content); };
+            }
+
+            return await GetSource<T>(url, headers, converter);
         }
     }
 }
