@@ -23,28 +23,8 @@ export class SearchService {
     }
 
     getResults(query: string): Observable<any> {
-        /*const serviceCount: number = this.servicePoints.length;
-        const rowCount: number = this.rowSeparator.rowCount;
-        let index: number = 0;
-        let tempCount = rowCount;
-
-        this.servicePoints.forEach(service => {
-            service.resetCount();
-        });
-
-        while (tempCount > 0) {
-            this.servicePoints[index].incrementCount();
-            tempCount -= 1;
-            index += 1;
-
-            if (index == serviceCount) {
-                index = 0;
-            }
-        }
-        */
-
         let serviceArray: Observable<any>[] = [];
-
+        
         this.servicePoints.forEach(service => {
             serviceArray.push(service.getResults(query));
         });
@@ -85,25 +65,10 @@ export class SearchService {
             service.loadItem(containers, count, rowCount);
             index += 1;
         });
-        
-        /*
-
-        while (index < serviceCount) {
-            let service: ISearchService = this.servicePoints[index];
-            service.loadItem(containers, results[index]);
-            index += 1;
-        }*/
     }
 
     removeComponents(containers: ViewContainerRef[]): void {
         containers.forEach(container => {
-           /* const count: number = container.length;
-            let index: number = 0;
-
-            while (index < count) {
-                container.get(index).destroy();
-                index += 1;
-            }*/
             container.clear();
         });
     }

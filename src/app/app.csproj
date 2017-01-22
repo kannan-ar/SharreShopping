@@ -121,6 +121,7 @@
     <TypeScriptCompile Include="page-not-found.component.ts" />
     <TypeScriptCompile Include="search.module.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
+    <TypeScriptCompile Include="services\ebay\ebay-search.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-offer.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />

@@ -22,7 +22,6 @@ export class OfferService {
         const serviceCount: number = this.services.length;
         const rowCount: number = this.rowSeparator.rowCount;
         let index: number = 0;
-        //let arr: Observable<any>[] = [];
         let tempCount = rowCount;
 
         this.services.forEach(item => {

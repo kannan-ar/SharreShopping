@@ -9,6 +9,7 @@ import {SearchService} from "./services/search.service";
 import {SearchComponent} from "./home/search.component";
 import {FlipkartSearchService} from "./services/flipkart/flipkart-search.service";
 import {FlipkartSearchComponent} from "./views/flipkart/flipkart-search.component";
+import {EbaySearchService} from "./services/ebay/ebay-search.service";
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, InfiniteScrollModule, SharedModule],
@@ -18,7 +19,8 @@ import {FlipkartSearchComponent} from "./views/flipkart/flipkart-search.componen
     providers: [
         RowSeparator,
         SearchService,
-        { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true }
+        { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true },
+        { provide: 'SearchServices', useClass: EbaySearchService, multi: true }
     ]
 })
 

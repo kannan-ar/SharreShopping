@@ -41,24 +41,6 @@ export class FlipkartSearchService implements ISearchService {
             }
 
         }
-
-        /*
-        items.forEach(item => {
-            const model: FlipkartSearch = item as FlipkartSearch;
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
-
-            let flipkartComponent = containers[index].createComponent(componentFactory);
-            flipkartComponent.instance.item = model;
-
-            index += 1;
-
-            if (index == containers.length) {
-                index = 0;
-            }
-        });
-
-        this.currentIndex += this.count;
-        */
     }
 
     getResults(query: string): Observable<any> {
