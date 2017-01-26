@@ -1,5 +1,5 @@
 ﻿import { Http } from "@angular/http";
-import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
 import {ISearchService} from "../search.service";
@@ -11,12 +11,15 @@ export class FlipkartSearchService implements ISearchService {
     url: string = "/api/search/flipkart?query=";
     currentIndex: number;
     results: FlipkartSearch[];
+    private componentFactory: ComponentFactory<FlipkartSearchComponent>;
 
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
+        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
     }
 
+    /*
     loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void {
         const itemsLeft = this.results.length - this.currentIndex;
         let index = 0;
@@ -41,6 +44,19 @@ export class FlipkartSearchService implements ISearchService {
             }
 
         }
+    }
+    */
+
+    loadItem(container: ViewContainerRef): boolean {
+        if (this.currentIndex == this.results.length) {
+            return false;
+        }
+
+        const model: FlipkartSearch = this.results[this.currentIndex++];
+        let flipkartComponent = container.createComponent(this.componentFactory);
+        flipkartComponent.instance.item = model;
+
+        return true;
     }
 
     getResults(query: string): Observable<any> {

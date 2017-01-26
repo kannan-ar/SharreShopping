@@ -1,5 +1,5 @@
 ﻿import { Jsonp, URLSearchParams } from "@angular/http";
-import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
 import {ISearchService} from "../search.service";
@@ -8,13 +8,15 @@ import {EbaySearchComponent} from "../../views/ebay/ebay-search.component";
 
 @Injectable()
 export class EbaySearchService implements ISearchService {
-    url: string = "http://svcs.ebay.com/services/search/FindingService/v1";
-    results: EbaySearch[];
-    currentIndex: number;
+    private url: string = "http://svcs.ebay.com/services/search/FindingService/v1";
+    private results: EbaySearch[];
+    private currentIndex: number;
+    private componentFactory: ComponentFactory<EbaySearchComponent>;
 
     constructor(
         private jsonp: Jsonp,
         private componentFactoryResolver: ComponentFactoryResolver) {
+        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbaySearchComponent);
     }
 
     private transformResults(items: any[]): void {
@@ -108,11 +110,12 @@ export class EbaySearchService implements ISearchService {
 
             let ebay: EbaySearch = new EbaySearch(condition, galleryURL, itemId, location, paymentMethod,
                 categoryName, currencyId, currentPrice, sellingState, title, subtitle, viewItemURL);
-            console.log(ebay);
+
             this.results.push(ebay);
         });
     }
 
+    /*
     loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void {
         const itemsLeft = this.results.length - this.currentIndex;
         let index = 0;
@@ -136,6 +139,19 @@ export class EbaySearchService implements ISearchService {
                 rowIndex = 0;
             }
         }
+    }
+    */
+
+    loadItem(container: ViewContainerRef): boolean {
+        if (this.currentIndex == this.results.length) {
+            return false;
+        }
+
+        const model: EbaySearch = this.results[this.currentIndex++];
+        let ebayComponent = container.createComponent(this.componentFactory);
+        ebayComponent.instance.item = model;
+
+        return true;
     }
 
     getResults(query: string): Observable<any> {

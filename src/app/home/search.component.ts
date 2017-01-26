@@ -111,10 +111,7 @@ export class SearchComponent {
     }
 
     renderSearchResults(hasData: boolean) {
-        if (!hasData) {
-            this.searchService.removeComponents(this.containers);
-        }
-
+        this.searchService.removeComponents(this.containers);
         this.onItemsLoad.emit(hasData);
     }
 

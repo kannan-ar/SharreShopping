@@ -4,7 +4,8 @@ import {Observable} from "rxjs/Rx";
 import {RowSeparator} from "./row-separator";
 
 export interface ISearchService {
-    loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void;
+    //loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void;
+    loadItem(container: ViewContainerRef): boolean;
     getResults(query: string): Observable<any>;
     saveResults(items: any[]): void;
 }
@@ -20,16 +21,6 @@ export class SearchService {
         this.services.forEach(service => {
             this.servicePoints.push(service);
         });
-    }
-
-    getResults(query: string): Observable<any> {
-        let serviceArray: Observable<any>[] = [];
-        
-        this.servicePoints.forEach(service => {
-            serviceArray.push(service.getResults(query));
-        });
-
-        return Observable.forkJoin(serviceArray);
     }
 
     getItemsArrary(countRequired: number): number[] {
@@ -54,8 +45,50 @@ export class SearchService {
         return array;
     }
 
-    loadInitialResults(containers: ViewContainerRef[]): void {
+    loadItems(containers: ViewContainerRef[], count: number) {
         this.rowSeparator.init();
+
+        const rowCount: number = this.rowSeparator.rowCount;
+        let index: number = 0;
+        let rowIndex: number = 0;
+
+        while (index < count) {
+            let isAnyLoaded: boolean = false;
+
+            this.servicePoints.forEach(service => {
+
+                let isLoaded = service.loadItem(containers[rowIndex]);
+                isAnyLoaded = isAnyLoaded || isLoaded;
+
+                if (isLoaded) {
+                    ++rowIndex;
+                    ++index;
+                }
+
+                if (rowIndex == rowCount) {
+                    rowIndex = 0;
+                }
+            });
+
+            if (!isAnyLoaded) {
+                break;
+            }
+        }
+    }
+
+    getResults(query: string): Observable<any> {
+        let serviceArray: Observable<any>[] = [];
+        
+        this.servicePoints.forEach(service => {
+            serviceArray.push(service.getResults(query));
+        });
+
+        return Observable.forkJoin(serviceArray);
+    }
+
+    loadInitialResults(containers: ViewContainerRef[]): void {
+        this.loadItems(containers, 50);
+        /*this.rowSeparator.init();
         const rowCount: number = this.rowSeparator.rowCount;
         const itemsCount: number[] = this.getItemsArrary(50);
         let index: number = 0;
@@ -64,7 +97,7 @@ export class SearchService {
             let service: ISearchService = this.servicePoints[index];
             service.loadItem(containers, count, rowCount);
             index += 1;
-        });
+        });*/
     }
 
     removeComponents(containers: ViewContainerRef[]): void {
