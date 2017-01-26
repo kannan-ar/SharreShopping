@@ -8,7 +8,7 @@ import {FlipkartSearchComponent} from "../../views/flipkart/flipkart-search.comp
 
 @Injectable()
 export class FlipkartSearchService implements ISearchService {
-    url: string = "/api/search/flipkart";
+    url: string = "/api/search/flipkart?query=";
     currentIndex: number;
     results: FlipkartSearch[];
 
@@ -44,7 +44,7 @@ export class FlipkartSearchService implements ISearchService {
     }
 
     getResults(query: string): Observable<any> {
-        return this.http.get(this.url + "?query=" + query)
+        return this.http.get(this.url + query)
             .map(response => response.json());
     }
 

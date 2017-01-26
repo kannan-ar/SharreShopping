@@ -12,7 +12,7 @@ import {SearchService} from "../services/search.service";
             <div class="col-xs-10 col-sm-10 col-md-10">
                 <form>
                     <div class="form-group">
-                        <input id="search" name="search" [formControl]="search" type="text" class="form-control input-lg" placeholder="Search with any keywords" />
+                        <input id="search" name="search" [formControl]="search" type="text" class="form-control input-lg" (keypress)="onKeyword($event)" placeholder="Search with any keywords" />
                     </div>
                 </form>
             </div>
@@ -82,6 +82,12 @@ export class SearchComponent {
         this.search.valueChanges
             .debounceTime(400)
             .distinctUntilChanged()
+            .subscribe(term => {
+                if (term === "") {
+                    this.renderSearchResults(false);
+                }
+            });
+            /*
             .switchMap(term => {
                 if (term === "") {
                     this.renderSearchResults(false);
@@ -97,6 +103,7 @@ export class SearchComponent {
                 this.searchService.saveResults(results);
                 this.searchService.loadInitialResults(this.containers);
             });
+        */
     }
 
     ngOnInit() {
@@ -109,6 +116,21 @@ export class SearchComponent {
         }
 
         this.onItemsLoad.emit(hasData);
+    }
+
+    beginSearch(term: string) {
+        this.searchService.getResults(term)
+            .subscribe(results => {
+                this.renderSearchResults(true);
+                this.searchService.saveResults(results);
+                this.searchService.loadInitialResults(this.containers);
+            });
+    }
+
+    onKeyword(event) {
+        if (event.keyCode == 13) {
+            this.beginSearch(event.target.value);
+        }
     }
 
     onScroll() {
