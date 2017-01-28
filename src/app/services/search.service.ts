@@ -4,16 +4,18 @@ import {Observable} from "rxjs/Rx";
 import {RowSeparator} from "./row-separator";
 
 export interface ISearchService {
-    //loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void;
     loadItem(container: ViewContainerRef): boolean;
     getResults(query: string): Observable<any>;
     saveResults(items: any[]): void;
+    removeData(): void;
+    hasData(): boolean;
 }
 
 @Injectable()
 export class SearchService {
 
-    servicePoints: ISearchService[];
+    private servicePoints: ISearchService[];
+    private rowCount: number;
 
     constructor( @Inject('SearchServices') private services, private rowSeparator: RowSeparator) {
         this.servicePoints = new Array<ISearchService>();
@@ -22,33 +24,11 @@ export class SearchService {
             this.servicePoints.push(service);
         });
     }
-
-    getItemsArrary(countRequired: number): number[] {
-        const serviceCount: number = this.servicePoints.length;
-        const array: number[] = [serviceCount];
-        const perCount: number = countRequired / serviceCount;
-        let mod = countRequired % serviceCount;
-        let index = 0;
-
-        while (index < serviceCount) {
-
-            array[index] = perCount;
-
-            if (mod > 0) {
-                array[index] = array[index] + 1;
-                mod -= 1;
-            }
-
-            index += 1;
-        }
-
-        return array;
-    }
-
+    
     loadItems(containers: ViewContainerRef[], count: number) {
         this.rowSeparator.init();
 
-        const rowCount: number = this.rowSeparator.rowCount;
+        this.rowCount = this.rowSeparator.rowCount;
         let index: number = 0;
         let rowIndex: number = 0;
 
@@ -65,7 +45,7 @@ export class SearchService {
                     ++index;
                 }
 
-                if (rowIndex == rowCount) {
+                if (rowIndex == this.rowCount) {
                     rowIndex = 0;
                 }
             });
@@ -88,21 +68,19 @@ export class SearchService {
 
     loadInitialResults(containers: ViewContainerRef[]): void {
         this.loadItems(containers, 50);
-        /*this.rowSeparator.init();
-        const rowCount: number = this.rowSeparator.rowCount;
-        const itemsCount: number[] = this.getItemsArrary(50);
-        let index: number = 0;
+    }
 
-        itemsCount.forEach(count => {
-            let service: ISearchService = this.servicePoints[index];
-            service.loadItem(containers, count, rowCount);
-            index += 1;
-        });*/
+    loadOnScroll(containers: ViewContainerRef[]): void {
+        this.loadItems(containers, this.rowCount);
     }
 
     removeComponents(containers: ViewContainerRef[]): void {
         containers.forEach(container => {
             container.clear();
+        });
+
+        this.servicePoints.forEach(service => {
+            service.removeData();
         });
     }
 
@@ -115,5 +93,15 @@ export class SearchService {
             service.saveResults(results[index]);
             index += 1;
         }
+    }
+
+    hasData(): boolean {
+        let result: boolean = false;
+
+        this.servicePoints.forEach(service => {
+            result = result || service.hasData();
+        });
+
+        return result;
     }
 }

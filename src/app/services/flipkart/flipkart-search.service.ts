@@ -19,34 +19,6 @@ export class FlipkartSearchService implements ISearchService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
     }
 
-    /*
-    loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void {
-        const itemsLeft = this.results.length - this.currentIndex;
-        let index = 0;
-        let rowIndex = 0;
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
-
-        if (count > itemsLeft) {
-            count = itemsLeft;
-        }
-
-        while (index < count) {
-            const model: FlipkartSearch = this.results[this.currentIndex++];
-
-            let flipkartComponent = containers[rowIndex].createComponent(componentFactory);
-            flipkartComponent.instance.item = model;
-
-            ++rowIndex;
-            ++index;
-
-            if (rowIndex == rowCount) {
-                rowIndex = 0;
-            }
-
-        }
-    }
-    */
-
     loadItem(container: ViewContainerRef): boolean {
         if (this.currentIndex == this.results.length) {
             return false;
@@ -72,5 +44,13 @@ export class FlipkartSearchService implements ISearchService {
         });
 
         this.currentIndex = 0;
+    }
+
+    removeData(): void {
+        this.results = new Array<FlipkartSearch>();
+    }
+
+    hasData(): boolean {
+        return this.results != null && this.results.length > 0;
     }
 }

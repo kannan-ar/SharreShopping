@@ -114,34 +114,7 @@ export class EbaySearchService implements ISearchService {
             this.results.push(ebay);
         });
     }
-
-    /*
-    loadItem(containers: ViewContainerRef[], count: number, rowCount: number): void {
-        const itemsLeft = this.results.length - this.currentIndex;
-        let index = 0;
-        let rowIndex = 0;
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbaySearchComponent);
-
-        if (count > itemsLeft) {
-            count = itemsLeft;
-        }
-
-        while (index < count) {
-            const model: EbaySearch = this.results[this.currentIndex++];
-            
-            let ebayComponent = containers[rowIndex].createComponent(componentFactory);
-            ebayComponent.instance.item = model;
-
-            ++rowIndex;
-            ++index;
-
-            if (rowIndex == rowCount) {
-                rowIndex = 0;
-            }
-        }
-    }
-    */
-
+    
     loadItem(container: ViewContainerRef): boolean {
         if (this.currentIndex == this.results.length) {
             return false;
@@ -173,5 +146,13 @@ export class EbaySearchService implements ISearchService {
     saveResults(items: any[]): void {
         this.transformResults(items);
         this.currentIndex = 0;
+    }
+
+    removeData(): void {
+        this.results = new Array<EbaySearch>();
+    }
+
+    hasData(): boolean {
+        return this.results != null && this.results.length > 0;
     }
 }

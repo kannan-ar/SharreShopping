@@ -87,23 +87,6 @@ export class SearchComponent {
                     this.renderSearchResults(false);
                 }
             });
-            /*
-            .switchMap(term => {
-                if (term === "") {
-                    this.renderSearchResults(false);
-                    return Observable.of();
-                }
-                else {
-                    return this.searchService.getResults(term);
-                }
-            })
-            .subscribe(results => {
-                this.renderSearchResults(true);
-                //this.searchService.loadSearch(this.containers, results);
-                this.searchService.saveResults(results);
-                this.searchService.loadInitialResults(this.containers);
-            });
-        */
     }
 
     ngOnInit() {
@@ -131,5 +114,8 @@ export class SearchComponent {
     }
 
     onScroll() {
+        if (this.searchService.hasData()) {
+            this.searchService.loadOnScroll(this.containers);
+        }
     }
 }
