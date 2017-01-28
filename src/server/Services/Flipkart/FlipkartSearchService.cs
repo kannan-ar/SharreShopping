@@ -1,10 +1,10 @@
 ﻿namespace server.Services.Flipkart
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using server.Models.Flipkart;
     using Newtonsoft.Json;
+    using Microsoft.Extensions.Configuration;
 
     internal class FlipkartSearchService : FlipkartService
     {
@@ -53,7 +53,7 @@
             return list;
         }
 
-        internal FlipkartSearchService(IHttpService httpService) : base(httpService) { }
+        internal FlipkartSearchService(IHttpService httpService, IConfiguration configuration) : base(httpService, configuration) { }
 
         internal async Task<List<FlipkartSearch>> Search(string query)
         {
