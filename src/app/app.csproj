@@ -113,6 +113,7 @@
     <TypeScriptCompile Include="home\offer.component.ts" />
     <TypeScriptCompile Include="home\search.component.ts" />
     <TypeScriptCompile Include="main.ts" />
+    <TypeScriptCompile Include="models\amazon\amazon-search.ts" />
     <TypeScriptCompile Include="models\ebay\ebay-search.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-deal-of-day.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-image.ts" />
@@ -121,6 +122,7 @@
     <TypeScriptCompile Include="offer.module.ts" />
     <TypeScriptCompile Include="page-not-found.component.ts" />
     <TypeScriptCompile Include="search.module.ts" />
+    <TypeScriptCompile Include="services\amazon\amazon-search.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\ebay\ebay-search.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
@@ -131,6 +133,7 @@
     <TypeScriptCompile Include="services\search.service.ts" />
     <TypeScriptCompile Include="shared.module.ts" />
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
+    <TypeScriptCompile Include="views\amazon\amazon-search.component.ts" />
     <TypeScriptCompile Include="views\ebay\ebay-search.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-deal-of-day.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-offer.component.ts" />

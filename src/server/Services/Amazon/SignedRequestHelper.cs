@@ -102,7 +102,7 @@ namespace server.Services.Amazon
                 .Append(canonicalQS)
                 .Append("&Signature=")
                 .Append(this.PercentEncodeRfc3986(signature));
-
+                
             return qsBuilder.ToString();
         }
 

@@ -3,8 +3,10 @@
     using Microsoft.AspNetCore.Mvc;
     using server.Services;
     using System.Threading.Tasks;
-    using server.Services.Flipkart;
     using Microsoft.Extensions.Configuration;
+
+    using server.Services.Flipkart;
+    using server.Services.Amazon;
 
     [Route("api/[controller]")]
     public class SearchController : Controller
@@ -25,6 +27,13 @@
             var result = await flipkartService.Search(query);
 
             return new JsonResult(result);
+        }
+
+        [HttpGet("amazonsignedurl")]
+        public string AmazonSignedUrl([FromQuery] string query)
+        {
+            AmazonSearchService service = new AmazonSearchService(configuration);
+            return service.GetSignedUrl(query);
         }
     }
 }
