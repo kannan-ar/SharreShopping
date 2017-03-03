@@ -27,7 +27,8 @@ import {AmazonSearchComponent} from "./views/amazon/amazon-search.component";
         RowSeparator,
         SearchService,
         { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true },
-        { provide: 'SearchServices', useClass: EbaySearchService, multi: true }
+        { provide: 'SearchServices', useClass: EbaySearchService, multi: true },
+        { provide: 'SearchServices', useClass: AmazonSearchService, multi: true }
     ]
 })
 

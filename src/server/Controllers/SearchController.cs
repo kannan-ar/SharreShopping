@@ -29,11 +29,13 @@
             return new JsonResult(result);
         }
 
-        [HttpGet("amazonsignedurl")]
-        public string AmazonSignedUrl([FromQuery] string query)
+        [HttpGet("amazon")]
+        public async Task<JsonResult> AmazonSignedUrl([FromQuery] string query)
         {
-            AmazonSearchService service = new AmazonSearchService(configuration);
-            return service.GetSignedUrl(query);
+            AmazonSearchService service = new AmazonSearchService(configuration, httpService);
+            var result = await service.Search(query);
+
+            return new JsonResult(result);
         }
     }
 }

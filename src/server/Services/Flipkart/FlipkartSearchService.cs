@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using server.Models.Flipkart;
+    using Models.Flipkart;
     using Newtonsoft.Json;
     using Microsoft.Extensions.Configuration;
 

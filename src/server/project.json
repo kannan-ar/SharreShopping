@@ -20,7 +20,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Microsoft.Extensions.Caching.Memory": "1.1.0",
     "Microsoft.Extensions.FileProviders.Physical": "1.1.0",
-    "Microsoft.Extensions.Configuration.UserSecrets": "1.1.0"
+    "Microsoft.Extensions.Configuration.UserSecrets": "1.1.0",
+    "System.Xml.XmlSerializer": "4.3.0"
   },
 
   "tools": {

@@ -33,7 +33,8 @@ export class FlipkartSearchService implements ISearchService {
 
     getResults(query: string): Observable<any> {
         return this.http.get(this.url + query)
-            .map(response => response.json());
+            .map(response => response.json())
+            .catch(response => Observable.of({}));
     }
 
     saveResults(items: any[]): void {

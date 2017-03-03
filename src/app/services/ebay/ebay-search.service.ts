@@ -140,7 +140,8 @@ export class EbaySearchService implements ISearchService {
         params.set("keywords", query);
 
         return this.jsonp.get(this.url, { search: params })
-            .map(response => response.json());
+            .map(response => response.json())
+            .catch(response => Observable.of({}));
     }
 
     saveResults(items: any[]): void {
