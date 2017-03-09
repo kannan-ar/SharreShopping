@@ -141,6 +141,9 @@
     <TypeScriptCompile Include="views\row-separator.component.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\amazon-icon.png" />
+    <Content Include="assets\images\ebay-icon.png" />
+    <Content Include="assets\images\flipkart-icon.png" />
     <Content Include="gulpfile.js" />
     <Content Include="my-bs-config.js" />
   </ItemGroup>

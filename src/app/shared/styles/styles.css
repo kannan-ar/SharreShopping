@@ -3,7 +3,7 @@ body {
 }
 
 .top5 {
-        margin-top: 5px;
+    margin-top: 5px;
 }
 
 .product-item {
@@ -14,20 +14,21 @@ body {
     border-radius: 10px;
 }
 
-.product-item .title {
-    color: #383f76;
-}
+    .product-item .title {
+        color: #383f76;
+        width: 95%;
+    }
 
-.product-item .title a {
-    text-decoration: none;
-}
+        .product-item .title a {
+            text-decoration: none;
+        }
 
-.product-item .description {
-    margin-top: 10px;
-    font-weight: bold;
-}
+    .product-item .description {
+        margin-top: 10px;
+        font-weight: bold;
+    }
 
-.product-item .description a {
-    text-decoration: none;
-    color: #000000;
-}
+        .product-item .description a {
+            text-decoration: none;
+            color: #000000;
+        }

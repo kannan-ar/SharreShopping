@@ -5,7 +5,8 @@ import {AmazonSearch} from "../../models/amazon/amazon-search";
 @Component({
     selector: '[amazonSearch]',
     template: `<div class="text-center product-item">
-                    <div class="title"><a href="{{item.url}}" target="_blank">{{item.title}}</a></div>
+                    <div class="pull-left"><img src="../../assets/images/amazon-icon.png" /></div>
+                    <div class="title pull-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></div>
                     <img-holder [thumbnail]="item.imageUrl" [url]="item.url"></img-holder>
                     <div>{{item.formattedPrice}}</div>
                </div>`,

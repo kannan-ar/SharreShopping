@@ -6,7 +6,8 @@ import {EbaySearch} from "../../models/ebay/ebay-search";
     selector: '[ebaySearch]',
     template: `
     <div class="text-center product-item">
-        <div class="title"><a href="{{item.viewItemURL}}" target="_blank">{{item.title}}</a></div>
+        <div class="pull-left"><img src="../../assets/images/ebay-icon.png" /></div>
+        <div class="title pull-right"><a href="{{item.viewItemURL}}" target="_blank">{{item.title}}</a></div>
         <img-holder [thumbnail]="item.galleryURL" [url]="item.viewItemURL"></img-holder>
         <div>{{item.currencyId}}&nbsp;{{item.currentPrice}}</div>
         <p class="description"><a href="{{item.viewItemURL}}" target="_blank">{{item.subtitle}}</a></p>

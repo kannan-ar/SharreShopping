@@ -32,7 +32,7 @@ var cssFiles = [
 ];
 
 gulp.task("clean", function() {
-    return gulp.src(["../server/wwwroot/js", "../server/wwwroot/css"], {read: false})
+    return gulp.src(["../server/wwwroot/js", "../server/wwwroot/css", "../server/wwwroot/assets"], { read: false })
         .pipe(clean({force: true}));
 });
 
@@ -65,6 +65,10 @@ gulp.task("copyCSS",  ["clean"], function() {
         .pipe(gulp.dest("../server/wwwroot/css"));
 });
 
+gulp.task("copyAssets", ["clean"], function () {
+    return gulp.src("./assets/**").pipe(gulp.dest("../server/wwwroot/assets"));
+});
+
 gulp.task("compress", ["ts"], function(cb){
     pump(
         [gulp.src("../server/wwwroot/js/app/**/*.js"),
@@ -74,4 +78,4 @@ gulp.task("compress", ["ts"], function(cb){
     );
 });
 
-gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "jsSrc", "copyCSS", "compress"]);
+gulp.task("default", ["clean", "ts", "angular", "rxjs", "js", "jsSrc", "copyCSS", "copyAssets", "compress"]);
