@@ -15,6 +15,7 @@ import {PageNotFoundComponent} from "./page-not-found.component";
 import {DealOfDayModule} from "./deal-of-day.module";
 import {OfferModule} from "./offer.module";
 import {SearchModule} from "./search.module";
+import {AccountModule} from "./account.module";
 import {SharedModule} from "./shared.module";
 
 @NgModule({
@@ -32,7 +33,8 @@ import {SharedModule} from "./shared.module";
         SharedModule,
         DealOfDayModule,
         OfferModule,
-        SearchModule],
+        SearchModule,
+        AccountModule],
     bootstrap: [
         AppComponent]
 })
