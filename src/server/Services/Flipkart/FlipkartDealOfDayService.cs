@@ -3,15 +3,17 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using server.Models.Flipkart;
     using Microsoft.Extensions.Configuration;
+
+    using Models;
+    using Models.Flipkart;
 
     internal class FlipkartDealOfDayService : FlipkartService
     {
         private const string DealOfDayApi = "https://affiliate-api.flipkart.net/affiliate/offers/v1/dotd/json";
         private const string DealOfDayCacheKey = "flipkartdealofday";
 
-        internal FlipkartDealOfDayService(IHttpService httpService, IConfiguration configuration) : base(httpService, configuration) { }
+        internal FlipkartDealOfDayService(IHttpService httpService, ShoppingSiteConfig config) : base(httpService, config) { }
 
         public async Task<List<FlipkartDealOfDayItem>> GetDealOfDay(int currentIndex, int itemCount)
         {

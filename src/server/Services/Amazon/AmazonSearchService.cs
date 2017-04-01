@@ -3,26 +3,28 @@
     using Microsoft.Extensions.Configuration;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Models.Amazon;
     using System.IO;
     using System.Xml.Serialization;
+
+    using Models;
+    using Models.Amazon;
 
     internal sealed class AmazonSearchService
     {
         private const string endPoint = "webservices.amazon.in";
-        private readonly IConfiguration configuration;
+        private readonly ShoppingSiteConfig config;
         private readonly IHttpService httpService;
 
         private string GetSignedUrl(string keyword)
         {
-            var request = new SignedRequestHelper(configuration["AmazonAccessKeyID"], configuration["AmazonSecretAccessKey"], endPoint);
+            var request = new SignedRequestHelper(config.Amazon.AmazonAccessKeyID, config.Amazon.AmazonSecretAccessKey, endPoint);
 
             IDictionary<string, string> dict = new Dictionary<string, string>();
 
             dict.Add("Service", "AWSECommerceService");
             dict.Add("Operation", "ItemSearch");
-            dict.Add("AWSAccessKeyId", configuration["AmazonAccessKeyID"]);
-            dict.Add("AssociateTag", configuration["AmazonAssociateTag"]);
+            dict.Add("AWSAccessKeyId", config.Amazon.AmazonAccessKeyID);
+            dict.Add("AssociateTag", config.Amazon.AssociateTag);
             dict.Add("SearchIndex", "All");
             dict.Add("ResponseGroup", "Images,ItemAttributes,Offers");
             dict.Add("Keywords", keyword);
@@ -62,9 +64,9 @@
             return list;
         }
 
-        internal AmazonSearchService(IConfiguration configuration, IHttpService httpService)
+        internal AmazonSearchService(ShoppingSiteConfig config, IHttpService httpService)
         {
-            this.configuration = configuration;
+            this.config = config;
             this.httpService = httpService;
         }
 

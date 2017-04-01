@@ -32,3 +32,8 @@ body {
             text-decoration: none;
             color: #000000;
         }
+
+.login-link {
+    text-decoration:none;
+    color:#14819C;
+}

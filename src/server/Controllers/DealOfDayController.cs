@@ -1,27 +1,29 @@
 namespace server.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using server.Services;
     using System.Threading.Tasks;
-    using server.Services.Flipkart;
-    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
+
+    using Models;
+    using Services;
+    using Services.Flipkart;
 
     [Route("api/[controller]")]
     public class DealOfDayController : Controller
     {
         private readonly IHttpService httpService;
-        private readonly IConfiguration configuration;
+        private readonly ShoppingSiteConfig config;
 
-        public DealOfDayController(IHttpService httpService, IConfiguration configuration)
+        public DealOfDayController(IHttpService httpService, IOptions<ShoppingSiteConfig> config)
         {
             this.httpService = httpService;
-            this.configuration = configuration;
+            this.config = config.Value;
         }
 
         [HttpGet("flipkart/{pageNumber}/{pageCount}")]
         public async Task<JsonResult> GetFlipkart(int pageNumber, int pageCount)
         {
-            FlipkartDealOfDayService flipkartService = new FlipkartDealOfDayService(httpService, configuration);
+            FlipkartDealOfDayService flipkartService = new FlipkartDealOfDayService(httpService, config);
             var result = await flipkartService.GetDealOfDay(pageNumber, pageCount);
 
             return new JsonResult(result);

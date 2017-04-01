@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Models.Flipkart;
     using Newtonsoft.Json;
     using Microsoft.Extensions.Configuration;
+
+    using Models;
+    using Models.Flipkart;
 
     internal class FlipkartSearchService : FlipkartService
     {
@@ -53,7 +55,7 @@
             return list;
         }
 
-        internal FlipkartSearchService(IHttpService httpService, IConfiguration configuration) : base(httpService, configuration) { }
+        internal FlipkartSearchService(IHttpService httpService, ShoppingSiteConfig config) : base(httpService, config) { }
 
         internal async Task<List<FlipkartSearch>> Search(string query)
         {

@@ -1,27 +1,30 @@
 namespace server.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using server.Services;
     using System.Threading.Tasks;
-    using server.Services.Flipkart;
-    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
+
+    using Models;
+    using Services;
+    using Services.Flipkart;
+
 
     [Route("api/[controller]")]
     public class OfferController : Controller
     {
         private readonly IHttpService httpService;
-        private readonly IConfiguration configuration;
+        private readonly ShoppingSiteConfig config;
 
-        public OfferController(IHttpService httpService, IConfiguration configuration)
+        public OfferController(IHttpService httpService, IOptions<ShoppingSiteConfig> config)
         {
             this.httpService = httpService;
-            this.configuration = configuration;
+            this.config = config.Value;
         }
 
         [HttpGet("flipkart/{pageNumber}/{pageCount}")]
         public async Task<JsonResult> GetFlipkart(int pageNumber, int pageCount)
         {
-            FlipkartOfferService flipkartService = new FlipkartOfferService(httpService, configuration);
+            FlipkartOfferService flipkartService = new FlipkartOfferService(httpService, config);
             var result = await flipkartService.GetOffers(pageNumber, pageCount);
 
             return new JsonResult(result);

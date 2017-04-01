@@ -1,29 +1,30 @@
 ﻿namespace server.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using server.Services;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
 
-    using server.Services.Flipkart;
-    using server.Services.Amazon;
+    using Models;
+    using Services.Flipkart;
+    using Services.Amazon;
+    using Services;
 
     [Route("api/[controller]")]
     public class SearchController : Controller
     {
         private readonly IHttpService httpService;
-        private readonly IConfiguration configuration;
+        private readonly ShoppingSiteConfig config;
 
-        public SearchController(IHttpService httpService, IConfiguration configuration)
+        public SearchController(IHttpService httpService, IOptions<ShoppingSiteConfig> config)
         {
             this.httpService = httpService;
-            this.configuration = configuration;
+            this.config = config.Value;
         }
 
         [HttpGet("flipkart")]
         public async Task<JsonResult> SearchFlipkart([FromQuery] string query)
         {
-            FlipkartSearchService flipkartService = new FlipkartSearchService(httpService, configuration);
+            FlipkartSearchService flipkartService = new FlipkartSearchService(httpService, config);
             var result = await flipkartService.Search(query);
 
             return new JsonResult(result);
@@ -32,7 +33,7 @@
         [HttpGet("amazon")]
         public async Task<JsonResult> AmazonSignedUrl([FromQuery] string query)
         {
-            AmazonSearchService service = new AmazonSearchService(configuration, httpService);
+            AmazonSearchService service = new AmazonSearchService(config, httpService);
             var result = await service.Search(query);
 
             return new JsonResult(result);
