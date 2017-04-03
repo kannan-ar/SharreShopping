@@ -6,7 +6,6 @@ import {FlipkartDealOfDay} from "../../models/flipkart/flipkart-deal-of-day";
     selector: '[flipkartDeal]',
     template: `
         <div class="text-center product-item">
-            <div class="pull-left"><img src="../../assets/images/flipkart-icon.png" /></div>
             <h4 class="title pull-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></h4>
             <img-holder [thumbnail]="imageUrl" [url]="item.url"></img-holder>
             <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>

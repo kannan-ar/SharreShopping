@@ -101,7 +101,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="assets\fonts\" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="account.module.ts" />
     <TypeScriptCompile Include="account\signin.component.ts" />
@@ -115,6 +117,7 @@
     <TypeScriptCompile Include="home\offer.component.ts" />
     <TypeScriptCompile Include="home\search.component.ts" />
     <TypeScriptCompile Include="main.ts" />
+    <TypeScriptCompile Include="models\account\login-info.ts" />
     <TypeScriptCompile Include="models\amazon\amazon-search.ts" />
     <TypeScriptCompile Include="models\ebay\ebay-search.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-deal-of-day.ts" />
@@ -124,6 +127,7 @@
     <TypeScriptCompile Include="offer.module.ts" />
     <TypeScriptCompile Include="page-not-found.component.ts" />
     <TypeScriptCompile Include="search.module.ts" />
+    <TypeScriptCompile Include="services\account\account.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-search.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\ebay\ebay-search.service.ts" />
@@ -144,9 +148,6 @@
     <TypeScriptCompile Include="views\row-separator.component.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\images\amazon-icon.png" />
-    <Content Include="assets\images\ebay-icon.png" />
-    <Content Include="assets\images\flipkart-icon.png" />
     <Content Include="gulpfile.js" />
     <Content Include="my-bs-config.js" />
   </ItemGroup>

@@ -16,8 +16,4 @@ export class SigninComponent {
     onGoogleLogin(): void {
         window.open("/api/account/external", "ModalPopUp", "toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=0,width=500,height=500,left = 490,top=300");
     }
-
-    setAuth(token: string): void {
-        window.sessionStorage.setItem('SSToken', token)
-    }
 }

@@ -28,7 +28,6 @@
             dict.Add("SearchIndex", "All");
             dict.Add("ResponseGroup", "Images,ItemAttributes,Offers");
             dict.Add("Keywords", keyword);
-            //dict.Add("callback", "JSONP_CALLBACK");
 
             return request.Sign(dict);
         }

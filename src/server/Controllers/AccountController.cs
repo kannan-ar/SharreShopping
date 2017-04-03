@@ -7,10 +7,11 @@
     using System.IdentityModel.Tokens.Jwt;
     using System;
     using Microsoft.IdentityModel.Tokens;
-    using System.Text;
     using Microsoft.Extensions.Options;
+    using Microsoft.AspNetCore.Authorization;
 
     using Models;
+    using Models.Account;
 
     [Route("api/[controller]")]
     public class AccountController : Controller
@@ -64,7 +65,16 @@
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return Content("<script type=\"text/javascript\">parent.window.opener.setAuth('" + encodedJwt + "');window.close();</script>", "text/html");
+            return Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('SSToken','" + encodedJwt + "');window.opener.document.location.href='/';window.close();</script>", "text/html");
+        }
+
+        [Authorize]
+        [HttpGet("LoginInfo")]
+        public IActionResult GetLoginInfo()
+        {
+            ClaimsIdentity id = User.Identity as ClaimsIdentity;
+
+            return Json(new LoginInfo() { Name = id.Name });
         }
     }
 }

@@ -11,10 +11,11 @@ import {Component} from "@angular/core";
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Sharreshopping</a>
+            <a class="navbar-brand" href="#">SharreShopping</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-            <p loginInfo class="navbar-text navbar-right login-info"></p>
+            <ul loginInfo class="nav navbar-nav navbar-right">
+            </ul>
         </div>
     </nav>
     <div class="container-fluid">

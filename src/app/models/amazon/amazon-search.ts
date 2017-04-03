@@ -4,6 +4,5 @@
         public imageUrl: string,
         public url: string,
         public formattedPrice: string) {
-        
     }
 }

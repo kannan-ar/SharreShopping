@@ -66,7 +66,7 @@ gulp.task("copyCSS",  ["clean"], function() {
 });
 
 gulp.task("copyAssets", ["clean"], function () {
-    return gulp.src("./assets/**").pipe(gulp.dest("../server/wwwroot/assets"));
+    return gulp.src("./assets/**").pipe(gulp.dest("../server/wwwroot/"));
 });
 
 gulp.task("compress", ["ts"], function(cb){
