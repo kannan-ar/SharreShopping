@@ -10,7 +10,7 @@ import {AccountService} from "../services/account/account.service";
         <li *ngIf="isLogged" ngbDropdown>
             <a href="#" id="accountMenu" ngbDropdownToggle>{{info.name}}</a>
             <ul class="dropdown-menu" aria-labelledby="accountMenu">
-                <li><a href="#">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                <li><a href="#" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
             </ul>
         </li>
     `
@@ -29,5 +29,10 @@ export class LoginInfoComponent {
             this.accountService.getInfo().subscribe(info => this.info = info);
             this.isLogged = true;
         }
+    }
+
+    logout(): void {
+        window.sessionStorage.removeItem('SSToken');
+        window.location.href = "/";
     }
 }

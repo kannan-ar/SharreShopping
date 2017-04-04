@@ -13,7 +13,7 @@ export class AccountService {
     getInfo(): Observable<LoginInfo> {
         let headers = new Headers();
 
-        headers.append('Authorization', 'Basic ' + window.sessionStorage.getItem('SSToken'));
+        headers.append('Authorization', 'Bearer ' + window.sessionStorage.getItem('SSToken'));
 
         return this.http.get("/api/account/logininfo", {
             headers: headers

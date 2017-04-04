@@ -45,7 +45,7 @@
             Claim email = id.FindFirst(ClaimTypes.Email);
             Claim name = id.FindFirst(ClaimTypes.Name);
 
-            HttpContext.Authentication.SignOutAsync("MyCookieMiddlewareInstance");
+            HttpContext.Authentication.SignOutAsync("SharreShoppingCookieMiddleware");
 
             var claims = new[]
             {
@@ -72,9 +72,16 @@
         [HttpGet("LoginInfo")]
         public IActionResult GetLoginInfo()
         {
-            ClaimsIdentity id = User.Identity as ClaimsIdentity;
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            Claim claim = identity.FindFirst(ClaimTypes.GivenName);
+            string name = string.Empty;
 
-            return Json(new LoginInfo() { Name = id.Name });
+            if (claim != null)
+            {
+                name = claim.Value;
+            }
+
+            return Json(new LoginInfo() { Name = name });
         }
     }
 }
