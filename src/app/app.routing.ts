@@ -3,6 +3,7 @@ import {Routes, RouterModule} from "@angular/router";
 
 import {HomeComponent} from "./home/home.component";
 import {SigninComponent} from "./account/signin.component";
+import {WishlistComponent} from "./account/wishlist.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
 
 const appRoutes: Routes = [
@@ -13,6 +14,10 @@ const appRoutes: Routes = [
     {
         path: "signin",
         component: SigninComponent
+    },
+    {
+        path: "wishlist",
+        component: WishlistComponent
     },
     {
         path: "**",

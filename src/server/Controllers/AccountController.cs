@@ -12,6 +12,7 @@
 
     using Models;
     using Models.Account;
+    using Services.Account;
 
     [Route("api/[controller]")]
     public class AccountController : Controller
@@ -52,7 +53,8 @@
                 new Claim(JwtRegisteredClaimNames.Sub, email.Value),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat,ToUnixEpochDate(DateTime.Now).ToString(), ClaimValueTypes.Integer64),
-                new Claim(JwtRegisteredClaimNames.GivenName, name.Value)
+                new Claim(JwtRegisteredClaimNames.GivenName, name.Value),
+                new Claim(JwtRegisteredClaimNames.Email, email.Value)
             };
 
             var jwt = new JwtSecurityToken(
@@ -72,16 +74,9 @@
         [HttpGet("LoginInfo")]
         public IActionResult GetLoginInfo()
         {
-            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
-            Claim claim = identity.FindFirst(ClaimTypes.GivenName);
-            string name = string.Empty;
+            AccountService accountService = new AccountService();
 
-            if (claim != null)
-            {
-                name = claim.Value;
-            }
-
-            return Json(new LoginInfo() { Name = name });
+            return Json(new LoginInfo() { Name = accountService.GetLoginName(User.Identity as ClaimsIdentity) });
         }
     }
 }

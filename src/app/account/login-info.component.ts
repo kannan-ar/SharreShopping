@@ -8,8 +8,9 @@ import {AccountService} from "../services/account/account.service";
     template: `
         <li *ngIf="!isLogged" class="dropdown"><a class="login-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a></li>
         <li *ngIf="isLogged" ngbDropdown>
-            <a href="#" id="accountMenu" ngbDropdownToggle>{{info.name}}</a>
+            <a href="#" id="accountMenu" ngbDropdownToggle>{{info.name}}&nbsp;<span class="glyphicon glyphicon-asterisk"></span></a>
             <ul class="dropdown-menu" aria-labelledby="accountMenu">
+                <li><a href="#" [routerLink]="['/wishlist']">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
                 <li><a href="#" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
             </ul>
         </li>

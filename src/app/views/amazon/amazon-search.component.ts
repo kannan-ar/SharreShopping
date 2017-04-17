@@ -1,6 +1,7 @@
 ﻿import {Component} from "@angular/core";
 
 import {AmazonSearch} from "../../models/amazon/amazon-search";
+import {WishlistService} from "../../services/wishlist.service";
 
 @Component({
     selector: '[amazonSearch]',
@@ -8,10 +9,18 @@ import {AmazonSearch} from "../../models/amazon/amazon-search";
                     <div class="title pull-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></div>
                     <img-holder [thumbnail]="item.imageUrl" [url]="item.url"></img-holder>
                     <div>{{item.formattedPrice}}</div>
+                    <div class="text-right"><a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></div>
                </div>`,
     host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
 })
 
 export class AmazonSearchComponent {
     item: AmazonSearch;
+
+    constructor(private wishlistService: WishlistService) {
+    }
+
+    addWishlist(): void {
+        this.wishlistService.addWishlist("amazon", this.item.asin);
+    }
 }

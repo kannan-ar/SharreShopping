@@ -1,6 +1,7 @@
 ﻿import {Component} from "@angular/core";
 
 import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
+import {WishlistService} from "../../services/wishlist.service";
 
 @Component({
     selector: '[flipkartSearch]',
@@ -11,6 +12,7 @@ import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
         <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
         <div><s>{{item.sellingCurrency}}&nbsp;{{item.sellingAmount}}</s>&nbsp;{{item.mrpCurrency}}&nbsp;{{item.mrpAmount}}</div>
         <div>You saved {{item.discountPercentage}}%</div>
+         <div class="text-right"><a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></div>
     </div>
     `,
     host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
@@ -18,4 +20,11 @@ import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
 
 export class FlipkartSearchComponent {
     item: FlipkartSearch;
+
+    constructor(private wishlistService: WishlistService) {
+    }
+
+    addWishlist(): void {
+        this.wishlistService.addWishlist("flipkart", this.item.productId);
+    }
 }

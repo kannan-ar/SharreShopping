@@ -5,11 +5,13 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Services;
-    using Models;
     using Microsoft.IdentityModel.Tokens;
     using System;
     using System.Text;
+    using StackExchange.Redis;
+
+    using Services;
+    using Models;
 
     public class Startup
     {
@@ -41,6 +43,7 @@
             symmetricKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AuthSettings:Jwt:SecurityKey"]));
 
             services.Configure<ShoppingSiteConfig>(options => Configuration.GetSection("ShoppingSites").Bind(options));
+
             services.Configure<AuthConfig>(options =>
             {
                 options.SymmetricKey = symmetricKey;
@@ -52,6 +55,8 @@
 
             services.AddTransient<IHttpService, HttpService>();
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<IConnectionMultiplexer>(
+                ConnectionMultiplexer.Connect(Configuration["ExternalConnections:RedisConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +64,6 @@
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            string s = Configuration["AuthSettings:Jwt:Issuer"];
 
             var tokenValidationParameters = new TokenValidationParameters()
             {

@@ -2,6 +2,7 @@
 {
     internal class AmazonSearch
     {
+        public string ASIN { get; set; }
         public string Title { get; set; }
         public string ImageUrl { get; set; }
         public string Url { get; set; }

@@ -22,6 +22,7 @@
 
     public class Item
     {
+        public string ASIN { get; set; }
         public string DetailPageURL { get; set; }
         public Image SmallImage { get; set; }
         public ItemAttribute ItemAttributes { get; set; }

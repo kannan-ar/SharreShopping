@@ -18,6 +18,8 @@ import {EbaySearchComponent} from "./views/ebay/ebay-search.component";
 import {AmazonSearchService} from "./services/amazon/amazon-search.service";
 import {AmazonSearchComponent} from "./views/amazon/amazon-search.component";
 
+import {WishlistService} from "./services/wishlist.service";
+
 @NgModule({
     imports: [CommonModule, JsonpModule, FormsModule, ReactiveFormsModule, InfiniteScrollModule, SharedModule],
     exports: [SearchComponent, FlipkartSearchComponent, EbaySearchComponent, AmazonSearchComponent],
@@ -26,6 +28,7 @@ import {AmazonSearchComponent} from "./views/amazon/amazon-search.component";
     providers: [
         RowSeparator,
         SearchService,
+        WishlistService,
         { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true },
         { provide: 'SearchServices', useClass: EbaySearchService, multi: true },
         { provide: 'SearchServices', useClass: AmazonSearchService, multi: true }

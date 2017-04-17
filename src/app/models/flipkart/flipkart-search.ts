@@ -1,5 +1,6 @@
 ﻿export class FlipkartSearch {
     constructor(
+        public id: string,
         public productId: string,
         public productUrl: string,
         public title: string,

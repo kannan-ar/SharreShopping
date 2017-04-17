@@ -5,13 +5,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {LoginInfoComponent} from "./account/login-info.component";
 import {SigninComponent} from "./account/signin.component";
+import {WishlistComponent} from "./account/wishlist.component";
 
 import {AccountService} from "./services/account/account.service";
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule.forRoot()],
-    declarations: [LoginInfoComponent, SigninComponent],
-    exports: [LoginInfoComponent, SigninComponent],
+    declarations: [LoginInfoComponent, SigninComponent, WishlistComponent],
+    exports: [LoginInfoComponent, SigninComponent, WishlistComponent],
     providers: [AccountService]
 })
 

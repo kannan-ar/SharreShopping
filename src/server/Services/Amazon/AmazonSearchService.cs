@@ -1,6 +1,5 @@
 ﻿namespace server.Services.Amazon
 {
-    using Microsoft.Extensions.Configuration;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.IO;
@@ -51,6 +50,7 @@
                 {
                     AmazonSearch amazonSearch = new AmazonSearch();
 
+                    amazonSearch.ASIN = item.ASIN;
                     amazonSearch.Url = item.DetailPageURL;
                     amazonSearch.ImageUrl = item.SmallImage?.URL;
                     amazonSearch.Title = item.ItemAttributes?.Title;
