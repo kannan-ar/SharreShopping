@@ -24,11 +24,11 @@ namespace server.Services.Flipkart
         protected FlipkartProduct ConvertFlipkartProduct(dynamic item)
         {
             string imgUrl = string.Empty;
-            var imageUrls = item?.productBaseInfo?.productAttributes?.imageUrls;
+            var imageUrls = item?.productBaseInfoV1?.imageUrls;
 
             if (imageUrls != null)
             {
-                foreach (var img in item?.productBaseInfo?.productAttributes?.imageUrls)
+                foreach (var img in imageUrls)
                 {
                     if (img.Name == "200x200")
                     {
@@ -40,17 +40,17 @@ namespace server.Services.Flipkart
 
             return new FlipkartProduct()
             {
-                ProductId = item?.productBaseInfo?.productIdentifier?.productId,
-                Title = item?.productBaseInfo?.productAttributes?.title,
+                ProductId = item?.productBaseInfoV1?.productId,
+                Title = item?.productBaseInfoV1?.title,
                 ImageUrl = imgUrl,
-                MRPAmount = item?.productBaseInfo?.productAttributes?.maximumRetailPrice?.amount,
-                MRPCurrency = item?.productBaseInfo?.productAttributes?.maximumRetailPrice?.currency,
-                SellingAmount = item?.productBaseInfo?.productAttributes?.sellingPrice?.amount,
-                SellingCurrency = item?.productBaseInfo?.productAttributes?.sellingPrice?.currency,
-                ProductUrl = item?.productBaseInfo?.productAttributes?.productUrl,
-                InStock = item?.productBaseInfo?.productAttributes?.inStock,
-                IsAvailable = item?.productBaseInfo?.productAttributes?.isAvailable,
-                DiscountPercentage = item?.productBaseInfo?.productAttributes?.discountPercentage
+                MRPAmount = item?.productBaseInfoV1?.maximumRetailPrice?.amount,
+                MRPCurrency = item?.productBaseInfoV1?.maximumRetailPrice?.currency,
+                SellingAmount = item?.productBaseInfoV1?.flipkartSellingPrice?.amount,
+                SellingCurrency = item?.productBaseInfoV1?.flipkartSellingPrice?.currency,
+                ProductUrl = item?.productBaseInfoV1?.productUrl,
+                InStock = item?.productBaseInfoV1?.inStock,
+                IsAvailable = item?.productBaseInfoV1?.codAvailable,
+                DiscountPercentage = item?.productBaseInfoV1?.discountPercentage
             };
         }
 

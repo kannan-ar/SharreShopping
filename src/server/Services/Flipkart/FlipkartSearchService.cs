@@ -9,7 +9,7 @@
 
     internal class FlipkartSearchService : FlipkartService
     {
-        private const string SearchApi = "https://affiliate-api.flipkart.net/affiliate/search/json?query={0}&resultCount={1}";
+        private const string SearchApi = "https://affiliate-api.flipkart.net/affiliate/1.0/search.json?query={0}&resultCount={1}";
         private const int SearchApiCount = 10;
 
         private List<FlipkartProduct> ConvertFlipkartSearch(string content)
