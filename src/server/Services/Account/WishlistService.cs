@@ -1,14 +1,13 @@
-﻿namespace server.Services
+﻿namespace server.Services.Account
 {
     using System;
     using StackExchange.Redis;
-    using Account;
     using System.Security.Claims;
     using Microsoft.Extensions.DependencyInjection;
 
     public class WishlistService
     {
-        private IServiceProvider serviceProvider;
+        private readonly IServiceProvider serviceProvider;
 
         public WishlistService(IServiceProvider serviceProvider)
         {

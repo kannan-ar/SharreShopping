@@ -1,6 +1,6 @@
 ﻿namespace server.Models.Flipkart
 {
-    internal class FlipkartSearch
+    internal class FlipkartProduct
     {
         public string ProductId { get; set; }
         public string Title { get; set; }
