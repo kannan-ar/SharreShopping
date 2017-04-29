@@ -11,6 +11,7 @@ export class EbaySearchService implements ISearchService {
     private url: string = "http://svcs.ebay.com/services/search/FindingService/v1";
     private results: EbaySearch[];
     private currentIndex: number;
+    private rowCount: number;
     private componentFactory: ComponentFactory<EbaySearchComponent>;
 
     constructor(
@@ -121,12 +122,59 @@ export class EbaySearchService implements ISearchService {
         }
 
         const model: EbaySearch = this.results[this.currentIndex++];
-        let ebayComponent = container.createComponent(this.componentFactory);
-        ebayComponent.instance.item = model;
+        if (model != null) {
+            let ebayComponent = container.createComponent(this.componentFactory);
+            ebayComponent.instance.item = model;
+        }
 
         return true;
     }
 
+    loadItems(containers: ViewContainerRef[], count: number): void {
+        let index = 0;
+        let rowIndex = 0;
+
+        while (index < count) {
+            if (!this.loadItem(containers[rowIndex])) {
+                return;
+            }
+
+            ++index;
+            ++rowIndex;
+
+            if (rowIndex == this.rowCount) {
+                rowIndex = 0;
+            }
+        }
+    }
+
+    search(query: string, rowCount: number, containers: ViewContainerRef[]): void {
+        let params = new URLSearchParams();
+        this.rowCount = rowCount;
+
+        params.set("OPERATION-NAME", "findItemsByKeywords");
+        params.set("SERVICE-NAME", "FindingService");
+        params.set("SERVICE-VERSION", "1.0.0");
+        params.set("GLOBAL-ID", "EBAY-IN");
+        params.set("SECURITY-APPNAME", "ShareSho-7fbb-407c-8989-2000fa0722c4");
+        params.set("RESPONSE-DATA-FORMAT", "JSON");
+        params.set("callback", "JSONP_CALLBACK");
+        params.set("keywords", query);
+
+        this.jsonp.get(this.url, { search: params })
+            .map(response => response.json())
+            .subscribe(results => {
+                this.currentIndex = 0;
+                this.transformResults(results);
+                this.loadItems(containers, 20);
+            });
+    }
+
+    loadScrollItems(containers: ViewContainerRef[]): void {
+        this.loadItems(containers, this.rowCount);
+    }
+
+    /*
     getResults(query: string): Observable<any> {
         let params = new URLSearchParams();
 
@@ -148,7 +196,7 @@ export class EbaySearchService implements ISearchService {
         this.transformResults(items);
         this.currentIndex = 0;
     }
-
+    */
     removeData(): void {
         this.results = new Array<EbaySearch>();
     }

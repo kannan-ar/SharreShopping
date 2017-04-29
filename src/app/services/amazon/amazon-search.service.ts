@@ -9,9 +9,10 @@ import {AmazonSearchComponent} from "../../views/amazon/amazon-search.component"
 
 @Injectable()
 export class AmazonSearchService implements ISearchService {
-    url: string = "/api/search/amazon?query=";
-    currentIndex: number;
-    results: AmazonSearch[];
+    private url: string = "/api/search/amazon?query=";
+    private currentIndex: number;
+    private results: AmazonSearch[];
+    private rowCount: number;
     private componentFactory: ComponentFactory<AmazonSearchComponent>;
 
     constructor(
@@ -37,6 +38,41 @@ export class AmazonSearchService implements ISearchService {
         return true;
     }
 
+    loadItems(containers: ViewContainerRef[], count: number): void {
+        let index = 0;
+        let rowIndex = 0;
+
+        while (index < count) {
+            if (!this.loadItem(containers[rowIndex])) {
+                return;
+            }
+
+            ++index;
+            ++rowIndex;
+
+            if (rowIndex == this.rowCount) {
+                rowIndex = 0;
+            }
+        }
+    }
+
+    search(query: string, rowCount: number, containers: ViewContainerRef[]): void {
+        this.rowCount = rowCount;
+
+        this.http.get(this.url + query)
+            .map(response => response.json())
+            .subscribe(results => {
+                this.currentIndex = 0;
+                this.results = results;
+                this.loadItems(containers, 20);
+            });
+    }
+
+    loadScrollItems(containers: ViewContainerRef[]): void {
+        this.loadItems(containers, this.rowCount);
+    }
+
+    /*
     getResults(query: string): Observable<any> {
         return this.http.get(this.url + query)
             .map(response => response.json())
@@ -52,7 +88,7 @@ export class AmazonSearchService implements ISearchService {
 
         this.currentIndex = 0;
     }
-
+    */
     removeData(): void {
         this.results = new Array<AmazonSearch>();
     }

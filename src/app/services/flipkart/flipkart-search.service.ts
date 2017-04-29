@@ -10,6 +10,7 @@ import {FlipkartSearchComponent} from "../../views/flipkart/flipkart-search.comp
 export class FlipkartSearchService implements ISearchService {
     url: string = "/api/search/flipkart?query=";
     currentIndex: number;
+    rowCount: number;
     results: FlipkartSearch[];
     private componentFactory: ComponentFactory<FlipkartSearchComponent>;
 
@@ -31,6 +32,39 @@ export class FlipkartSearchService implements ISearchService {
         return true;
     }
 
+    loadScrollItems(containers: ViewContainerRef[]): void {
+        this.loadItems(containers, this.rowCount);
+    }
+
+    loadItems(containers: ViewContainerRef[], count: number): void {
+        let index = 0;
+        let rowIndex = 0;
+        let hasItem = true;
+
+        while (index < count && hasItem) {
+            hasItem = this.loadItem(containers[rowIndex]);
+
+            ++index;
+            ++rowIndex;
+
+            if (rowIndex == this.rowCount) {
+                rowIndex = 0;
+            }
+        }
+    }
+
+    search(query: string, rowCount: number, containers: ViewContainerRef[]): void {
+        this.rowCount = rowCount;
+
+        this.http.get(this.url + query)
+            .map(response => response.json())
+            .subscribe(results => {
+                this.currentIndex = 0;
+                this.results = results;
+                this.loadItems(containers, 20);
+            });
+    }
+    /*
     getResults(query: string): Observable<any> {
         return this.http.get(this.url + query)
             .map(response => response.json())
@@ -46,7 +80,7 @@ export class FlipkartSearchService implements ISearchService {
 
         this.currentIndex = 0;
     }
-
+    */
     removeData(): void {
         this.results = new Array<FlipkartSearch>();
     }

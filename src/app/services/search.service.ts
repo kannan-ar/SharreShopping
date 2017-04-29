@@ -4,9 +4,12 @@ import {Observable} from "rxjs/Rx";
 import {RowSeparator} from "./row-separator";
 
 export interface ISearchService {
-    loadItem(container: ViewContainerRef): boolean;
-    getResults(query: string): Observable<any>;
-    saveResults(items: any[]): void;
+   // loadItem(container: ViewContainerRef): boolean;
+    //getResults(query: string): Observable<any>;
+   // saveResults(items: any[]): void;
+    search(query: string, rowCount: number, containers: ViewContainerRef[]): void;
+    //loadItems(containers: ViewContainerRef[], count: number): void;
+    loadScrollItems(containers: ViewContainerRef[]): void;
     removeData(): void;
     hasData(): boolean;
 }
@@ -24,7 +27,7 @@ export class SearchService {
             this.servicePoints.push(service);
         });
     }
-    
+    /*
     loadItems(containers: ViewContainerRef[], count: number) {
         this.rowSeparator.init();
 
@@ -55,7 +58,22 @@ export class SearchService {
             }
         }
     }
+    */
 
+    loadScrollItems(containers: ViewContainerRef[]) {
+        this.servicePoints.forEach(service => {
+            service.loadScrollItems(containers);
+        });
+    }
+
+    search(query: string, containers: ViewContainerRef[]): void {
+        this.rowSeparator.init();
+
+        this.servicePoints.forEach(service => {
+            service.search(query, this.rowSeparator.rowCount, containers);
+        });
+    }
+    /*
     getResults(query: string): Observable<any> {
         let serviceArray: Observable<any>[] = [];
         
@@ -65,23 +83,13 @@ export class SearchService {
 
         return Observable.forkJoin(serviceArray);
     }
-
+    
     loadInitialResults(containers: ViewContainerRef[]): void {
         this.loadItems(containers, 50);
     }
 
     loadOnScroll(containers: ViewContainerRef[]): void {
         this.loadItems(containers, this.rowCount);
-    }
-
-    removeComponents(containers: ViewContainerRef[]): void {
-        containers.forEach(container => {
-            container.clear();
-        });
-
-        this.servicePoints.forEach(service => {
-            service.removeData();
-        });
     }
 
     saveResults(results: any[]): void {
@@ -94,7 +102,17 @@ export class SearchService {
             index += 1;
         }
     }
+    */
+    removeComponents(containers: ViewContainerRef[]): void {
+        containers.forEach(container => {
+            container.clear();
+        });
 
+        this.servicePoints.forEach(service => {
+            service.removeData();
+        });
+    }
+   
     hasData(): boolean {
         let result: boolean = false;
 
