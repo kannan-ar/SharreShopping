@@ -1,4 +1,4 @@
-﻿export class FlipkartSearch {
+﻿export class FlipkartProduct {
     constructor(
         public id: string,
         public productId: string,

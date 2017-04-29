@@ -124,7 +124,7 @@
     <TypeScriptCompile Include="models\flipkart\flipkart-deal-of-day.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-image.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-offer.ts" />
-    <TypeScriptCompile Include="models\flipkart\flipkart-search.ts" />
+    <TypeScriptCompile Include="models\flipkart\flipkart-product.ts" />
     <TypeScriptCompile Include="offer.module.ts" />
     <TypeScriptCompile Include="page-not-found.component.ts" />
     <TypeScriptCompile Include="search.module.ts" />
@@ -146,7 +146,7 @@
     <TypeScriptCompile Include="views\ebay\ebay-search.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-deal-of-day.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-offer.component.ts" />
-    <TypeScriptCompile Include="views\flipkart\flipkart-search.component.ts" />
+    <TypeScriptCompile Include="views\flipkart\flipkart-product.component.ts" />
     <TypeScriptCompile Include="views\row-separator.component.ts" />
   </ItemGroup>
   <ItemGroup>

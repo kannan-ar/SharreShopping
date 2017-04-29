@@ -3,21 +3,21 @@ import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactor
 import { Observable } from "rxjs/Observable";
 
 import {ISearchService} from "../search.service";
-import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
-import {FlipkartSearchComponent} from "../../views/flipkart/flipkart-search.component";
+import {FlipkartProduct} from "../../models/flipkart/flipkart-product";
+import {FlipkartProductComponent} from "../../views/flipkart/flipkart-product.component";
 
 @Injectable()
 export class FlipkartSearchService implements ISearchService {
     url: string = "/api/search/flipkart?query=";
     currentIndex: number;
     rowCount: number;
-    results: FlipkartSearch[];
-    private componentFactory: ComponentFactory<FlipkartSearchComponent>;
+    results: FlipkartProduct[];
+    private componentFactory: ComponentFactory<FlipkartProductComponent>;
 
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
-        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartSearchComponent);
+        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartProductComponent);
     }
 
     loadItem(container: ViewContainerRef): boolean {
@@ -25,7 +25,7 @@ export class FlipkartSearchService implements ISearchService {
             return false;
         }
 
-        const model: FlipkartSearch = this.results[this.currentIndex++];
+        const model: FlipkartProduct = this.results[this.currentIndex++];
         let flipkartComponent = container.createComponent(this.componentFactory);
         flipkartComponent.instance.item = model;
 
@@ -82,7 +82,7 @@ export class FlipkartSearchService implements ISearchService {
     }
     */
     removeData(): void {
-        this.results = new Array<FlipkartSearch>();
+        this.results = new Array<FlipkartProduct>();
     }
 
     hasData(): boolean {

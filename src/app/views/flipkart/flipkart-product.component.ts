@@ -1,10 +1,10 @@
 ﻿import {Component} from "@angular/core";
 
-import {FlipkartSearch} from "../../models/flipkart/flipkart-search";
+import {FlipkartProduct} from "../../models/flipkart/flipkart-product";
 import {WishlistService} from "../../services/wishlist.service";
 
 @Component({
-    selector: '[flipkartSearch]',
+    selector: '[flipkartProduct]',
     template: `
     <div class="text-center product-item">
         <div class="title pull-right"><a href="{{item.productUrl}}" target="_blank">{{item.title}}</a></div>
@@ -18,8 +18,8 @@ import {WishlistService} from "../../services/wishlist.service";
     host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
 })
 
-export class FlipkartSearchComponent {
-    item: FlipkartSearch;
+export class FlipkartProductComponent {
+    item: FlipkartProduct;
 
     constructor(private wishlistService: WishlistService) {
     }
