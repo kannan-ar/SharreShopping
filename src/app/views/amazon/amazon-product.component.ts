@@ -1,6 +1,6 @@
 ﻿import {Component} from "@angular/core";
 
-import {AmazonSearch} from "../../models/amazon/amazon-search";
+import {AmazonProduct} from "../../models/amazon/amazon-product";
 import {WishlistService} from "../../services/wishlist.service";
 
 @Component({
@@ -14,8 +14,8 @@ import {WishlistService} from "../../services/wishlist.service";
     host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
 })
 
-export class AmazonSearchComponent {
-    item: AmazonSearch;
+export class AmazonProductComponent {
+    item: AmazonProduct;
 
     constructor(private wishlistService: WishlistService) {
     }

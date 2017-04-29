@@ -1,6 +1,6 @@
 ﻿import {Component} from "@angular/core";
 
-import {EbaySearch} from "../../models/ebay/ebay-search";
+import {EbayProduct} from "../../models/ebay/ebay-product";
 import {WishlistService} from "../../services/wishlist.service";
 
 @Component({
@@ -17,8 +17,8 @@ import {WishlistService} from "../../services/wishlist.service";
     host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
 })
 
-export class EbaySearchComponent {
-    item: EbaySearch;
+export class EbayProductComponent {
+    item: EbayProduct;
 
     constructor(private wishlistService: WishlistService) {
     }

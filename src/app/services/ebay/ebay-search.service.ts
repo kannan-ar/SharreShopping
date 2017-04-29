@@ -3,21 +3,21 @@ import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactor
 import { Observable } from "rxjs/Observable";
 
 import {ISearchService} from "../search.service";
-import {EbaySearch} from "../../models/ebay/ebay-search";
-import {EbaySearchComponent} from "../../views/ebay/ebay-search.component";
+import {EbayProduct} from "../../models/ebay/ebay-product";
+import {EbayProductComponent} from "../../views/ebay/ebay-product.component";
 
 @Injectable()
 export class EbaySearchService implements ISearchService {
     private url: string = "http://svcs.ebay.com/services/search/FindingService/v1";
-    private results: EbaySearch[];
+    private results: EbayProduct[];
     private currentIndex: number;
     private rowCount: number;
-    private componentFactory: ComponentFactory<EbaySearchComponent>;
+    private componentFactory: ComponentFactory<EbayProductComponent>;
 
     constructor(
         private jsonp: Jsonp,
         private componentFactoryResolver: ComponentFactoryResolver) {
-        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbaySearchComponent);
+        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbayProductComponent);
     }
 
     private transformResults(items: any[]): void {
@@ -44,7 +44,7 @@ export class EbaySearchService implements ISearchService {
             return;
         }
 
-        this.results = new Array<EbaySearch>();
+        this.results = new Array<EbayProduct>();
 
         searchResult.item.forEach(item => {
             let condition: string;
@@ -109,7 +109,7 @@ export class EbaySearchService implements ISearchService {
                 viewItemURL = item.viewItemURL[0];
             }
 
-            let ebay: EbaySearch = new EbaySearch(condition, galleryURL, itemId, location, paymentMethod,
+            let ebay: EbayProduct = new EbayProduct(condition, galleryURL, itemId, location, paymentMethod,
                 categoryName, currencyId, currentPrice, sellingState, title, subtitle, viewItemURL);
 
             this.results.push(ebay);
@@ -121,7 +121,7 @@ export class EbaySearchService implements ISearchService {
             return false;
         }
 
-        const model: EbaySearch = this.results[this.currentIndex++];
+        const model: EbayProduct = this.results[this.currentIndex++];
         if (model != null) {
             let ebayComponent = container.createComponent(this.componentFactory);
             ebayComponent.instance.item = model;
@@ -198,7 +198,7 @@ export class EbaySearchService implements ISearchService {
     }
     */
     removeData(): void {
-        this.results = new Array<EbaySearch>();
+        this.results = new Array<EbayProduct>();
     }
 
     hasData(): boolean {

@@ -1,4 +1,4 @@
-﻿export class AmazonSearch {
+﻿export class AmazonProduct {
     constructor(
         public asin: string,
         public title: string,

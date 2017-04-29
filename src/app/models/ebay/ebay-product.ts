@@ -1,4 +1,4 @@
-﻿export class EbaySearch {
+﻿export class EbayProduct {
     constructor(
         public condition: string,
         public galleryURL: string,

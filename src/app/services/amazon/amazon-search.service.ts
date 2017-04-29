@@ -4,25 +4,25 @@ import {Observable} from "rxjs/Rx";
 import { Observer } from "rxjs/Observer";
 
 import {ISearchService} from "../search.service";
-import {AmazonSearch} from "../../models/amazon/amazon-search";
-import {AmazonSearchComponent} from "../../views/amazon/amazon-search.component";
+import {AmazonProduct} from "../../models/amazon/amazon-product";
+import {AmazonProductComponent} from "../../views/amazon/amazon-product.component";
 
 @Injectable()
 export class AmazonSearchService implements ISearchService {
     private url: string = "/api/search/amazon?query=";
     private currentIndex: number;
-    private results: AmazonSearch[];
+    private results: AmazonProduct[];
     private rowCount: number;
-    private componentFactory: ComponentFactory<AmazonSearchComponent>;
+    private componentFactory: ComponentFactory<AmazonProductComponent>;
 
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
-        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AmazonSearchComponent);
+        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AmazonProductComponent);
     }
 
-    transformResults(xml: string): AmazonSearch[] {
-        let items: AmazonSearch[] = new Array<AmazonSearch>();
+    transformResults(xml: string): AmazonProduct[] {
+        let items: AmazonProduct[] = new Array<AmazonProduct>();
         return items;
     }
 
@@ -31,7 +31,7 @@ export class AmazonSearchService implements ISearchService {
             return false;
         }
 
-        const model: AmazonSearch = this.results[this.currentIndex++];
+        const model: AmazonProduct = this.results[this.currentIndex++];
         let amazonComponent = container.createComponent(this.componentFactory);
         amazonComponent.instance.item = model;
 
@@ -90,7 +90,7 @@ export class AmazonSearchService implements ISearchService {
     }
     */
     removeData(): void {
-        this.results = new Array<AmazonSearch>();
+        this.results = new Array<AmazonProduct>();
     }
 
     hasData(): boolean {
