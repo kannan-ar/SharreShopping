@@ -127,7 +127,7 @@
     <TypeScriptCompile Include="models\flipkart\flipkart-product.ts" />
     <TypeScriptCompile Include="offer.module.ts" />
     <TypeScriptCompile Include="page-not-found.component.ts" />
-    <TypeScriptCompile Include="search.module.ts" />
+    <TypeScriptCompile Include="product.module.ts" />
     <TypeScriptCompile Include="services\account\account.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-search.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />

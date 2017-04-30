@@ -14,7 +14,7 @@ import {SearchComponent} from "./home/search.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {DealOfDayModule} from "./deal-of-day.module";
 import {OfferModule} from "./offer.module";
-import {SearchModule} from "./search.module";
+import {ProductModule} from "./product.module";
 import {AccountModule} from "./account.module";
 import {SharedModule} from "./shared.module";
 
@@ -33,7 +33,7 @@ import {SharedModule} from "./shared.module";
         SharedModule,
         DealOfDayModule,
         OfferModule,
-        SearchModule,
+        ProductModule,
         AccountModule],
     bootstrap: [
         AppComponent]

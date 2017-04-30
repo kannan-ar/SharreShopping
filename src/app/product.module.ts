@@ -35,5 +35,5 @@ import {WishlistService} from "./services/wishlist.service";
     ]
 })
 
-export class SearchModule {
+export class ProductModule {
 }
