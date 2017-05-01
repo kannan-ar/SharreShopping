@@ -3,19 +3,17 @@ import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactor
 
 import {AccountService} from "../account/account.service";
 import {IWishlistService} from "../wishlist.service";
-import {FlipkartProductComponent} from "../../views/flipkart/flipkart-product.component";
-import {ContainerDistributionService} from "../container-distribution.service";
+import {FlipkartWishlistComponent} from "../../views/flipkart/flipkart-wishlist.component";
 
 @Injectable()
 export class FlipkartWishlistService implements IWishlistService {
 
-    private componentFactory: ComponentFactory<FlipkartProductComponent>;
-    private containerService: ContainerDistributionService;
+    private componentFactory: ComponentFactory<FlipkartWishlistComponent>;
 
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
-        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartProductComponent);
+        this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartWishlistComponent);
     }
 
     loadItem(id: string, container: ViewContainerRef): void {
@@ -32,23 +30,22 @@ export class FlipkartWishlistService implements IWishlistService {
             });
     }
 
-    loadWishlist(ids: string[], rowCount: number): void {
+    loadWishlist(ids: string[], container: ViewContainerRef, rowCount: number): void {
         ids.forEach(id => {
-            this.loadItem(id, this.containerService.getNext());
+            this.loadItem(id, container);
         });
     }
 
-    loadAll(containers: ViewContainerRef[], rowCount: number): void {
+    loadAll(container: ViewContainerRef, rowCount: number): void {
         let headers = new Headers();
 
         headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-        this.containerService = new ContainerDistributionService(containers);
 
         this.http.get("/api/wishlist/flipkart", {
             headers: headers
         }).map(response => response.json())
             .subscribe(results => {
-                this.loadWishlist(results, rowCount);
+                this.loadWishlist(results, container, rowCount);
            });
     }
 }

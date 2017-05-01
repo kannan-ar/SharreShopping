@@ -5,7 +5,7 @@ import { AccountService } from "./account/account.service";
 import {RowSeparator} from "./row-separator";
 
 export interface IWishlistService {
-    loadAll(containers: ViewContainerRef[], rowCount: number): void;
+    loadAll(container: ViewContainerRef, rowCount: number): void;
 }
 
 @Injectable()
@@ -35,11 +35,14 @@ export class WishlistService {
         }).subscribe();
     }
 
-    loadAll(containers: ViewContainerRef[]): void {
+    removeWishlist(provider: string, id: string): void {
+    }
+
+    loadAll(container: ViewContainerRef): void {
         this.rowSeparator.init();
 
         this.servicePoints.forEach(service => {
-            service.loadAll(containers, this.rowSeparator.rowCount);
+            service.loadAll(container, this.rowSeparator.rowCount);
         });
     }
 }

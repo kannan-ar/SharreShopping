@@ -19,13 +19,18 @@ import {FlipkartProductComponent} from "./views/flipkart/flipkart-product.compon
 import {EbayProductComponent} from "./views/ebay/ebay-product.component";
 import {AmazonProductComponent} from "./views/amazon/amazon-product.component";
 
+import {FlipkartWishlistComponent} from "./views/flipkart/flipkart-wishlist.component";
+
 import {WishlistService} from "./services/wishlist.service";
 
 @NgModule({
     imports: [CommonModule, JsonpModule, FormsModule, ReactiveFormsModule, InfiniteScrollModule, SharedModule],
-    exports: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent],
-    entryComponents: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent],
-    declarations: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent],
+    exports: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent,
+        FlipkartWishlistComponent],
+    entryComponents: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent,
+        FlipkartWishlistComponent],
+    declarations: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent,
+        FlipkartWishlistComponent],
     providers: [
         RowSeparator,
         SearchService,
