@@ -174,29 +174,6 @@ export class EbaySearchService implements ISearchService {
         this.loadItems(containers, this.rowCount);
     }
 
-    /*
-    getResults(query: string): Observable<any> {
-        let params = new URLSearchParams();
-
-        params.set("OPERATION-NAME", "findItemsByKeywords");
-        params.set("SERVICE-NAME", "FindingService");
-        params.set("SERVICE-VERSION", "1.0.0");
-        params.set("GLOBAL-ID", "EBAY-IN");
-        params.set("SECURITY-APPNAME", "ShareSho-7fbb-407c-8989-2000fa0722c4");
-        params.set("RESPONSE-DATA-FORMAT", "JSON");
-        params.set("callback", "JSONP_CALLBACK");
-        params.set("keywords", query);
-
-        return this.jsonp.get(this.url, { search: params })
-            .map(response => response.json())
-            .catch(response => Observable.of({}));
-    }
-
-    saveResults(items: any[]): void {
-        this.transformResults(items);
-        this.currentIndex = 0;
-    }
-    */
     removeData(): void {
         this.results = new Array<EbayProduct>();
     }

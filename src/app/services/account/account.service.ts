@@ -10,10 +10,14 @@ export class AccountService {
         private http: Http
     ) { }
 
+    static getToken(): string {
+        return window.sessionStorage.getItem('SSToken');
+    }
+
     getInfo(): Observable<LoginInfo> {
         let headers = new Headers();
 
-        headers.append('Authorization', 'Bearer ' + window.sessionStorage.getItem('SSToken'));
+        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
 
         return this.http.get("/api/account/logininfo", {
             headers: headers

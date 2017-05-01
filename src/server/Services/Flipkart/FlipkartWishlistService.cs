@@ -6,6 +6,7 @@
     using StackExchange.Redis;
     using Microsoft.Extensions.DependencyInjection;
     using System.Security.Claims;
+    using Newtonsoft.Json;
 
     using Models;
     using Models.Flipkart;
@@ -13,8 +14,14 @@
 
     internal class FlipkartWishlistService : FlipkartService
     {
-        private const string productApi = "https://affiliate-api.flipkart.net/affiliate/product/json?id=";
+        private const string productApi = "https://affiliate-api.flipkart.net/affiliate/1.0/product.json?id=";
         private readonly IServiceProvider serviceProvider;
+
+        private FlipkartProduct ConvertFlipkartItem(string content)
+        {
+            dynamic item = JsonConvert.DeserializeObject(content);
+            return ConvertFlipkartProduct(item);
+        }
 
         internal FlipkartWishlistService(
             IHttpService httpService, 
@@ -29,7 +36,7 @@
             return await httpService.Get<FlipkartProduct>(
                 string.Concat(productApi, id),
                 GetHeaders(),
-                ConvertFlipkartProduct);
+                ConvertFlipkartItem);
         }
 
         internal async Task<List<string>> Get(ClaimsIdentity identity)

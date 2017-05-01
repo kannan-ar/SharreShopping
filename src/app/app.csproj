@@ -130,11 +130,13 @@
     <TypeScriptCompile Include="product.module.ts" />
     <TypeScriptCompile Include="services\account\account.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-search.service.ts" />
+    <TypeScriptCompile Include="services\container-distribution.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\ebay\ebay-search.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-offer.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />
+    <TypeScriptCompile Include="services\flipkart\flipkart-wishlist.service.ts" />
     <TypeScriptCompile Include="services\offer.service.ts" />
     <TypeScriptCompile Include="services\row-separator.ts" />
     <TypeScriptCompile Include="services\search.service.ts" />

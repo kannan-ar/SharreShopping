@@ -10,12 +10,13 @@ import {SearchService} from "./services/search.service";
 import {SearchComponent} from "./home/search.component";
 
 import {FlipkartSearchService} from "./services/flipkart/flipkart-search.service";
-import {FlipkartProductComponent} from "./views/flipkart/flipkart-product.component";
-
 import {EbaySearchService} from "./services/ebay/ebay-search.service";
-import {EbayProductComponent} from "./views/ebay/ebay-product.component";
-
 import {AmazonSearchService} from "./services/amazon/amazon-search.service";
+
+import {FlipkartWishlistService} from "./services/flipkart/flipkart-wishlist.service";
+
+import {FlipkartProductComponent} from "./views/flipkart/flipkart-product.component";
+import {EbayProductComponent} from "./views/ebay/ebay-product.component";
 import {AmazonProductComponent} from "./views/amazon/amazon-product.component";
 
 import {WishlistService} from "./services/wishlist.service";
@@ -31,7 +32,8 @@ import {WishlistService} from "./services/wishlist.service";
         WishlistService,
         { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true },
         { provide: 'SearchServices', useClass: EbaySearchService, multi: true },
-        { provide: 'SearchServices', useClass: AmazonSearchService, multi: true }
+        { provide: 'SearchServices', useClass: AmazonSearchService, multi: true },
+        { provide: 'WishlistServices', useClass: FlipkartWishlistService, multi: true }
     ]
 })
 

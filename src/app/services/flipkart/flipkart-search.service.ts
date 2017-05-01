@@ -64,23 +64,7 @@ export class FlipkartSearchService implements ISearchService {
                 this.loadItems(containers, 20);
             });
     }
-    /*
-    getResults(query: string): Observable<any> {
-        return this.http.get(this.url + query)
-            .map(response => response.json())
-            .catch(response => Observable.of({}));
-    }
-
-    saveResults(items: any[]): void {
-        this.results = new Array<FlipkartSearch>();
-
-        items.forEach(item => {
-            this.results.push(item);
-        });
-
-        this.currentIndex = 0;
-    }
-    */
+   
     removeData(): void {
         this.results = new Array<FlipkartProduct>();
     }

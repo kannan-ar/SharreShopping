@@ -1,8 +1,17 @@
-﻿import {Component, ViewContainerRef, ViewChild} from "@angular/core"
+﻿import {Component, ViewContainerRef, ViewChild, OnInit} from "@angular/core"
+
+import {WishlistService} from "../services/wishlist.service";
 
 @Component({
     selector: 'wishlist',
     template: `
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="wishlist-header">
+                    <h4>Wishlist Items</h4>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
                 <div class="row">
@@ -35,7 +44,18 @@
                 </div>
             </div>
         </div>
-    `
+    `,
+    styles: [`
+        .wishlist-header {
+            background-color: #14819C;
+            padding: 1px 10px 1px 20px;
+        }
+
+        .wishlist-header h4 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    `]
 })
 
 export class WishlistComponent {
@@ -48,5 +68,22 @@ export class WishlistComponent {
 
     containers: ViewContainerRef[];
 
+    constructor(private wishlistService: WishlistService) {
+    }
 
+    initContainers() {
+        this.containers = new Array<ViewContainerRef>();
+
+        this.containers.push(this.row1);
+        this.containers.push(this.row2);
+        this.containers.push(this.row3);
+        this.containers.push(this.row4);
+        this.containers.push(this.row5);
+        this.containers.push(this.row6);
+    }
+
+    ngOnInit() {
+        this.initContainers();
+        this.wishlistService.loadAll(this.containers);
+    }
 }
