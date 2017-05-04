@@ -2,5 +2,8 @@
   "globalDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160726072212",
     "jquery": "registry:dt/jquery#1.10.0+20170104155652"
+  },
+  "dependencies": {
+    "masonry-layout": "registry:dt/masonry-layout#4.0.0+20161220195540"
   }
 }

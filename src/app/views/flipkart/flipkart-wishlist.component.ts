@@ -15,7 +15,7 @@ import {WishlistService} from "../../services/wishlist.service";
          <div class="text-right"><a (click)="removeWishlist()" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
     </div>
     `,
-    host: { 'class': 'col-lg-2 col-md-3 col-sm-4 col-xs-12' }
+    host: { 'class': 'grid-sizer grid-item col-lg-2 col-md-3 col-sm-4 col-xs-12' }
 })
 
 export class FlipkartWishlistComponent {

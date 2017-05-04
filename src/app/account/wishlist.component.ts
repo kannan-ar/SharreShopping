@@ -1,4 +1,5 @@
 ﻿import {Component, ViewContainerRef, ViewChild, OnInit} from "@angular/core"
+import Masonry from "masonry-layout";
 
 import {WishlistService} from "../services/wishlist.service";
 
@@ -13,7 +14,9 @@ import {WishlistService} from "../services/wishlist.service";
             </div>
         </div>
         <div class="row">
-            <template #container></template>
+            <div class="grid">
+                <template #container></template>
+            </div>
         </div>
     `,
     styles: [`
@@ -37,5 +40,12 @@ export class WishlistComponent {
     
     ngOnInit() {
         this.wishlistService.loadAll(this.container);
+
+        new Masonry('.grid', {
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+        });
+        
     }
 }

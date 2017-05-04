@@ -15,7 +15,8 @@ var jsFiles = [
     'node_modules/typescript/lib/typescript.js',
     'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
     'node_modules/angular2-infinite-scroll/bundles/angular2-infinite-scroll.js',
-    'node_modules/jquery/dist/jquery.min.js'
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/masonry-layout/dist/masonry.pkgd.js'
 ];
 
 var jsSrcFiles = [
