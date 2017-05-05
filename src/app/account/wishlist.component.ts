@@ -46,6 +46,5 @@ export class WishlistComponent {
             columnWidth: '.grid-sizer',
             percentPosition: true
         });
-        
     }
 }

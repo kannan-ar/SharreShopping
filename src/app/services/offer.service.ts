@@ -2,9 +2,10 @@ import { Injectable, ViewContainerRef, Inject } from "@angular/core";
 import {Observable} from "rxjs/Rx";
 
 import {RowSeparator} from "./row-separator";
+import Masonry from "masonry-layout";
 
 export interface IOfferService {
-    loadItem(containers: ViewContainerRef[], items: any[]): void;
+    loadItem(container: ViewContainerRef, grid: any, items: any[]): void;
     getOffers(): Observable<any>;
     incrementCount(): void;
     resetCount(): void;
@@ -18,9 +19,9 @@ export class OfferService {
         this.rowSeparator.init();
     }
 
-    loadOffers(containers: ViewContainerRef[]): void {
+    loadOffers(container: ViewContainerRef, grid: Masonry): void {
         const serviceCount: number = this.services.length;
-        const rowCount: number = this.rowSeparator.rowCount;
+        const rowCount: number = 10; //this.rowSeparator.rowCount;
         let index: number = 0;
         let tempCount = rowCount;
 
@@ -45,7 +46,7 @@ export class OfferService {
             let service: IOfferService = this.services[index];
 
             service.getOffers().subscribe(items => {
-                service.loadItem(containers, items);
+                service.loadItem(container, grid, items);
             });
 
             index += 1;

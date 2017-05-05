@@ -1,4 +1,5 @@
 import {Component, ViewChild, ViewContainerRef, OnInit} from "@angular/core";
+import Masonry from "masonry-layout";
 
 import {OfferService} from "../services/offer.service";
 
@@ -13,35 +14,8 @@ import {OfferService} from "../services/offer.service";
             </div>
         </div>
         <div class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                <div class="row">
-                    <template #row1></template>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-4 hidden-xs-up">
-                <div class="row">
-                    <template #row2></template>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-4 hidden-xs-up">
-                <div class="row">
-                    <template #row3></template>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 hidden-xs-up hidden-sm-up">
-                <div class="row">
-                    <template #row4></template>
-                </div>
-            </div>
-            <div class="col-lg-2 hidden-xs-up hidden-sm-up hidden-md-up">
-                <div class="row">
-                    <template #row5></template>
-                </div>
-            </div>
-            <div class="col-lg-2 hidden-xs-up hidden-sm-up hidden-md-up">
-                <div class="row">
-                    <template #row6></template>
-                </div>
+            <div class="grid">
+                <template #container></template>
             </div>
         </div>
         `,
@@ -64,37 +38,27 @@ import {OfferService} from "../services/offer.service";
 })
 
 export class OfferComponent {
-    @ViewChild('row1', { read: ViewContainerRef }) row1: ViewContainerRef;
-    @ViewChild('row2', { read: ViewContainerRef }) row2: ViewContainerRef;
-    @ViewChild('row3', { read: ViewContainerRef }) row3: ViewContainerRef;
-    @ViewChild('row4', { read: ViewContainerRef }) row4: ViewContainerRef;
-    @ViewChild('row5', { read: ViewContainerRef }) row5: ViewContainerRef;
-    @ViewChild('row6', { read: ViewContainerRef }) row6: ViewContainerRef;
 
-    containers: ViewContainerRef[];
+    private grid: Masonry;
+    @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
 
     constructor(
         private offerService: OfferService) {
     }
 
-    initContainers() {
-        this.containers = new Array<ViewContainerRef>();
-
-        this.containers.push(this.row1);
-        this.containers.push(this.row2);
-        this.containers.push(this.row3);
-        this.containers.push(this.row4);
-        this.containers.push(this.row5);
-        this.containers.push(this.row6);
-    }
-
     ngOnInit() {
-        this.initContainers();
+        var msnry = new Masonry('.grid', {
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+        });
+
+        this.grid = msnry;
         this.offerService.resetIndex();
-        this.offerService.loadOffers(this.containers);
+        this.offerService.loadOffers(this.container, msnry);
     }
 
     onScroll() {
-        this.offerService.loadOffers(this.containers);
+        this.offerService.loadOffers(this.container, this.grid);
     }
 }

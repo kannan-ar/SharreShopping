@@ -10,7 +10,7 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
                 <img-holder [thumbnail]="imageUrl" [url]="item.url"></img-holder>
                 <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
             </div>`,
-    host: { 'class': 'col-lg-12 col-md-12 col-sm-12 col-xs-12' }
+    host: { 'class': 'grid-sizer grid-item col-lg-2 col-md-3 col-sm-4 col-xs-12' }
 })
 
 export class FlipkartOfferComponent {

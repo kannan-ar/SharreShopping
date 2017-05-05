@@ -1,11 +1,12 @@
 import { Http } from "@angular/http";
-import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
 import {IOfferService} from "../offer.service";
 import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
 import {FlipkartOfferComponent} from "../../views/flipkart/flipkart-offer.component";
 import {RowSeparator} from "../row-separator";
+import Masonry from "masonry-layout";
 
 @Injectable()
 export class FlipkartOfferService implements IOfferService {
@@ -19,22 +20,16 @@ export class FlipkartOfferService implements IOfferService {
         this.currentIndex = 0;
     }
 
-    loadItem(containers: ViewContainerRef[], items: any[]): void {
-
-        let index = 0;
+    loadItem(container: ViewContainerRef, grid: Masonry, items: any[]): void {
 
         items.forEach(item => {
             const offer: FlipkartOffer = item as FlipkartOffer;
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartOfferComponent);
             
-            let flipkartComponent = containers[index].createComponent(componentFactory);
+            let flipkartComponent: ComponentRef<FlipkartOfferComponent> = container.createComponent(componentFactory);
             flipkartComponent.instance.item = offer;
-            
-            index += 1;
-
-            if (index == containers.length) {
-                index = 0;
-            }
+            grid.appended(flipkartComponent.location.nativeElement);
+            grid.layout();
         });
 
         this.currentIndex += this.count;

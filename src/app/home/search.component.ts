@@ -101,12 +101,6 @@ export class SearchComponent {
     beginSearch(term: string) {
         this.renderSearchResults(true);
         this.searchService.search(term, this.containers);
-        /*
-        this.searchService.getResults(term)
-            .subscribe(results => {
-                this.searchService.saveResults(results);
-                this.searchService.loadInitialResults(this.containers);
-            });*/
     }
 
     onKeyword(event) {
@@ -117,7 +111,6 @@ export class SearchComponent {
 
     onScroll() {
         if (this.searchService.hasData()) {
-            //this.searchService.loadOnScroll(this.containers);
             this.searchService.loadScrollItems(this.containers);
         }
     }
