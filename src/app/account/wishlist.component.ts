@@ -39,12 +39,14 @@ export class WishlistComponent {
     }
     
     ngOnInit() {
-        this.wishlistService.loadAll(this.container);
-
-        new Masonry('.grid', {
+        var grid = new Masonry('.grid', {
             itemSelector: '.grid-item',
             columnWidth: '.grid-sizer',
             percentPosition: true
         });
+
+        this.wishlistService.loadAll(this.container, grid);
+
+        
     }
 }

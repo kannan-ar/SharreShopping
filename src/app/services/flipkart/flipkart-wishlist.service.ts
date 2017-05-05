@@ -4,6 +4,7 @@ import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactor
 import {AccountService} from "../account/account.service";
 import {IWishlistService} from "../wishlist.service";
 import {FlipkartWishlistComponent} from "../../views/flipkart/flipkart-wishlist.component";
+import Masonry from "masonry-layout";
 
 @Injectable()
 export class FlipkartWishlistService implements IWishlistService {
@@ -16,7 +17,7 @@ export class FlipkartWishlistService implements IWishlistService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartWishlistComponent);
     }
 
-    loadItem(id: string, container: ViewContainerRef): void {
+    loadItem(id: string, container: ViewContainerRef, grid: Masonry): void {
         let headers = new Headers();
 
         headers.append('Authorization', 'Bearer ' + AccountService.getToken());
@@ -27,16 +28,18 @@ export class FlipkartWishlistService implements IWishlistService {
             .subscribe(product => {
                 let flipkartComponent = container.createComponent(this.componentFactory);
                 flipkartComponent.instance.item = product;
+                grid.appended(flipkartComponent.location.nativeElement);
+                grid.layout();
             });
     }
 
-    loadWishlist(ids: string[], container: ViewContainerRef, rowCount: number): void {
+    loadWishlist(ids: string[], container: ViewContainerRef, grid: Masonry): void {
         ids.forEach(id => {
-            this.loadItem(id, container);
+            this.loadItem(id, container, grid);
         });
     }
 
-    loadAll(container: ViewContainerRef, rowCount: number): void {
+    loadAll(container: ViewContainerRef, grid: Masonry): void {
         let headers = new Headers();
 
         headers.append('Authorization', 'Bearer ' + AccountService.getToken());
@@ -45,7 +48,7 @@ export class FlipkartWishlistService implements IWishlistService {
             headers: headers
         }).map(response => response.json())
             .subscribe(results => {
-                this.loadWishlist(results, container, rowCount);
+                this.loadWishlist(results, container, grid);
            });
     }
 }

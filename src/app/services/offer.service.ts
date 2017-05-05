@@ -5,7 +5,7 @@ import {RowSeparator} from "./row-separator";
 import Masonry from "masonry-layout";
 
 export interface IOfferService {
-    loadItem(container: ViewContainerRef, grid: any, items: any[]): void;
+    loadItem(container: ViewContainerRef, grid: Masonry, items: any[]): void;
     getOffers(): Observable<any>;
     incrementCount(): void;
     resetCount(): void;

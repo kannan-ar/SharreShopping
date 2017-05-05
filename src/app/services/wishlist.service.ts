@@ -2,10 +2,10 @@
 import { Http, Headers } from "@angular/http";
 
 import { AccountService } from "./account/account.service";
-import {RowSeparator} from "./row-separator";
+import Masonry from "masonry-layout";
 
 export interface IWishlistService {
-    loadAll(container: ViewContainerRef, rowCount: number): void;
+    loadAll(container: ViewContainerRef, grid: Masonry): void;
 }
 
 @Injectable()
@@ -15,9 +15,7 @@ export class WishlistService {
 
     constructor(
         @Inject('WishlistServices') private services,
-        private http: Http,
-        private rowSeparator: RowSeparator
-    ) {
+        private http: Http) {
         this.servicePoints = new Array<IWishlistService>();
 
         this.services.forEach(service => {
@@ -38,11 +36,9 @@ export class WishlistService {
     removeWishlist(provider: string, id: string): void {
     }
 
-    loadAll(container: ViewContainerRef): void {
-        this.rowSeparator.init();
-
+    loadAll(container: ViewContainerRef, grid: Masonry): void {
         this.servicePoints.forEach(service => {
-            service.loadAll(container, this.rowSeparator.rowCount);
+            service.loadAll(container, grid);
         });
     }
 }
