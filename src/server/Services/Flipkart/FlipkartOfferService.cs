@@ -18,7 +18,7 @@
         internal async Task<List<FlipkartOfferItem>> GetOffers(int currentIndex, int itemCount)
         {
             FlipkartOfferList list = await httpService.Get<FlipkartOfferList>(OfferCacheKey, OffersApi, GetHeaders());
-            return list.Offers.Skip((currentIndex) * itemCount).Take(itemCount).ToList();
+            return list.Offers.Skip(currentIndex).Take(itemCount).ToList();
         }
     }
 }

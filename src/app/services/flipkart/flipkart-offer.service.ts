@@ -5,18 +5,20 @@ import { Observable } from "rxjs/Observable";
 import {IOfferService} from "../offer.service";
 import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
 import {FlipkartOfferComponent} from "../../views/flipkart/flipkart-offer.component";
-import {RowSeparator} from "../row-separator";
 import Masonry from "masonry-layout";
 
 @Injectable()
 export class FlipkartOfferService implements IOfferService {
     url: string = "/api/offer/flipkart";
     currentIndex: number;
-    count: number;
 
     constructor(
         private http: Http,
         private componentFactoryResolver: ComponentFactoryResolver) {
+        this.currentIndex = 0;
+    }
+
+    resetIndex(): void {
         this.currentIndex = 0;
     }
 
@@ -31,24 +33,15 @@ export class FlipkartOfferService implements IOfferService {
             grid.appended(flipkartComponent.location.nativeElement);
             grid.layout();
         });
-
-        this.currentIndex += this.count;
     }
 
-    getOffers(): Observable<any> {
-        return this.http.get(this.url + "/" + this.currentIndex + "/" + this.count)
-            .map(response => response.json());
-    }
+    getOffers(container: ViewContainerRef, grid: Masonry, count: number): void {
+        this.http.get(this.url + "/" + this.currentIndex + "/" + count)
+            .map(response => response.json())
+            .subscribe(items => {
+                this.loadItem(container, grid, items);
+            });
 
-    incrementCount() {
-        this.count += 1;
-    }
-
-    resetCount(): void {
-        this.count = 0;
-    }
-
-    resetIndex(): void {
-        this.currentIndex = 0;
+        this.currentIndex += count;
     }
 }
