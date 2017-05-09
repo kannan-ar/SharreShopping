@@ -137,7 +137,6 @@
     <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-wishlist.service.ts" />
     <TypeScriptCompile Include="services\offer.service.ts" />
-    <TypeScriptCompile Include="services\row-separator.ts" />
     <TypeScriptCompile Include="services\search.service.ts" />
     <TypeScriptCompile Include="services\wishlist.service.ts" />
     <TypeScriptCompile Include="shared.module.ts" />
@@ -149,7 +148,6 @@
     <TypeScriptCompile Include="views\flipkart\flipkart-offer.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-product.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-wishlist.component.ts" />
-    <TypeScriptCompile Include="views\row-separator.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gulpfile.js" />

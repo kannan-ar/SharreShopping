@@ -14,7 +14,7 @@ import {OfferService} from "../services/offer.service";
             </div>
         </div>
         <div class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-            <div class="grid">
+            <div class="offer-grid">
                 <template #container></template>
             </div>
         </div>
@@ -47,7 +47,7 @@ export class OfferComponent {
     }
 
     ngOnInit() {
-        var msnry = new Masonry('.grid', {
+        var msnry = new Masonry('.offer-grid', {
             itemSelector: '.grid-item',
             columnWidth: '.grid-sizer',
             percentPosition: true

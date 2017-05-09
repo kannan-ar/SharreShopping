@@ -5,7 +5,6 @@ import { Observable } from "rxjs/Observable";
 import { FlipkartDealOfDayComponent } from "../../views/flipkart/flipkart-deal-of-day.component";
 import { IDealOfDayService } from "../deal-of-day.service";
 import { FlipkartDealOfDay } from "../../models/flipkart/flipkart-deal-of-day";
-import {RowSeparator} from "../row-separator";
 
 @Injectable()
 export class FlipkartDealOfDayService implements IDealOfDayService {

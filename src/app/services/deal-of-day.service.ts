@@ -1,7 +1,7 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
 import {Observable} from "rxjs/Observable";
 
-import {RowSeparator} from "./row-separator";
+import {Environment} from "../environment";
 
 export interface IDealOfDayService {
     loadItem(container: ViewContainerRef, items: any[]): void;
@@ -15,13 +15,12 @@ export interface IDealOfDayService {
 export class DealOfDayService {
 
     constructor(
-        @Inject('DealOfDayServices') private services, private rowSeparator: RowSeparator) {
-        this.rowSeparator.init();
+        @Inject('DealOfDayServices') private services) {
     }
 
     loadDeal(container: ViewContainerRef): void {
         const serviceCount: number = this.services.length;
-        let rowCount: number = this.rowSeparator.rowCount;
+        let rowCount: number = Environment.getRowCount();
         let index: number = 0;
         let arr: Observable<any>[] = [];
 

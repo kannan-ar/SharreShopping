@@ -1,6 +1,7 @@
 ﻿import { Jsonp, URLSearchParams } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import Masonry from "masonry-layout";
 
 import {ISearchService} from "../search.service";
 import {EbayProduct} from "../../models/ebay/ebay-product";
@@ -11,7 +12,6 @@ export class EbaySearchService implements ISearchService {
     private url: string = "http://svcs.ebay.com/services/search/FindingService/v1";
     private results: EbayProduct[];
     private currentIndex: number;
-    private rowCount: number;
     private componentFactory: ComponentFactory<EbayProductComponent>;
 
     constructor(
@@ -116,41 +116,29 @@ export class EbaySearchService implements ISearchService {
         });
     }
     
-    loadItem(container: ViewContainerRef): boolean {
-        if (this.currentIndex == this.results.length) {
-            return false;
-        }
-
+    loadItem(grid: Masonry, container: ViewContainerRef): void {
+        
         const model: EbayProduct = this.results[this.currentIndex++];
         if (model != null) {
             let ebayComponent = container.createComponent(this.componentFactory);
             ebayComponent.instance.item = model;
-        }
 
-        return true;
+            grid.appended(ebayComponent.location.nativeElement);
+            grid.layout();
+        }
     }
 
-    loadItems(containers: ViewContainerRef[], count: number): void {
+    loadItems(count: number, grid: Masonry, container: ViewContainerRef): void {
         let index = 0;
-        let rowIndex = 0;
 
-        while (index < count) {
-            if (!this.loadItem(containers[rowIndex])) {
-                return;
-            }
-
+        while (index < count && this.currentIndex < this.results.length) {
+            this.loadItem(grid, container);
             ++index;
-            ++rowIndex;
-
-            if (rowIndex == this.rowCount) {
-                rowIndex = 0;
-            }
         }
     }
 
-    search(query: string, rowCount: number, containers: ViewContainerRef[]): void {
+    search(query: string, grid: Masonry, container: ViewContainerRef, count: number): void {
         let params = new URLSearchParams();
-        this.rowCount = rowCount;
 
         params.set("OPERATION-NAME", "findItemsByKeywords");
         params.set("SERVICE-NAME", "FindingService");
@@ -166,12 +154,12 @@ export class EbaySearchService implements ISearchService {
             .subscribe(results => {
                 this.currentIndex = 0;
                 this.transformResults(results);
-                this.loadItems(containers, 20);
+                this.loadItems(count, grid, container);
             });
     }
 
-    loadScrollItems(containers: ViewContainerRef[]): void {
-        this.loadItems(containers, this.rowCount);
+    loadScrollItems(grid: Masonry, container: ViewContainerRef, count: number): void {
+        this.loadItems(count, grid, container);
     }
 
     removeData(): void {

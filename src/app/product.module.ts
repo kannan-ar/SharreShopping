@@ -5,7 +5,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {JsonpModule, RequestOptions, JSONPBackend} from "@angular/http";
 
 import {SharedModule} from "./shared.module";
-import {RowSeparator} from "./services/row-separator";
 import {SearchService} from "./services/search.service";
 import {SearchComponent} from "./home/search.component";
 
@@ -32,7 +31,6 @@ import {WishlistService} from "./services/wishlist.service";
     declarations: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent,
         FlipkartWishlistComponent],
     providers: [
-        RowSeparator,
         SearchService,
         WishlistService,
         { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true },

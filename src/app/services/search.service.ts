@@ -1,11 +1,12 @@
 ﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
 import {Observable} from "rxjs/Rx";
+import Masonry from "masonry-layout";
 
-import {RowSeparator} from "./row-separator";
+import {Environment} from "../environment";
 
 export interface ISearchService {
-    search(query: string, rowCount: number, containers: ViewContainerRef[]): void;
-    loadScrollItems(containers: ViewContainerRef[]): void;
+    search(query: string, grid: Masonry, container: ViewContainerRef, count: number): void;
+    loadScrollItems(grid: Masonry, container: ViewContainerRef, count: number): void;
     removeData(): void;
     hasData(): boolean;
 }
@@ -15,7 +16,7 @@ export class SearchService {
 
     private servicePoints: ISearchService[];
 
-    constructor( @Inject('SearchServices') private services, private rowSeparator: RowSeparator) {
+    constructor( @Inject('SearchServices') private services) {
         this.servicePoints = new Array<ISearchService>();
 
         this.services.forEach(service => {
@@ -23,24 +24,20 @@ export class SearchService {
         });
     }
    
-    loadScrollItems(containers: ViewContainerRef[]) {
+    loadScrollItems(grid: Masonry, container: ViewContainerRef) {
         this.servicePoints.forEach(service => {
-            service.loadScrollItems(containers);
+            service.loadScrollItems(grid, container, Environment.getRowCount());
         });
     }
 
-    search(query: string, containers: ViewContainerRef[]): void {
-        this.rowSeparator.init();
-
+    search(query: string, grid: Masonry, container: ViewContainerRef): void {
         this.servicePoints.forEach(service => {
-            service.search(query, this.rowSeparator.rowCount, containers);
+            service.search(query, grid, container, Environment.getRowCount());
         });
     }
     
-    removeComponents(containers: ViewContainerRef[]): void {
-        containers.forEach(container => {
-            container.clear();
-        });
+    removeComponents(container: ViewContainerRef): void {
+        container.clear();
 
         this.servicePoints.forEach(service => {
             service.removeData();
