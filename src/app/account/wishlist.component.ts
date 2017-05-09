@@ -46,7 +46,5 @@ export class WishlistComponent {
         });
 
         this.wishlistService.loadAll(this.container, grid);
-
-        
     }
 }
