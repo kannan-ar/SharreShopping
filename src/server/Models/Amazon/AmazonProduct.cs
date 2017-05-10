@@ -1,6 +1,6 @@
 ﻿namespace server.Models.Amazon
 {
-    internal class AmazonSearch
+    internal class AmazonProduct
     {
         public string ASIN { get; set; }
         public string Title { get; set; }

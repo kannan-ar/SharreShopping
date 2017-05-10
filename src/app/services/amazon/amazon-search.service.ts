@@ -22,11 +22,6 @@ export class AmazonSearchService implements ISearchService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AmazonProductComponent);
     }
 
-    transformResults(xml: string): AmazonProduct[] {
-        let items: AmazonProduct[] = new Array<AmazonProduct>();
-        return items;
-    }
-
     loadItem(gridSelector: string, grid: Masonry, container: ViewContainerRef): void {
         const model: AmazonProduct = this.results[this.currentIndex++];
         let amazonComponent = container.createComponent(this.componentFactory);

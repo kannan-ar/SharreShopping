@@ -1,11 +1,11 @@
 ﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-
-import { AccountService } from "./account/account.service";
 import Masonry from "masonry-layout";
 
+import { AccountService } from "./account/account.service";
+
 export interface IWishlistService {
-    loadAll(container: ViewContainerRef, grid: Masonry): void;
+    loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void;
 }
 
 @Injectable()
@@ -36,9 +36,9 @@ export class WishlistService {
     removeWishlist(provider: string, id: string): void {
     }
 
-    loadAll(container: ViewContainerRef, grid: Masonry): void {
+    loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         this.servicePoints.forEach(service => {
-            service.loadAll(container, grid);
+            service.loadAll(container, gridSelector, grid);
         });
     }
 }

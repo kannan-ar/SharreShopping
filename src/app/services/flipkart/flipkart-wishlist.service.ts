@@ -1,10 +1,11 @@
 ﻿import { Http, Headers } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
+import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 
 import {AccountService} from "../account/account.service";
 import {IWishlistService} from "../wishlist.service";
 import {FlipkartWishlistComponent} from "../../views/flipkart/flipkart-wishlist.component";
-import Masonry from "masonry-layout";
 
 @Injectable()
 export class FlipkartWishlistService implements IWishlistService {
@@ -17,7 +18,7 @@ export class FlipkartWishlistService implements IWishlistService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartWishlistComponent);
     }
 
-    loadItem(id: string, container: ViewContainerRef, grid: Masonry): void {
+    loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         let headers = new Headers();
 
         headers.append('Authorization', 'Bearer ' + AccountService.getToken());
@@ -28,18 +29,21 @@ export class FlipkartWishlistService implements IWishlistService {
             .subscribe(product => {
                 let flipkartComponent = container.createComponent(this.componentFactory);
                 flipkartComponent.instance.item = product;
+
                 grid.appended(flipkartComponent.location.nativeElement);
-                grid.layout();
+                imagesLoaded(gridSelector, function () {
+                    grid.layout();
+                });
             });
     }
 
-    loadWishlist(ids: string[], container: ViewContainerRef, grid: Masonry): void {
+    loadWishlist(ids: string[], container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         ids.forEach(id => {
-            this.loadItem(id, container, grid);
+            this.loadItem(id, container, gridSelector, grid);
         });
     }
 
-    loadAll(container: ViewContainerRef, grid: Masonry): void {
+    loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         let headers = new Headers();
 
         headers.append('Authorization', 'Bearer ' + AccountService.getToken());
@@ -48,7 +52,7 @@ export class FlipkartWishlistService implements IWishlistService {
             headers: headers
         }).map(response => response.json())
             .subscribe(results => {
-                this.loadWishlist(results, container, grid);
+                this.loadWishlist(results, container, gridSelector, grid);
            });
     }
 }

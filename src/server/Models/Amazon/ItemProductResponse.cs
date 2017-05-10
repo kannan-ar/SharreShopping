@@ -33,4 +33,10 @@
     {
         public Item[] Items { get; set; }
     }
+
+    [XmlRoot("ItemLookupResponse", Namespace = "http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    public class ItemLookupResponse
+    {
+        public Item[] Items { get; set; }
+    }
 }

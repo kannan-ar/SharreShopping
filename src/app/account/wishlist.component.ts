@@ -14,7 +14,7 @@ import {WishlistService} from "../services/wishlist.service";
             </div>
         </div>
         <div class="row">
-            <div class="grid">
+            <div class="wishlist-grid">
                 <template #container></template>
             </div>
         </div>
@@ -33,18 +33,19 @@ import {WishlistService} from "../services/wishlist.service";
 })
 
 export class WishlistComponent {
+    gridSelector: string = ".wishlist-grid";
     @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
 
     constructor(private wishlistService: WishlistService) {
     }
     
     ngOnInit() {
-        var grid = new Masonry('.grid', {
+        var grid = new Masonry(this.gridSelector, {
             itemSelector: '.grid-item',
             columnWidth: '.grid-sizer',
             percentPosition: true
         });
 
-        this.wishlistService.loadAll(this.container, grid);
+        this.wishlistService.loadAll(this.container, this.gridSelector, grid);
     }
 }

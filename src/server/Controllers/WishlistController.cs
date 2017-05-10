@@ -11,6 +11,7 @@
     using Models;
     using Services;
     using Services.Flipkart;
+    using Services.Amazon;
 
     [Route("api/[controller]")]
     public class WishlistController : Controller
@@ -49,6 +50,14 @@
         {
             FlipkartWishlistService flipkartService = new FlipkartWishlistService(httpService, config, serviceProvider);
             return new JsonResult(await flipkartService.Get(id));
+        }
+
+        [Authorize]
+        [HttpGet("amazon")]
+        public async Task<JsonResult> GetAmazon()
+        {
+            AmazonService service = new AmazonService(httpService, config);
+            return Json(await service.GetWishlistItems(serviceProvider, User.Identity as ClaimsIdentity));
         }
     }
 }
