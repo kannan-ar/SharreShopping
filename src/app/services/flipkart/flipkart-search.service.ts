@@ -2,6 +2,7 @@
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 
 import {ISearchService} from "../search.service";
 import {FlipkartProduct} from "../../models/flipkart/flipkart-product";
@@ -20,36 +21,38 @@ export class FlipkartSearchService implements ISearchService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartProductComponent);
     }
 
-    loadItem(grid: Masonry, container: ViewContainerRef): void {
+    loadItem(gridSelector: string, grid: Masonry, container: ViewContainerRef): void {
         const model: FlipkartProduct = this.results[this.currentIndex++];
         let flipkartComponent = container.createComponent(this.componentFactory);
         flipkartComponent.instance.item = model;
-
+        
         grid.appended(flipkartComponent.location.nativeElement);
-        grid.layout();
+        imagesLoaded(gridSelector, function () {
+            grid.layout();
+        });
     }
 
-    loadScrollItems(grid: Masonry, container: ViewContainerRef, count: number): void {
-        this.loadItems(count, grid, container);
+    loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
+        this.loadItems(gridSelector, count, grid, container);
     }
 
-    loadItems(count: number, grid: Masonry, container: ViewContainerRef): void {
+    loadItems(gridSelector: string, count: number, grid: Masonry, container: ViewContainerRef): void {
         let index = 0;
 
         while (index < count && this.currentIndex < this.results.length) {
-            this.loadItem(grid, container);
+            this.loadItem(gridSelector, grid, container);
             ++index;
         }
     }
 
-    search(query: string, grid: Masonry, container: ViewContainerRef, count: number): void {
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
 
         this.http.get(this.url + query)
             .map(response => response.json())
             .subscribe(results => {
                 this.currentIndex = 0;
                 this.results = results;
-                this.loadItems(count, grid, container);
+                this.loadItems(gridSelector, count, grid, container);
             });
     }
    

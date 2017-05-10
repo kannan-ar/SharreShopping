@@ -5,7 +5,7 @@ import Masonry from "masonry-layout";
 
 export interface IOfferService {
     resetIndex(): void;
-    getOffers(container: ViewContainerRef, grid: Masonry, count: number): void;
+    getOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry, count: number): void;
 }
 
 @Injectable()
@@ -20,11 +20,11 @@ export class OfferService {
         });
     }
 
-    loadOffers(container: ViewContainerRef, grid: Masonry): void {
+    loadOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         const count: number = 6;
 
         this.services.forEach(service => {
-            service.getOffers(container, grid, count);
+            service.getOffers(container, gridSelector, grid, count);
         });
     }
 }

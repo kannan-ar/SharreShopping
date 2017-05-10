@@ -6,7 +6,8 @@
         '@ng-bootstrap/ng-bootstrap': 'js/ng-bootstrap.js',
         'angular2-infinite-scroll': 'js/angular2-infinite-scroll.js',
         'jquery': 'js/jquery.min.js',
-        'masonry-layout': 'js/masonry.pkgd.js'
+        'masonry-layout': 'js/masonry.pkgd.js',
+        'imagesloaded': 'js/imagesloaded.pkgd.js'
     };
 
     var packages = {

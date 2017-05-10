@@ -39,6 +39,7 @@ import {OfferService} from "../services/offer.service";
 
 export class OfferComponent {
 
+    private gridSelector: string = '.offer-grid';
     private grid: Masonry;
     @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
 
@@ -47,7 +48,7 @@ export class OfferComponent {
     }
 
     ngOnInit() {
-        var msnry = new Masonry('.offer-grid', {
+        var msnry = new Masonry(this.gridSelector, {
             itemSelector: '.grid-item',
             columnWidth: '.grid-sizer',
             percentPosition: true
@@ -55,10 +56,10 @@ export class OfferComponent {
 
         this.grid = msnry;
         this.offerService.resetIndex();
-        this.offerService.loadOffers(this.container, msnry);
+        this.offerService.loadOffers(this.container, this.gridSelector, msnry);
     }
 
     onScroll() {
-        this.offerService.loadOffers(this.container, this.grid);
+        this.offerService.loadOffers(this.container, this.gridSelector, this.grid);
     }
 }

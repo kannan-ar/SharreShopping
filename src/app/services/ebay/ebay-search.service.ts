@@ -2,6 +2,7 @@
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 
 import {ISearchService} from "../search.service";
 import {EbayProduct} from "../../models/ebay/ebay-product";
@@ -116,7 +117,7 @@ export class EbaySearchService implements ISearchService {
         });
     }
     
-    loadItem(grid: Masonry, container: ViewContainerRef): void {
+    loadItem(gridSelector: string, grid: Masonry, container: ViewContainerRef): void {
         
         const model: EbayProduct = this.results[this.currentIndex++];
         if (model != null) {
@@ -124,20 +125,22 @@ export class EbaySearchService implements ISearchService {
             ebayComponent.instance.item = model;
 
             grid.appended(ebayComponent.location.nativeElement);
-            grid.layout();
+            imagesLoaded(gridSelector, function () {
+                grid.layout();
+            });
         }
     }
 
-    loadItems(count: number, grid: Masonry, container: ViewContainerRef): void {
+    loadItems(gridSelector: string, count: number, grid: Masonry, container: ViewContainerRef): void {
         let index = 0;
 
         while (index < count && this.currentIndex < this.results.length) {
-            this.loadItem(grid, container);
+            this.loadItem(gridSelector, grid, container);
             ++index;
         }
     }
 
-    search(query: string, grid: Masonry, container: ViewContainerRef, count: number): void {
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
         let params = new URLSearchParams();
 
         params.set("OPERATION-NAME", "findItemsByKeywords");
@@ -154,12 +157,12 @@ export class EbaySearchService implements ISearchService {
             .subscribe(results => {
                 this.currentIndex = 0;
                 this.transformResults(results);
-                this.loadItems(count, grid, container);
+                this.loadItems(gridSelector, count, grid, container);
             });
     }
 
-    loadScrollItems(grid: Masonry, container: ViewContainerRef, count: number): void {
-        this.loadItems(count, grid, container);
+    loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
+        this.loadItems(gridSelector, count, grid, container);
     }
 
     removeData(): void {

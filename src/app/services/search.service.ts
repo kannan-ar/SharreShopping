@@ -5,8 +5,8 @@ import Masonry from "masonry-layout";
 import {Environment} from "../environment";
 
 export interface ISearchService {
-    search(query: string, grid: Masonry, container: ViewContainerRef, count: number): void;
-    loadScrollItems(grid: Masonry, container: ViewContainerRef, count: number): void;
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void;
+    loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void;
     removeData(): void;
     hasData(): boolean;
 }
@@ -24,15 +24,15 @@ export class SearchService {
         });
     }
    
-    loadScrollItems(grid: Masonry, container: ViewContainerRef) {
+    loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef) {
         this.servicePoints.forEach(service => {
-            service.loadScrollItems(grid, container, Environment.getRowCount());
+            service.loadScrollItems(gridSelector, grid, container, Environment.getRowCount());
         });
     }
 
-    search(query: string, grid: Masonry, container: ViewContainerRef): void {
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef): void {
         this.servicePoints.forEach(service => {
-            service.search(query, grid, container, Environment.getRowCount());
+            service.search(query, gridSelector, grid, container, Environment.getRowCount());
         });
     }
     

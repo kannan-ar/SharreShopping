@@ -33,6 +33,7 @@ export class SearchComponent {
     @Output() onItemsLoad = new EventEmitter<boolean>();
     search = new FormControl();
     hasItems: boolean;
+    gridSelector: string = '.search-grid';
 
     constructor(private searchService: SearchService) {
         this.search.valueChanges
@@ -46,7 +47,11 @@ export class SearchComponent {
     }
 
     ngOnInit() {
-        this.grid = new Masonry('.search-grid', {
+        this.initGrid();
+    }
+
+    initGrid() {
+        this.grid = new Masonry(this.gridSelector, {
             itemSelector: '.grid-item',
             columnWidth: '.grid-sizer',
             percentPosition: true
@@ -56,11 +61,15 @@ export class SearchComponent {
     renderSearchResults(hasData: boolean) {
         this.searchService.removeComponents(this.container);
         this.onItemsLoad.emit(hasData);
+
+        if (!hasData && this.grid != null) {
+            this.initGrid();
+        }
     }
 
     beginSearch(term: string) {
         this.renderSearchResults(true);
-        this.searchService.search(term, this.grid, this.container);
+        this.searchService.search(term, this.gridSelector, this.grid, this.container);
     }
 
     onKeyword(event) {
@@ -71,7 +80,7 @@ export class SearchComponent {
 
     onScroll() {
         if (this.searchService.hasData()) {
-            this.searchService.loadScrollItems(this.grid, this.container);
+            this.searchService.loadScrollItems(this.gridSelector, this.grid, this.container);
         }
     }
 }
