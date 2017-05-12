@@ -73,8 +73,16 @@
         [HttpGet("ebay")]
         public async Task<JsonResult> GetEbay()
         {
-            EbayService service = new EbayService(serviceProvider);
+            EbayService service = new EbayService(serviceProvider, httpService);
             return Json(await service.Get(User.Identity as ClaimsIdentity));
+        }
+
+        [Authorize]
+        [HttpGet("ebay/{id}")]
+        public async Task<JsonResult> GetEbay(string id)
+        {
+            EbayService service = new EbayService(serviceProvider, httpService);
+            return Json(await service.Get(id));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿import { Http, Jsonp, Headers, URLSearchParams } from "@angular/http";
+﻿import { Http, Headers, URLSearchParams } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
@@ -6,35 +6,81 @@ import imagesLoaded from "imagesloaded";
 import {IWishlistService} from "../wishlist.service";
 import {AccountService} from "../account/account.service";
 import {EbayWishlistComponent} from "../../views/ebay/ebay-wishlist.component";
+import {EbayProduct} from "../../models/ebay/ebay-product";
 
 @Injectable()
 export class EbayWishlistService implements IWishlistService {
-    private url: string = "http://open.api.ebay.com/shopping";
+
     private componentFactory: ComponentFactory<EbayWishlistComponent>;
 
     constructor(
         private http: Http,
-        private jsonp: Jsonp,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbayWishlistComponent);
     }
 
+    transformResult(result: any): EbayProduct {
+        let condition: string;
+        let galleryURL: string;
+        let itemId: string;
+        let location: string;
+        let paymentMethod: string;
+        let categoryName: string;
+        let currencyId: string;
+        let currentPrice: number;
+        let sellingState: string;
+        let title: string;
+        let subtitle: string;
+        let viewItemURL: string;
+
+        if (result != null && result.item != null) {
+            let item = result.item;
+
+            condition = item.conditionDisplayName;
+            galleryURL = item.galleryURL;
+            itemId = item.itemId;
+            location = item.location;
+
+            if (item.paymentMethods != null && item.paymentMethods.length > 0) {
+                paymentMethod = item.paymentMethods[0];
+            }
+
+            categoryName = item.primaryCategoryName;
+
+            if (item.currentPrice != null) {
+                currencyId = item.currentPrice.currencyId;
+                currentPrice = item.currentPrice.value;
+            }
+
+            title = item.title;
+            subtitle = item.subtitle;
+            viewItemURL = item.viewItemURLForNaturalSearch;
+        }
+
+        let product: EbayProduct = new EbayProduct(condition, galleryURL, itemId, location, paymentMethod, categoryName,
+            currencyId, currentPrice, sellingState, title, subtitle, viewItemURL);
+
+        return product;
+    }
+
+    loadComponent(product: EbayProduct, container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
+        let ebayComponent = container.createComponent(this.componentFactory);
+        ebayComponent.instance.item = product;
+
+        grid.appended(ebayComponent.location.nativeElement);
+        imagesLoaded(gridSelector, function () {
+            grid.layout();
+        });
+    }
+
     loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry) {
-        let params = new URLSearchParams();
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
 
-        params.set("callname", "GetSingleItem");
-        params.set("responseencoding", "JSON");
-        params.set("appid", "ShareSho-7fbb-407c-8989-2000fa0722c4");
-        params.set("siteid", "203");
-        params.set("version", "967");
-        params.set("ItemID", id);
-        params.set("IncludeSelector", "Details");
-        params.set("callback", "JSONP_CALLBACK");
-
-        this.jsonp.get(this.url, { search: params })
+        this.http.get("/api/wishlist/ebay/" + id, { headers: headers })
             .map(response => response.json())
-            .subscribe(results => {
-                console.log(results);
+            .subscribe(result => {
+                this.loadComponent(result, container, gridSelector, grid);
             });
     }
 
