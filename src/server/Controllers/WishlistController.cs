@@ -12,6 +12,7 @@
     using Services;
     using Services.Flipkart;
     using Services.Amazon;
+    using Services.Ebay;
 
     [Route("api/[controller]")]
     public class WishlistController : Controller
@@ -56,8 +57,24 @@
         [HttpGet("amazon")]
         public async Task<JsonResult> GetAmazon()
         {
-            AmazonService service = new AmazonService(httpService, config);
+            AmazonWishlistService service = new AmazonWishlistService(new AmazonService(httpService, config));
             return Json(await service.GetWishlistItems(serviceProvider, User.Identity as ClaimsIdentity));
+        }
+
+        [Authorize]
+        [HttpPost("amazon")]
+        public async Task<JsonResult> GetAmazon([FromBody] string[] ids)
+        {
+            AmazonWishlistService service = new AmazonWishlistService(new AmazonService(httpService, config));
+            return Json(await service.GetWishlistItems(ids));
+        }
+
+        [Authorize]
+        [HttpGet("ebay")]
+        public async Task<JsonResult> GetEbay()
+        {
+            EbayService service = new EbayService(serviceProvider);
+            return Json(await service.Get(User.Identity as ClaimsIdentity));
         }
     }
 }

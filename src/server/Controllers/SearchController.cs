@@ -33,7 +33,7 @@
         [HttpGet("amazon")]
         public async Task<JsonResult> AmazonSignedUrl([FromQuery] string query)
         {
-            AmazonService service = new AmazonService(httpService, config);
+            AmazonProductService service = new AmazonProductService(new AmazonService(httpService, config));
             var result = await service.Search(query);
 
             return new JsonResult(result);

@@ -5,27 +5,32 @@
     using System.Xml.Serialization;
     using System.IO;
     using System.Threading.Tasks;
-    using System.Security.Claims;
-    using StackExchange.Redis;
-    using Microsoft.Extensions.DependencyInjection;
+    
 
     using Models;
     using Models.Amazon;
-    using Account;
 
-    internal class AmazonService
+    internal class AmazonService : IAmazonService
     {
         private const string endPoint = "webservices.amazon.in";
         private readonly ShoppingSiteConfig config;
         private readonly IHttpService httpService;
 
-        internal enum Operations
+        public IHttpService HttpService
         {
-            ItemSearch,
-            ItemLookup
+            get
+            {
+                return this.httpService;
+            }
         }
 
-        private AmazonProduct ConvertAmazonProduct(Item item)
+        internal AmazonService(IHttpService httpService, ShoppingSiteConfig config)
+        {
+            this.config = config;
+            this.httpService = httpService;
+        }
+
+        public AmazonProduct ConvertAmazonProduct(Item item)
         {
             AmazonProduct amazonProduct = new AmazonProduct();
 
@@ -38,55 +43,7 @@
             return amazonProduct;
         }
 
-        private List<AmazonProduct> ConvertAmazonSearch(string content)
-        {
-            List<AmazonProduct> list = new List<AmazonProduct>();
-
-            using (StringReader sr = new StringReader(content))
-            {
-                XmlSerializer ser = new XmlSerializer(typeof(ItemSearchResponse));
-
-                ItemSearchResponse data = (ItemSearchResponse)ser.Deserialize(sr);
-
-                if (data == null || data.Items == null || data.Items.Length == 0)
-                {
-                    return list;
-                }
-
-                foreach (Item item in data.Items)
-                {
-                    list.Add(ConvertAmazonProduct(item));
-                }
-            }
-
-            return list;
-        }
-
-        private List<AmazonProduct> ConvertAmazonLookup(string content)
-        {
-            List<AmazonProduct> list = new List<AmazonProduct>();
-
-            using (StringReader sr = new StringReader(content))
-            {
-                XmlSerializer ser = new XmlSerializer(typeof(ItemLookupResponse));
-
-                ItemLookupResponse data = (ItemLookupResponse)ser.Deserialize(sr);
-
-                if (data == null || data.Items == null || data.Items.Length == 0)
-                {
-                    return list;
-                }
-
-                foreach (Item item in data.Items)
-                {
-                    list.Add(ConvertAmazonProduct(item));
-                }
-            }
-
-            return list;
-        }
-
-        private string GetSignedUrl(string operation, Action<IDictionary<string, string>> beforeSignUrl)
+        public string GetSignedUrl(string operation, Action<IDictionary<string, string>> beforeSignUrl)
         {
             var request = new SignedRequestHelper(config.Amazon.AmazonAccessKeyID, config.Amazon.AmazonSecretAccessKey, endPoint);
 
@@ -100,44 +57,7 @@
 
             beforeSignUrl(dict);
 
-
-
             return request.Sign(dict);
-        }
-
-        private async Task<List<AmazonProduct>> GetList(string operation, Action<IDictionary<string, string>> beforeSignUrl, Func<string, List<AmazonProduct>> convertor)
-        {
-            string url = GetSignedUrl(operation, beforeSignUrl);
-
-            return await httpService.Get<List<AmazonProduct>>(url, null, convertor);
-        }
-
-        internal AmazonService(IHttpService httpService, ShoppingSiteConfig config)
-        {
-            this.config = config;
-            this.httpService = httpService;
-        }
-
-        internal async Task<List<AmazonProduct>> Search(string query)
-        {
-            return await GetList(Operations.ItemSearch.ToString(), (dict) =>
-            {
-                dict.Add("SearchIndex", "All");
-                dict.Add("Keywords", query);
-            }, ConvertAmazonSearch);
-        }
-
-        internal async Task<List<AmazonProduct>> GetWishlistItems(IServiceProvider serviceProvider, ClaimsIdentity identity)
-        {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
-            string email = new AccountService().GetLoginEmail(identity);
-            string[] asins = db.SetMembers(string.Concat("wishlist:", email, ":", "amazon")).ToStringArray();
-
-            return await GetList(Operations.ItemLookup.ToString(), (dict) =>
-            {
-                dict.Add("ItemId", string.Join(",", asins));
-            }, ConvertAmazonLookup);
         }
     }
 }

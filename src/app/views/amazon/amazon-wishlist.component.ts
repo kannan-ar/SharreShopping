@@ -4,7 +4,7 @@ import {AmazonProduct} from "../../models/amazon/amazon-product";
 import {WishlistService} from "../../services/wishlist.service";
 
 @Component({
-    selector: '[amazonSearch]',
+    selector: '[amazonWishlist]',
     template: `<div class="text-center product-item">
                     <div class="title pull-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></div>
                     <img-holder [thumbnail]="item.imageUrl" [url]="item.url"></img-holder>

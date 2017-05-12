@@ -120,6 +120,7 @@
     <TypeScriptCompile Include="main.ts" />
     <TypeScriptCompile Include="models\account\login-info.ts" />
     <TypeScriptCompile Include="models\amazon\amazon-product.ts" />
+    <TypeScriptCompile Include="models\amazon\amazon-wishlist.ts" />
     <TypeScriptCompile Include="models\ebay\ebay-product.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-deal-of-day.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-image.ts" />
@@ -133,6 +134,7 @@
     <TypeScriptCompile Include="services\amazon\amazon-wishlist.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\ebay\ebay-search.service.ts" />
+    <TypeScriptCompile Include="services\ebay\ebay-wishlist.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-offer.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />
@@ -146,6 +148,7 @@
     <TypeScriptCompile Include="views\amazon\amazon-product.component.ts" />
     <TypeScriptCompile Include="views\amazon\amazon-wishlist.component.ts" />
     <TypeScriptCompile Include="views\ebay\ebay-product.component.ts" />
+    <TypeScriptCompile Include="views\ebay\ebay-wishlist.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-deal-of-day.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-offer.component.ts" />
     <TypeScriptCompile Include="views\flipkart\flipkart-product.component.ts" />

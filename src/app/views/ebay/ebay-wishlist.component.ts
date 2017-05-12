@@ -11,19 +11,19 @@ import {WishlistService} from "../../services/wishlist.service";
         <img-holder [thumbnail]="item.galleryURL" [url]="item.viewItemURL"></img-holder>
         <div>{{item.currencyId}}&nbsp;{{item.currentPrice}}</div>
         <p class="description"><a href="{{item.viewItemURL}}" target="_blank">{{item.subtitle}}</a></p>
-        <div class="text-right"><a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></div>
+        <div class="text-right"><a (click)="removeWishlist()" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
     </div>
     `,
     host: { 'class': 'grid-sizer grid-item col-lg-2 col-md-3 col-sm-4 col-xs-12' }
 })
 
-export class EbayProductComponent {
+export class EbayWishlistComponent {
     item: EbayProduct;
 
     constructor(private wishlistService: WishlistService) {
     }
 
-    addWishlist(): void {
-        this.wishlistService.addWishlist("ebay", this.item.itemId);
+    removeWishlist(): void {
+        this.wishlistService.removeWishlist("eay", this.item.itemId);
     }
 }
