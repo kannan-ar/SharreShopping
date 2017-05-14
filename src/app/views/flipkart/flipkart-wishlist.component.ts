@@ -1,4 +1,4 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, EventEmitter, Output} from "@angular/core";
 
 import {FlipkartProduct} from "../../models/flipkart/flipkart-product";
 import {WishlistService} from "../../services/wishlist.service";
@@ -20,11 +20,13 @@ import {WishlistService} from "../../services/wishlist.service";
 
 export class FlipkartWishlistComponent {
     item: FlipkartProduct;
+    @Output() onItemRemoved = new EventEmitter();
 
     constructor(private wishlistService: WishlistService) {
     }
 
     removeWishlist(): void {
         this.wishlistService.removeWishlist("flipkart", this.item.productId);
+        this.onItemRemoved.emit();
     }
 }

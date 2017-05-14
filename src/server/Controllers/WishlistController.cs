@@ -38,6 +38,15 @@
         }
 
         [Authorize]
+        [HttpPost("remove/{provider}/{id}")]
+        public IActionResult Remove(string provider, string id)
+        {
+            WishlistService wishlistService = new WishlistService(this.serviceProvider);
+            wishlistService.Remove(User.Identity as ClaimsIdentity, provider, id);
+            return Ok();
+        }
+
+        [Authorize]
         [HttpGet("flipkart")]
         public async Task<JsonResult> GetFlipkart()
         {

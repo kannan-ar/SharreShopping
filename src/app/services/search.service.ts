@@ -38,7 +38,7 @@ export class SearchService {
     
     removeComponents(container: ViewContainerRef): void {
         container.clear();
-
+        
         this.servicePoints.forEach(service => {
             service.removeData();
         });

@@ -1,5 +1,5 @@
 ﻿import { Http, Headers, RequestOptions } from "@angular/http";
-import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory, ComponentRef } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
@@ -19,6 +19,11 @@ export class AmazonWishlistService implements IWishlistService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AmazonWishlistComponent);
     }
 
+    private onComponentRemoved(component: ComponentRef<AmazonWishlistComponent>, grid: Masonry) {
+        component.destroy();
+        grid.layout();
+    }
+
     loadWishlist(results: AmazonWishlist, container: ViewContainerRef, gridSelector: string, grid: Masonry) {
         let index: number = 0;
         let items: AmazonProduct[] = results.items;
@@ -27,6 +32,9 @@ export class AmazonWishlistService implements IWishlistService {
             const model: AmazonProduct = items[index];
             let amazonComponent = container.createComponent(this.componentFactory);
             amazonComponent.instance.item = model;
+            amazonComponent.instance.onItemRemoved.subscribe(e => {
+                this.onComponentRemoved(amazonComponent, grid);
+            });
 
             grid.appended(amazonComponent.location.nativeElement);
             imagesLoaded(gridSelector, function () {

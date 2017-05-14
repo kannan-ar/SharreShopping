@@ -1,4 +1,5 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, EventEmitter, Output} from "@angular/core";
+
 
 import {EbayProduct} from "../../models/ebay/ebay-product";
 import {WishlistService} from "../../services/wishlist.service";
@@ -19,11 +20,13 @@ import {WishlistService} from "../../services/wishlist.service";
 
 export class EbayWishlistComponent {
     item: EbayProduct;
+    @Output() onItemRemoved = new EventEmitter();
 
     constructor(private wishlistService: WishlistService) {
     }
 
     removeWishlist(): void {
-        this.wishlistService.removeWishlist("eay", this.item.itemId);
+        this.wishlistService.removeWishlist("ebay", this.item.itemId);
+        this.onItemRemoved.emit();
     }
 }

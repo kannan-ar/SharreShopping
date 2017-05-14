@@ -14,7 +14,7 @@
 
     internal class AmazonWishlistService
     {
-        private const int maxCount = 10;
+        private const int maxCount = 2;
 
         private readonly IAmazonService service;
         private string[] asinIds;

@@ -22,12 +22,25 @@
             db.SetAdd(string.Concat("wishlist:", email, ":", provider), id);
         }
 
-        public void Save(ClaimsIdentity identity, string provider, string id)
+        private void Remove(string provider, string id, string email)
+        {
+            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
+            IDatabase db = redis.GetDatabase();
+
+            db.SetRemove(string.Concat("wishlist:", email, ":", provider), id);
+        }
+
+        private string GetEmail(ClaimsIdentity identity)
         {
             AccountService accountService = new AccountService();
 
-            string email = accountService.GetLoginEmail(identity);
-            provider = provider.ToLower();
+            return accountService.GetLoginEmail(identity);
+        }
+
+        public void Save(ClaimsIdentity identity, string provider, string id)
+        {
+            string email = GetEmail(identity);
+             provider = provider.ToLower();
 
             switch (provider)
             {
@@ -35,6 +48,21 @@
                 case "ebay":
                 case "flipkart":
                     Save(provider, id, email);
+                    break;
+            }
+        }
+
+        public void Remove(ClaimsIdentity identity, string provider, string id)
+        {
+            string email = GetEmail(identity);
+            provider = provider.ToLower();
+
+            switch (provider)
+            {
+                case "amazon":
+                case "ebay":
+                case "flipkart":
+                    Remove(provider, id, email);
                     break;
             }
         }

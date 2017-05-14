@@ -1,5 +1,5 @@
 ﻿import { Http, Headers, URLSearchParams } from "@angular/http";
-import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory, ComponentRef } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
@@ -19,53 +19,17 @@ export class EbayWishlistService implements IWishlistService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbayWishlistComponent);
     }
 
-    transformResult(result: any): EbayProduct {
-        let condition: string;
-        let galleryURL: string;
-        let itemId: string;
-        let location: string;
-        let paymentMethod: string;
-        let categoryName: string;
-        let currencyId: string;
-        let currentPrice: number;
-        let sellingState: string;
-        let title: string;
-        let subtitle: string;
-        let viewItemURL: string;
-
-        if (result != null && result.item != null) {
-            let item = result.item;
-
-            condition = item.conditionDisplayName;
-            galleryURL = item.galleryURL;
-            itemId = item.itemId;
-            location = item.location;
-
-            if (item.paymentMethods != null && item.paymentMethods.length > 0) {
-                paymentMethod = item.paymentMethods[0];
-            }
-
-            categoryName = item.primaryCategoryName;
-
-            if (item.currentPrice != null) {
-                currencyId = item.currentPrice.currencyId;
-                currentPrice = item.currentPrice.value;
-            }
-
-            title = item.title;
-            subtitle = item.subtitle;
-            viewItemURL = item.viewItemURLForNaturalSearch;
-        }
-
-        let product: EbayProduct = new EbayProduct(condition, galleryURL, itemId, location, paymentMethod, categoryName,
-            currencyId, currentPrice, sellingState, title, subtitle, viewItemURL);
-
-        return product;
+    private onComponentRemoved(component: ComponentRef<EbayWishlistComponent>, grid: Masonry) {
+        component.destroy();
+        grid.layout();
     }
 
     loadComponent(product: EbayProduct, container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         let ebayComponent = container.createComponent(this.componentFactory);
         ebayComponent.instance.item = product;
+        ebayComponent.instance.onItemRemoved.subscribe(e => {
+            this.onComponentRemoved(ebayComponent, grid);
+        });
 
         grid.appended(ebayComponent.location.nativeElement);
         imagesLoaded(gridSelector, function () {

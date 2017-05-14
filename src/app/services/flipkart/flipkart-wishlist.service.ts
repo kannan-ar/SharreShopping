@@ -1,5 +1,5 @@
 ﻿import { Http, Headers } from "@angular/http";
-import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory, ComponentRef } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
@@ -18,6 +18,11 @@ export class FlipkartWishlistService implements IWishlistService {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartWishlistComponent);
     }
 
+    private onComponentRemoved(component: ComponentRef<FlipkartWishlistComponent>, grid: Masonry) {
+        component.destroy();
+        grid.layout();
+    }
+
     loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
         let headers = new Headers();
 
@@ -29,6 +34,9 @@ export class FlipkartWishlistService implements IWishlistService {
             .subscribe(product => {
                 let flipkartComponent = container.createComponent(this.componentFactory);
                 flipkartComponent.instance.item = product;
+                flipkartComponent.instance.onItemRemoved.subscribe(e => {
+                    this.onComponentRemoved(flipkartComponent, grid);
+                });
 
                 grid.appended(flipkartComponent.location.nativeElement);
                 imagesLoaded(gridSelector, function () {

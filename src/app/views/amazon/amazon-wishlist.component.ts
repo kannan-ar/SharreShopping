@@ -1,4 +1,5 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, EventEmitter, Output} from "@angular/core";
+import Masonry from "masonry-layout";
 
 import {AmazonProduct} from "../../models/amazon/amazon-product";
 import {WishlistService} from "../../services/wishlist.service";
@@ -16,11 +17,13 @@ import {WishlistService} from "../../services/wishlist.service";
 
 export class AmazonWishlistComponent {
     item: AmazonProduct;
+    @Output() onItemRemoved = new EventEmitter();
 
     constructor(private wishlistService: WishlistService) {
     }
 
     removeWishlist(): void {
         this.wishlistService.removeWishlist("amazon", this.item.asin);
+        this.onItemRemoved.emit();
     }
 }
