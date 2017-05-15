@@ -90,6 +90,14 @@
                 AuthenticationScheme = "SharreShoppingCookieMiddleware",
             });
 
+            app.UseFacebookAuthentication(new FacebookOptions()
+            {
+                AppId =  Configuration["AuthSettings:Facebook:AppId"],
+                AppSecret = Configuration["AuthSettings:Facebook:AppSecret"],
+                SignInScheme = "SharreShoppingCookieMiddleware",
+                Scope = { "email" }
+            });
+
             app.UseGoogleAuthentication(new GoogleOptions()
             {
                 ClientId = Configuration["AuthSettings:Google:ClientId"],

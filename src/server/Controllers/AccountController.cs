@@ -27,15 +27,23 @@
             this.config = config.Value;
         }
 
-        [HttpGet("External")]
-        public IActionResult External()
+        [HttpGet("External/{provider}")]
+        public IActionResult External(string provider)
         {
             var authProperties = new AuthenticationProperties
             {
                 RedirectUri = "/api/account/secure"
             };
 
-            return new ChallengeResult("Google", authProperties);
+            switch (provider.ToLower())
+            {
+                case "google":
+                    return new ChallengeResult("Google", authProperties);
+                case "facebook":
+                    return new ChallengeResult("Facebook", authProperties);
+            }
+
+            return NotFound();
         }
 
         [HttpGet("Secure")]
