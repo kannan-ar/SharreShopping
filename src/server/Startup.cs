@@ -5,9 +5,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Microsoft.IdentityModel.Tokens;
-    using System;
-    using System.Text;
     using StackExchange.Redis;
 
     using Services;
@@ -15,8 +12,6 @@
 
     public class Startup
     {
-        private SymmetricSecurityKey symmetricKey;
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -40,13 +35,10 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            symmetricKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AuthSettings:Jwt:SecurityKey"]));
-
             services.Configure<ShoppingSiteConfig>(options => Configuration.GetSection("ShoppingSites").Bind(options));
 
             services.Configure<AuthConfig>(options =>
             {
-                options.SymmetricKey = symmetricKey;
                 Configuration.GetSection("AuthSettings").Bind(options);
             });
 
@@ -65,34 +57,14 @@
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            var tokenValidationParameters = new TokenValidationParameters()
-            {
-                ValidateIssuer = true,
-                ValidIssuer = Configuration["AuthSettings:Jwt:Issuer"],
-                ValidateAudience = true,
-                ValidAudience = Configuration["AuthSettings:Jwt:Audience"],
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = symmetricKey,
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero
-            };
-
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                TokenValidationParameters = tokenValidationParameters
-            });
-
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "SharreShoppingCookieMiddleware",
+                AuthenticationScheme = "SharreShoppingCookieMiddleware"
             });
 
             app.UseFacebookAuthentication(new FacebookOptions()
             {
-                AppId =  Configuration["AuthSettings:Facebook:AppId"],
+                AppId = Configuration["AuthSettings:Facebook:AppId"],
                 AppSecret = Configuration["AuthSettings:Facebook:AppSecret"],
                 SignInScheme = "SharreShoppingCookieMiddleware",
                 Scope = { "email" }

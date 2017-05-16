@@ -57,7 +57,7 @@ gulp.task("js", ["clean"], function() {
         .pipe(gulp.dest('../server/wwwroot/js'));
 });
 
-gulp.task("jsSrc", ["clean"], function () {
+gulp.task("jsSrc", ["js"], function () {
     return gulp.src(jsSrcFiles)
         .pipe(gulp.dest('../server/wwwroot/js/src'));
 });

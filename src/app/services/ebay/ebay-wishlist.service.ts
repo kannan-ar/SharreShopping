@@ -38,10 +38,7 @@ export class EbayWishlistService implements IWishlistService {
     }
 
     loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry) {
-        let headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.get("/api/wishlist/ebay/" + id, { headers: headers })
+        this.http.get("/api/wishlist/ebay/" + id)
             .map(response => response.json())
             .subscribe(result => {
                 this.loadComponent(result, container, gridSelector, grid);
@@ -55,12 +52,7 @@ export class EbayWishlistService implements IWishlistService {
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        let headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.get("/api/wishlist/ebay", {
-            headers: headers
-        }).map(response => response.json())
+        this.http.get("/api/wishlist/ebay").map(response => response.json())
             .subscribe(results => {
                 this.loadWishlist(results, container, gridSelector, grid);
             });

@@ -48,7 +48,6 @@ export class AmazonWishlistService implements IWishlistService {
     getPendingWishlist(ids: string[], container: ViewContainerRef, gridSelector: string, grid: Masonry) {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
         let body = JSON.stringify(ids);
 
         this.http.post("/api/wishlist/amazon", body, {
@@ -63,13 +62,7 @@ export class AmazonWishlistService implements IWishlistService {
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        let headers = new Headers();
-
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.get("/api/wishlist/amazon", {
-            headers: headers
-        }).map(response => response.json())
+        this.http.get("/api/wishlist/amazon").map(response => response.json())
             .subscribe(results => {
                 this.loadWishlist(results, container, gridSelector, grid);
 

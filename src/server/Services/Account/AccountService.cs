@@ -6,7 +6,7 @@
     {
         public string GetLoginName(ClaimsIdentity identity)
         {
-            Claim claim = identity.FindFirst(ClaimTypes.GivenName);
+            Claim claim = identity.FindFirst(ClaimTypes.Name);
             string name = string.Empty;
 
             if (claim != null)

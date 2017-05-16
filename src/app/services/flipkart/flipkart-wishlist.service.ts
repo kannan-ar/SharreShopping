@@ -24,13 +24,7 @@ export class FlipkartWishlistService implements IWishlistService {
     }
 
     loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        let headers = new Headers();
-
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.get("/api/wishlist/flipkart/" + id, {
-            headers: headers
-        }).map(response => response.json())
+        this.http.get("/api/wishlist/flipkart/" + id).map(response => response.json())
             .subscribe(product => {
                 let flipkartComponent = container.createComponent(this.componentFactory);
                 flipkartComponent.instance.item = product;
@@ -52,13 +46,7 @@ export class FlipkartWishlistService implements IWishlistService {
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        let headers = new Headers();
-
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.get("/api/wishlist/flipkart", {
-            headers: headers
-        }).map(response => response.json())
+        this.http.get("/api/wishlist/flipkart").map(response => response.json())
             .subscribe(results => {
                 this.loadWishlist(results, container, gridSelector, grid);
            });

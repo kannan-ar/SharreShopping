@@ -26,14 +26,21 @@ export class LoginInfoComponent {
     }
 
     ngOnInit() {
-        if (window.sessionStorage.getItem('SSToken') != null) {
-            this.accountService.getInfo().subscribe(info => this.info = info);
+        if (this.accountService.isLogged()) {
             this.isLogged = true;
+
+            this.accountService.getInfo().subscribe(info => {
+                this.info = info
+
+                if (info.name === "") {
+                    this.isLogged = false;
+                    this.accountService.clearLoginTrail();
+                }
+            });
         }
     }
 
     logout(): void {
-        window.sessionStorage.removeItem('SSToken');
-        window.location.href = "/";
+        this.accountService.logout();
     }
 }

@@ -24,23 +24,11 @@ export class WishlistService {
     }
 
     addWishlist(provider: string, id: string): void {
-        let headers = new Headers();
-
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.post("/api/wishlist/add/" + provider + "/" + id, "", {
-            headers: headers
-        }).subscribe();
+        this.http.post("/api/wishlist/add/" + provider + "/" + id, "").subscribe();
     }
 
     removeWishlist(provider: string, id: string): void {
-        let headers = new Headers();
-
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
-
-        this.http.post("/api/wishlist/remove/" + provider + "/" + id, "", {
-            headers: headers
-        }).subscribe();
+        this.http.post("/api/wishlist/remove/" + provider + "/" + id, "").subscribe();
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {

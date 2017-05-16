@@ -1,12 +1,9 @@
 ﻿namespace server.Controllers
 {
-    using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http.Authentication;
     using System.Security.Claims;
-    using System.IdentityModel.Tokens.Jwt;
     using System;
-    using Microsoft.IdentityModel.Tokens;
     using Microsoft.Extensions.Options;
     using Microsoft.AspNetCore.Authorization;
 
@@ -49,33 +46,7 @@
         [HttpGet("Secure")]
         public IActionResult Secure()
         {
-            ClaimsIdentity id = User.Identity as ClaimsIdentity;
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            Claim email = id.FindFirst(ClaimTypes.Email);
-            Claim name = id.FindFirst(ClaimTypes.Name);
-
-            HttpContext.Authentication.SignOutAsync("SharreShoppingCookieMiddleware");
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, email.Value),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat,ToUnixEpochDate(DateTime.Now).ToString(), ClaimValueTypes.Integer64),
-                new Claim(JwtRegisteredClaimNames.GivenName, name.Value),
-                new Claim(JwtRegisteredClaimNames.Email, email.Value)
-            };
-
-            var jwt = new JwtSecurityToken(
-               issuer: config.Jwt.Issuer,
-               audience: config.Jwt.Audience,
-               claims: claims,
-               notBefore: DateTime.UtcNow,
-               expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(5)),
-               signingCredentials: new SigningCredentials(config.SymmetricKey, SecurityAlgorithms.HmacSha256));
-
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            return Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('SSToken','" + encodedJwt + "');window.opener.document.location.href='/';window.close();</script>", "text/html");
+            return Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('HasToken','true');window.opener.document.location.href='/';window.close();</script>", "text/html");
         }
 
         [Authorize]
@@ -85,6 +56,15 @@
             AccountService accountService = new AccountService();
 
             return Json(new LoginInfo() { Name = accountService.GetLoginName(User.Identity as ClaimsIdentity) });
+        }
+
+        [Authorize]
+        [HttpGet("Logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Authentication.SignOutAsync("SharreShoppingCookieMiddleware");
+
+            return Ok();
         }
     }
 }

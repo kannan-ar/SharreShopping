@@ -10,17 +10,24 @@ export class AccountService {
         private http: Http
     ) { }
 
-    static getToken(): string {
-        return window.sessionStorage.getItem('SSToken');
+    getInfo(): Observable<LoginInfo> {
+        return this.http.get("/api/account/logininfo").map(response => response.json());
     }
 
-    getInfo(): Observable<LoginInfo> {
-        let headers = new Headers();
+    logout(): void {
+        this.http.get("/api/account/logout").subscribe(() => { },
+        (error) => { console.log(error); },
+        () => {
+            this.clearLoginTrail();
+            window.location.href = "/";
+        });
+    }
 
-        headers.append('Authorization', 'Bearer ' + AccountService.getToken());
+    clearLoginTrail() {
+        window.sessionStorage.removeItem('HasToken');
+    }
 
-        return this.http.get("/api/account/logininfo", {
-            headers: headers
-        }).map(response => response.json());
+    isLogged(): boolean {
+        return window.sessionStorage.getItem('HasToken') != null;
     }
 }
