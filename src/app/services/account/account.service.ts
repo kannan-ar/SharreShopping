@@ -24,10 +24,14 @@ export class AccountService {
     }
 
     clearLoginTrail() {
-        window.sessionStorage.removeItem('HasToken');
+        window.sessionStorage.removeItem('Token');
     }
 
     isLogged(): boolean {
-        return window.sessionStorage.getItem('HasToken') != null;
+        return window.sessionStorage.getItem('Token') != null;
+    }
+
+    static getToken(): string {
+        return window.sessionStorage.getItem('Token');
     }
 }

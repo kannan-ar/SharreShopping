@@ -2,6 +2,7 @@
 
 import {LoginInfo} from "../models/account/login-info";
 import {AccountService} from "../services/account/account.service";
+import {FacebookService} from "../services/facebook.service";
 
 @Component({
     selector: "[loginInfo]",
@@ -21,7 +22,7 @@ export class LoginInfoComponent {
     isLogged: boolean;
     info: LoginInfo;
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService, private facebookService: FacebookService) {
         this.info = new LoginInfo("");
     }
 
@@ -37,6 +38,8 @@ export class LoginInfoComponent {
                     this.accountService.clearLoginTrail();
                 }
             });
+
+            this.facebookService.getUser();
         }
     }
 

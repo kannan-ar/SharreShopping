@@ -8,12 +8,13 @@ import {SigninComponent} from "./account/signin.component";
 import {WishlistComponent} from "./account/wishlist.component";
 
 import {AccountService} from "./services/account/account.service";
+import {FacebookService} from "./services/facebook.service";
 
 @NgModule({
     imports: [CommonModule, RouterModule, NgbModule.forRoot()],
     declarations: [LoginInfoComponent, SigninComponent, WishlistComponent],
     exports: [LoginInfoComponent, SigninComponent, WishlistComponent],
-    providers: [AccountService]
+    providers: [AccountService, FacebookService]
 })
 
 export class AccountModule {

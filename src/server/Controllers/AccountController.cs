@@ -6,10 +6,17 @@
     using System;
     using Microsoft.Extensions.Options;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Authentication;
+    using System.Threading.Tasks;
 
     using Models;
     using Models.Account;
     using Services.Account;
+
+    public class User
+    {
+        public string Name { get; set; }
+    }
 
     [Route("api/[controller]")]
     public class AccountController : Controller
@@ -44,9 +51,11 @@
         }
 
         [HttpGet("Secure")]
-        public IActionResult Secure()
+        public async Task<IActionResult> Secure()
         {
-            return Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('HasToken','true');window.opener.document.location.href='/';window.close();</script>", "text/html");
+            string token = await HttpContext.Authentication.GetTokenAsync("access_token");
+
+            return await Task.FromResult<IActionResult>(Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('Token','" + token + "');window.opener.document.location.href='/';window.close();</script>", "text/html"));
         }
 
         [Authorize]

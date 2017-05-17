@@ -59,7 +59,7 @@
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "SharreShoppingCookieMiddleware"
+                AuthenticationScheme = "SharreShoppingCookieMiddleware",
             });
 
             app.UseFacebookAuthentication(new FacebookOptions()
@@ -67,7 +67,8 @@
                 AppId = Configuration["AuthSettings:Facebook:AppId"],
                 AppSecret = Configuration["AuthSettings:Facebook:AppSecret"],
                 SignInScheme = "SharreShoppingCookieMiddleware",
-                Scope = { "email" }
+                Scope = { "email", "publish_actions" },
+                SaveTokens = true
             });
 
             app.UseGoogleAuthentication(new GoogleOptions()
@@ -75,7 +76,8 @@
                 ClientId = Configuration["AuthSettings:Google:ClientId"],
                 ClientSecret = Configuration["AuthSettings:Google:ClientSecret"],
                 SignInScheme = "SharreShoppingCookieMiddleware",
-                Scope = { "email", "openid" }
+                Scope = { "email", "openid" },
+                SaveTokens = true,
             });
 
             app.UseMvc();

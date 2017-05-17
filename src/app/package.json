@@ -27,6 +27,7 @@
     "@angular/router": "^3.3.0",
     "@angular/router-deprecated": "^2.0.0-rc.2",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.14",
+    "@types/facebook-js-sdk": "^2.8.1",
     "@types/imagesloaded": "^4.1.0",
     "@types/masonry-layout": "^4.0.4",
     "angular2-infinite-scroll": "^0.2.8",

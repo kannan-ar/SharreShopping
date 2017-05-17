@@ -135,6 +135,7 @@
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\ebay\ebay-search.service.ts" />
     <TypeScriptCompile Include="services\ebay\ebay-wishlist.service.ts" />
+    <TypeScriptCompile Include="services\facebook.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-deal-of-day.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-offer.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />
