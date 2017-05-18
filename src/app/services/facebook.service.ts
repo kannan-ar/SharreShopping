@@ -2,21 +2,22 @@
 import { Http } from "@angular/http";
 
 import {AccountService} from "./account/account.service";
+import {FacebookPost} from "../models/facebook-post";
 
 @Injectable()
 export class FacebookService {
     constructor(private http: Http) {
     }
 
-    getUser(): void {
+    postProduct(post: FacebookPost): void {
         this.http.post("https://graph.facebook.com/v2.9/me/feed",
             {
                 "access_token": AccountService.getToken(),
-                "message": "this is a test"
+                "message": post.message,
+                "picture": post.picture,
+                "link": post.link
             })
-            .map(response => response.json())
-            .subscribe(results => {
-                console.log(results);
+            .subscribe(id => {
             });
     }
 }

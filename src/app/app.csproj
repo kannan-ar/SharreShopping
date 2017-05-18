@@ -122,6 +122,7 @@
     <TypeScriptCompile Include="models\amazon\amazon-product.ts" />
     <TypeScriptCompile Include="models\amazon\amazon-wishlist.ts" />
     <TypeScriptCompile Include="models\ebay\ebay-product.ts" />
+    <TypeScriptCompile Include="models\facebook-post.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-deal-of-day.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-image.ts" />
     <TypeScriptCompile Include="models\flipkart\flipkart-offer.ts" />

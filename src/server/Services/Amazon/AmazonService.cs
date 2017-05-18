@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Xml.Serialization;
-    using System.IO;
-    using System.Threading.Tasks;
-    
+    using System.Text;
+
 
     using Models;
     using Models.Amazon;
@@ -39,6 +37,17 @@
             amazonProduct.ImageUrl = item.SmallImage?.URL;
             amazonProduct.Title = item.ItemAttributes?.Title;
             amazonProduct.FormattedPrice = item.ItemAttributes?.ListPrice?.FormattedPrice;
+
+            if (item.ItemAttributes != null && item.ItemAttributes.Feature != null && item.ItemAttributes.Feature.Length > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach(string feature in item.ItemAttributes.Feature)
+                {
+                    sb.AppendLine(feature + System.Environment.NewLine);
+                }
+                amazonProduct.Description = item.ItemAttributes.Feature[0];
+            }
 
             return amazonProduct;
         }

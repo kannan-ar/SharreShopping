@@ -25,6 +25,7 @@ import {AmazonWishlistComponent} from "./views/amazon/amazon-wishlist.component"
 import {EbayWishlistComponent} from "./views/ebay/ebay-wishlist.component";
 
 import {WishlistService} from "./services/wishlist.service";
+import {FacebookService} from "./services/facebook.service";
 
 @NgModule({
     imports: [CommonModule, JsonpModule, FormsModule, ReactiveFormsModule, InfiniteScrollModule, SharedModule],
@@ -37,6 +38,7 @@ import {WishlistService} from "./services/wishlist.service";
     providers: [
         SearchService,
         WishlistService,
+        FacebookService,
         { provide: 'SearchServices', useClass: FlipkartSearchService, multi: true },
         { provide: 'SearchServices', useClass: EbaySearchService, multi: true },
         { provide: 'SearchServices', useClass: AmazonSearchService, multi: true },
