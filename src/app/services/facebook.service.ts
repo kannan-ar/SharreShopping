@@ -9,6 +9,10 @@ export class FacebookService {
     constructor(private http: Http) {
     }
 
+    hasFacebookAuth(): boolean {
+        return window.sessionStorage.getItem('AuthType') == "Facebook";
+    }
+
     postProduct(post: FacebookPost): void {
         this.http.post("https://graph.facebook.com/v2.9/me/feed",
             {

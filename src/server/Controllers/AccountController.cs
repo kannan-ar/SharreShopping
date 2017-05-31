@@ -53,9 +53,10 @@
         [HttpGet("Secure")]
         public async Task<IActionResult> Secure()
         {
+            ClaimsIdentity id = User.Identity as ClaimsIdentity;
             string token = await HttpContext.Authentication.GetTokenAsync("access_token");
 
-            return await Task.FromResult<IActionResult>(Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('Token','" + token + "');window.opener.document.location.href='/';window.close();</script>", "text/html"));
+            return await Task.FromResult<IActionResult>(Content("<script type=\"text/javascript\">window.opener.sessionStorage.setItem('AuthType','" + id.AuthenticationType + "');window.opener.sessionStorage.setItem('Token','" + token + "');window.opener.document.location.href='/';window.close();</script>", "text/html"));
         }
 
         [Authorize]

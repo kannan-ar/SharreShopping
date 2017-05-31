@@ -1,6 +1,8 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, OnInit} from "@angular/core";
 
 import {FlipkartProduct} from "../../models/flipkart/flipkart-product";
+import {FacebookPost} from "../../models/facebook-post";
+
 import {WishlistService} from "../../services/wishlist.service";
 import {FacebookService} from "../../services/facebook.service";
 
@@ -15,7 +17,7 @@ import {FacebookService} from "../../services/facebook.service";
         <div>You saved {{item.discountPercentage}}%</div>
          <div class="text-right">
             <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
-            <a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+            <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
         </div>
     </div>
     `,
@@ -24,10 +26,15 @@ import {FacebookService} from "../../services/facebook.service";
 
 export class FlipkartProductComponent {
     item: FlipkartProduct;
+    canPostFacebook: boolean = false;
 
     constructor(
         private wishlistService: WishlistService,
         private facebookService: FacebookService) {
+    }
+
+    ngOnInit() {
+        this.canPostFacebook = this.facebookService.hasFacebookAuth();
     }
 
     addWishlist(): void {
@@ -35,6 +42,7 @@ export class FlipkartProductComponent {
     }
 
     postInFacebook() {
-        //this.facebookService.postProduct(this.item.title);
+        this.facebookService.postProduct(
+            new FacebookPost(this.item.productUrl, this.item.title, this.item.imageUrl));
     }
 }

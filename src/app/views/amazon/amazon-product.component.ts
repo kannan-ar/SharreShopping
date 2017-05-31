@@ -1,7 +1,8 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, OnInit} from "@angular/core";
 
 import {AmazonProduct} from "../../models/amazon/amazon-product";
 import {FacebookPost} from "../../models/facebook-post";
+
 import {WishlistService} from "../../services/wishlist.service";
 import {FacebookService} from "../../services/facebook.service";
 
@@ -13,7 +14,7 @@ import {FacebookService} from "../../services/facebook.service";
                     <div>{{item.formattedPrice}}</div>
                     <div class="text-right">
                         <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
-                        <a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+                        <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
                     </div>
                </div>`,
     host: { 'class': 'grid-sizer grid-item col-lg-2 col-md-3 col-sm-4 col-xs-12' }
@@ -21,10 +22,15 @@ import {FacebookService} from "../../services/facebook.service";
 
 export class AmazonProductComponent {
     item: AmazonProduct;
+    canPostFacebook: boolean = false;
 
     constructor(
         private wishlistService: WishlistService,
         private facebookService: FacebookService) {
+    }
+
+    ngOnInit() {
+        this.canPostFacebook = this.facebookService.hasFacebookAuth();
     }
 
     addWishlist(): void {
