@@ -17,7 +17,8 @@ var jsFiles = [
     'node_modules/angular2-infinite-scroll/bundles/angular2-infinite-scroll.js',
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/masonry-layout/dist/masonry.pkgd.js',
-    'node_modules/imagesloaded/imagesloaded.pkgd.js'
+    'node_modules/imagesloaded/imagesloaded.pkgd.js',
+    'node_modules/ng2-tag-input/dist/ng2-tag-input.bundle.js'
 ];
 
 var jsSrcFiles = [

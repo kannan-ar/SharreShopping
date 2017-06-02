@@ -13,7 +13,7 @@ import {SettingService} from "../services/account/setting.service";
             </button>
         </div>
         <div class="modal-body">
-        <textarea rows="4" cols="50"></textarea>
+            <tag-input [(ngModel)]='items'></tag-input>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="savePreferences()">Save</button>
@@ -22,12 +22,15 @@ import {SettingService} from "../services/account/setting.service";
 })
 
 export class PreferenceComponent {
+    items = [];
+
     constructor(
         private activeModal: NgbActiveModal,
         private settingService: SettingService) {
     }
 
     savePreferences() {
+        console.log(this.items);
         this.settingService.savePreferences();
     }
 }
