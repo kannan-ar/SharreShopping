@@ -116,6 +116,7 @@
     <TypeScriptCompile Include="home\deal-of-day.component.ts" />
     <TypeScriptCompile Include="home\home.component.ts" />
     <TypeScriptCompile Include="home\offer.component.ts" />
+    <TypeScriptCompile Include="home\preference.component.ts" />
     <TypeScriptCompile Include="home\search.component.ts" />
     <TypeScriptCompile Include="main.ts" />
     <TypeScriptCompile Include="models\account\login-info.ts" />
@@ -131,6 +132,7 @@
     <TypeScriptCompile Include="page-not-found.component.ts" />
     <TypeScriptCompile Include="product.module.ts" />
     <TypeScriptCompile Include="services\account\account.service.ts" />
+    <TypeScriptCompile Include="services\account\setting.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-search.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-wishlist.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
@@ -144,6 +146,7 @@
     <TypeScriptCompile Include="services\offer.service.ts" />
     <TypeScriptCompile Include="services\search.service.ts" />
     <TypeScriptCompile Include="services\wishlist.service.ts" />
+    <TypeScriptCompile Include="settings.module.ts" />
     <TypeScriptCompile Include="shared.module.ts" />
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
     <TypeScriptCompile Include="account\login-info.component.ts" />

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{72C66AB0-7648-4AD6-ABAF-F600FD355E2F}"
+	ProjectSection(SolutionItems) = preProject
+		pending_changes.txt = pending_changes.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EE39AAEC-3C31-4DD3-9C9D-6CC838F41409}"
 	ProjectSection(SolutionItems) = preProject

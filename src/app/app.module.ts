@@ -16,6 +16,7 @@ import {DealOfDayModule} from "./deal-of-day.module";
 import {OfferModule} from "./offer.module";
 import {ProductModule} from "./product.module";
 import {AccountModule} from "./account.module";
+import {SettingsModule} from "./settings.module";
 import {SharedModule} from "./shared.module";
 
 @NgModule({
@@ -31,6 +32,7 @@ import {SharedModule} from "./shared.module";
         FormsModule,
         AppRouting,
         SharedModule,
+        SettingsModule,
         DealOfDayModule,
         OfferModule,
         ProductModule,

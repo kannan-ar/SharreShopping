@@ -5,3 +5,4 @@
 4. The scroll should be done in scroll area. It should not scroll the entire page. That means header and search box must remains there.
 5. There must be a progress indicator while loading the items.
 6. Compare this feature.
+7. Offers and deal of the day are caching. What if the caching failed? will it try to fetch from web service next loading?
