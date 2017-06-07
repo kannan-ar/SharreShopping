@@ -1,6 +1,6 @@
 import { Http } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 
 import { FlipkartDealOfDayComponent } from "../../views/flipkart/flipkart-deal-of-day.component";
 import { IDealOfDayService } from "../deal-of-day.service";
@@ -30,9 +30,17 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
         this.currentIndex += this.count;
     }
 
-    getDeals(): Observable<any> {
-        return this.http.get(this.url + "/" + this.currentIndex + "/" + this.count)
-            .map(response => response.json());
+    getDeals(container: ViewContainerRef): Subject<boolean> {
+        let response: Subject<boolean> = new Subject<boolean>();
+
+        this.http.get(this.url + "/" + this.currentIndex + "/" + this.count)
+            .map(response => response.json())
+            .subscribe(items => {
+                this.loadItem(container, items);
+                response.next(items.length > 0);
+            });
+
+        return response;
     }
 
     incrementCount() {

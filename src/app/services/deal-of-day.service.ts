@@ -1,11 +1,10 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
 
 import {Environment} from "../environment";
 
 export interface IDealOfDayService {
-    loadItem(container: ViewContainerRef, items: any[]): void;
-    getDeals(): Observable<any>;
+    getDeals(container: ViewContainerRef): Subject<boolean>;
     incrementCount(): void;
     resetCount(): void;
     resetIndex(): void;
@@ -18,11 +17,11 @@ export class DealOfDayService {
         @Inject('DealOfDayServices') private services) {
     }
 
-    loadDeal(container: ViewContainerRef): void {
+    loadDeal(container: ViewContainerRef): Subject<boolean> {
         const serviceCount: number = this.services.length;
         let rowCount: number = Environment.getRowCount();
         let index: number = 0;
-        let arr: Observable<any>[] = [];
+        let response: Subject<boolean> = new Subject<boolean>();
 
         this.services.forEach(item => {
             let service: IDealOfDayService = item as IDealOfDayService;
@@ -41,10 +40,12 @@ export class DealOfDayService {
 
         this.services.forEach(item => {
             let service: IDealOfDayService = item as IDealOfDayService;
-            service.getDeals().subscribe(items => {
-                service.loadItem(container, items);
+            service.getDeals(container).subscribe((data) => {
+                response.next(data);
             });
         });
+
+        return response;
     }
 
     resetIndex(): void {

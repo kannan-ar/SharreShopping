@@ -1,6 +1,7 @@
 ///<reference path="typings/index.d.ts"/>
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpModule} from "@angular/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from "@angular/router";
@@ -27,6 +28,7 @@ import {SharedModule} from "./shared.module";
     imports: [
         NgbModule.forRoot(),
         BrowserModule,
+        BrowserAnimationsModule,
         HttpModule,
         RouterModule,
         FormsModule,

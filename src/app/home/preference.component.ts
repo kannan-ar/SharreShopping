@@ -16,13 +16,14 @@ import {SettingService} from "../services/account/setting.service";
             <tag-input [(ngModel)]='items'></tag-input>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="savePreferences()">Save</button>
+            <button type="button" class="btn btn-danger" (click)="blockPreferences()">Don't show this again</button>
+            <button type="button" class="btn btn-primary" (click)="savePreferences()">Save</button>
         </div>
     `
 })
 
 export class PreferenceComponent {
-    items = [];
+    items: string[] = [];
 
     constructor(
         private activeModal: NgbActiveModal,
@@ -30,7 +31,12 @@ export class PreferenceComponent {
     }
 
     savePreferences() {
-        console.log(this.items);
-        this.settingService.savePreferences();
+        this.settingService.savePreferences(this.items);
+        this.activeModal.close();
+    }
+
+    blockPreferences() {
+        this.settingService.blockPreferences();
+        this.activeModal.close();
     }
 }

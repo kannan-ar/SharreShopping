@@ -116,6 +116,7 @@
     <TypeScriptCompile Include="home\deal-of-day.component.ts" />
     <TypeScriptCompile Include="home\home.component.ts" />
     <TypeScriptCompile Include="home\offer.component.ts" />
+    <TypeScriptCompile Include="home\preference-list.component.ts" />
     <TypeScriptCompile Include="home\preference.component.ts" />
     <TypeScriptCompile Include="home\search.component.ts" />
     <TypeScriptCompile Include="main.ts" />

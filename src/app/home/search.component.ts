@@ -21,7 +21,7 @@ import {SearchService} from "../services/search.service";
         </div>
         <div class="row" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="search-grid">
-                <template #container></template>
+                <ng-template #container></ng-template>
             </div>
         </div>
     `

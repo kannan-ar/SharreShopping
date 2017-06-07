@@ -1,11 +1,11 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
-import {Observable} from "rxjs/Rx";
+import {Subject} from "rxjs/Subject";
 
 import Masonry from "masonry-layout";
 
 export interface IOfferService {
     resetIndex(): void;
-    getOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry, count: number): void;
+    getOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry, count: number): Subject<boolean>;
 }
 
 @Injectable()
@@ -20,11 +20,16 @@ export class OfferService {
         });
     }
 
-    loadOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
+    loadOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry): Subject<boolean> {
         const count: number = 6;
+        let response: Subject<boolean> = new Subject<boolean>();
 
         this.services.forEach(service => {
-            service.getOffers(container, gridSelector, grid, count);
+            service.getOffers(container, gridSelector, grid, count).subscribe((data) => {
+                response.next(data);
+            });
         });
+
+        return response;
     }
 }
