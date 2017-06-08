@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {SettingService} from "../services/account/setting.service";
+import {PreferenceService} from "../services/preference.service";
 import {PreferenceComponent} from "./preference.component";
 
 @Component({
@@ -11,6 +11,7 @@ import {PreferenceComponent} from "./preference.component";
     <div *ngIf="!hasSearchItems">
         <deal-of-day></deal-of-day>
         <offers></offers>
+        <preference-list></preference-list>
     </div>
     <template ngbModalContainer></template>
     `
@@ -22,7 +23,7 @@ export class HomeComponent {
 
     constructor(
         private modalService: NgbModal,
-        private settingService: SettingService
+        private preferenceService: PreferenceService
         ) {
     }
 
@@ -31,7 +32,7 @@ export class HomeComponent {
     }
 
     checkPreferences() {
-        if (!this.settingService.hasPreferences()) {
+        if (!this.preferenceService.hasPreferences()) {
             const modalRef = this.modalService.open(PreferenceComponent);
         }
     }

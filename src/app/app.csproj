@@ -133,7 +133,6 @@
     <TypeScriptCompile Include="page-not-found.component.ts" />
     <TypeScriptCompile Include="product.module.ts" />
     <TypeScriptCompile Include="services\account\account.service.ts" />
-    <TypeScriptCompile Include="services\account\setting.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-search.service.ts" />
     <TypeScriptCompile Include="services\amazon\amazon-wishlist.service.ts" />
     <TypeScriptCompile Include="services\deal-of-day.service.ts" />
@@ -145,6 +144,7 @@
     <TypeScriptCompile Include="services\flipkart\flipkart-search.service.ts" />
     <TypeScriptCompile Include="services\flipkart\flipkart-wishlist.service.ts" />
     <TypeScriptCompile Include="services\offer.service.ts" />
+    <TypeScriptCompile Include="services\preference.service.ts" />
     <TypeScriptCompile Include="services\search.service.ts" />
     <TypeScriptCompile Include="services\wishlist.service.ts" />
     <TypeScriptCompile Include="settings.module.ts" />

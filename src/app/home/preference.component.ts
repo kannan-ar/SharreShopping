@@ -1,7 +1,8 @@
 ﻿import {Component} from "@angular/core";
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {SettingService} from "../services/account/setting.service";
+import {PreferenceService} from "../services/preference.service";
+import {SearchService} from "../services/search.service";
 
 @Component({
     selector: 'ngbd-modal-content',
@@ -27,16 +28,17 @@ export class PreferenceComponent {
 
     constructor(
         private activeModal: NgbActiveModal,
-        private settingService: SettingService) {
+        private preferenceService: PreferenceService,
+        private searchService: SearchService) {
     }
 
     savePreferences() {
-        this.settingService.savePreferences(this.items);
+        this.preferenceService.savePreferences(this.items);
         this.activeModal.close();
     }
 
     blockPreferences() {
-        this.settingService.blockPreferences();
+        this.preferenceService.blockPreferences();
         this.activeModal.close();
     }
 }

@@ -1,8 +1,5 @@
 ﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
-import {Observable} from "rxjs/Rx";
 import Masonry from "masonry-layout";
-
-import {Environment} from "../environment";
 
 export interface ISearchService {
     search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void;
@@ -16,7 +13,7 @@ export class SearchService {
 
     private servicePoints: ISearchService[];
 
-    constructor( @Inject('SearchServices') private services) {
+    constructor(@Inject('SearchServices') private services) {
         this.servicePoints = new Array<ISearchService>();
 
         this.services.forEach(service => {
@@ -24,15 +21,15 @@ export class SearchService {
         });
     }
    
-    loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef) {
+    loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number) {
         this.servicePoints.forEach(service => {
-            service.loadScrollItems(gridSelector, grid, container, Environment.getRowCount());
+            service.loadScrollItems(gridSelector, grid, container, count);
         });
     }
 
-    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef): void {
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
         this.servicePoints.forEach(service => {
-            service.search(query, gridSelector, grid, container, Environment.getRowCount());
+            service.search(query, gridSelector, grid, container, count);
         });
     }
     

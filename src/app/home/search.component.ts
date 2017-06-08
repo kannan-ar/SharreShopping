@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Rx";
 import Masonry from "masonry-layout";
 
 import {SearchService} from "../services/search.service";
+import {Environment} from "../environment";
 
 @Component({
     selector: 'search',
@@ -69,7 +70,7 @@ export class SearchComponent {
 
     beginSearch(term: string) {
         this.renderSearchResults(true);
-        this.searchService.search(term, this.gridSelector, this.grid, this.container);
+        this.searchService.search(term, this.gridSelector, this.grid, this.container, Environment.getRowCount());
     }
 
     onKeyword(event) {
@@ -80,7 +81,7 @@ export class SearchComponent {
 
     onScroll() {
         if (this.searchService.hasData()) {
-            this.searchService.loadScrollItems(this.gridSelector, this.grid, this.container);
+            this.searchService.loadScrollItems(this.gridSelector, this.grid, this.container, Environment.getRowCount());
         }
     }
 }
