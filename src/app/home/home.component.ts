@@ -23,8 +23,7 @@ export class HomeComponent {
 
     constructor(
         private modalService: NgbModal,
-        private preferenceService: PreferenceService
-        ) {
+        private preferenceService: PreferenceService) {
     }
 
     ngOnInit() {

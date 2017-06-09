@@ -23,7 +23,7 @@ import {SearchService} from "../services/search.service";
         </div>
         <div [@preferenceState]="visibility" [hidden]="!hasItems" class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="preference-grid">
-                <ng-template #container></ng-template>
+                <ng-template #preferenceContainer></ng-template>
             </div>
         </div>
     `,
@@ -46,15 +46,15 @@ import {SearchService} from "../services/search.service";
     animations: [
         trigger('preferenceState', [
             state('true', style({
-                opacity: 1,
-                visibility: 'visible'
+                overflow: 'hidden',
+                maxHeight: '*'
             })),
             state('false', style({
-                opacity: 0,
-                visibility: 'hidden'
+                overflow: 'hidden',
+                maxHeight: '0'
             })),
-            transition('true => false', animate('100ms ease-in')),
-            transition('false => true', animate('100ms ease-out'))
+            transition('true => false', animate('0.8s ease-out')),
+            transition('false => true', animate('0.8s ease-in'))
         ])
     ]
 })
@@ -65,7 +65,7 @@ export class PreferenceListComponent {
     private hasItems: boolean;
     private visibility: string;
 
-    @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+    @ViewChild('preferenceContainer', { read: ViewContainerRef }) preferenceContainer: ViewContainerRef;
 
     constructor(
         private preferenceService: PreferenceService,
@@ -82,10 +82,11 @@ export class PreferenceListComponent {
         });
 
         this.grid = msnry;
-        this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.container);
+        this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer);
     }
 
     onScroll() {
+        this.preferenceService.loadScrollItems(this.searchService, this.gridSelector, this.grid, this.preferenceContainer);
     }
 
     changeVisibility(e) {

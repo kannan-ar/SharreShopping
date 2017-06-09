@@ -36,7 +36,7 @@ export class AmazonSearchService implements ISearchService {
     loadItems(gridSelector: string, count: number, grid: Masonry, container: ViewContainerRef): void {
         let index = 0;
 
-        while (index < count && this.currentIndex < this.results.length) {
+        while (index < count && this.results != null && this.currentIndex < this.results.length) {
             this.loadItem(gridSelector, grid, container);
             ++index;
         }

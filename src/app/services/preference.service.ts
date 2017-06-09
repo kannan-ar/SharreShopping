@@ -9,6 +9,16 @@ export class PreferenceService {
     private itemPreferenceName: string = 'item_preference';
     private blockPreferenceName: string = 'block_preference';
 
+    private getCount(itemCount: number): number {
+        let count: number = Math.floor(Environment.getRowCount() / itemCount);
+
+        if (count <= 0) {
+            count = 1;
+        }
+
+        return count;
+    }
+
     hasPreferences(): boolean {
         return window.localStorage.getItem(this.itemPreferenceName) != null ||
             window.localStorage.getItem(this.blockPreferenceName) != null;
@@ -28,15 +38,15 @@ export class PreferenceService {
         let items: any[] = JSON.parse(window.localStorage.getItem(this.itemPreferenceName));
 
         if (items != null && items.length > 0) {
-            let count: number = Math.floor(Environment.getRowCount() / items.length);
-
-            if (count <= 0) {
-                count = 1;
-            }
-
             items.forEach(item => {
-                searchService.search(item.value, gridSelector, grid, container, count);
+                searchService.search(item.value, gridSelector, grid, container, this.getCount(items.length));
             });
+        }
+    }
+
+    loadScrollItems(searchService: SearchService, gridSelector: string, grid: Masonry, container: ViewContainerRef) {
+        if (searchService.hasData()) {
+            searchService.loadScrollItems(gridSelector, grid, container, Environment.getRowCount());
         }
     }
 }

@@ -22,7 +22,7 @@ import {OfferService} from "../services/offer.service";
         </div>
         <div [@offerState]="visibility" [hidden]="!hasItems" class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="offer-grid">
-                <ng-template #container></ng-template>
+                <ng-template #offerContainer></ng-template>
             </div>
         </div>
         `,
@@ -45,15 +45,15 @@ import {OfferService} from "../services/offer.service";
     animations: [
         trigger('offerState', [
             state('true', style({
-                opacity: 1,
-                visibility: 'visible'
+                overflow: 'hidden',
+                maxHeight: '*'
             })),
             state('false', style({
-                opacity: 0,
-                visibility: 'hidden'
+                overflow: 'hidden',
+                maxHeight: '0'
             })),
-            transition('true => false', animate('100ms ease-in')),
-            transition('false => true', animate('100ms ease-out'))
+            transition('true => false', animate('0.8s ease-out')),
+            transition('false => true', animate('0.8s ease-in'))
         ])
     ]
 })
@@ -65,7 +65,7 @@ export class OfferComponent {
     private hasItems: boolean;
     private visibility: string;
 
-    @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+    @ViewChild('offerContainer', { read: ViewContainerRef }) offerContainer: ViewContainerRef;
 
     constructor(
         private offerService: OfferService) {
@@ -81,13 +81,13 @@ export class OfferComponent {
 
         this.grid = msnry;
         this.offerService.resetIndex();
-        this.offerService.loadOffers(this.container, this.gridSelector, msnry).subscribe((data) => {
+        this.offerService.loadOffers(this.offerContainer, this.gridSelector, msnry).subscribe((data) => {
             this.hasItems = this.hasItems || data;
         });
     }
 
     onScroll() {
-        this.offerService.loadOffers(this.container, this.gridSelector, this.grid);
+        this.offerService.loadOffers(this.offerContainer, this.gridSelector, this.grid);
     }
 
     changeVisibility(e) {

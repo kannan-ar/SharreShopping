@@ -20,16 +20,16 @@ import {Environment} from "../environment";
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1"></div>
         </div>
-        <div class="row" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+        <div [hidden]="!hasItems" class="row" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="search-grid">
-                <ng-template #container></ng-template>
+                <ng-template #searchContainer></ng-template>
             </div>
         </div>
     `
 })
 
 export class SearchComponent {
-    @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+    @ViewChild('searchContainer', { read: ViewContainerRef }) searchContainer: ViewContainerRef;
     grid: Masonry;
     @Output() onItemsLoad = new EventEmitter<boolean>();
     search = new FormControl();
@@ -60,7 +60,8 @@ export class SearchComponent {
     }
 
     renderSearchResults(hasData: boolean) {
-        this.searchService.removeComponents(this.container);
+        this.searchService.removeComponents(this.searchContainer);
+        this.hasItems = hasData;
         this.onItemsLoad.emit(hasData);
 
         if (!hasData && this.grid != null) {
@@ -70,7 +71,7 @@ export class SearchComponent {
 
     beginSearch(term: string) {
         this.renderSearchResults(true);
-        this.searchService.search(term, this.gridSelector, this.grid, this.container, Environment.getRowCount());
+        this.searchService.search(term, this.gridSelector, this.grid, this.searchContainer, Environment.getRowCount());
     }
 
     onKeyword(event) {
@@ -81,7 +82,7 @@ export class SearchComponent {
 
     onScroll() {
         if (this.searchService.hasData()) {
-            this.searchService.loadScrollItems(this.gridSelector, this.grid, this.container, Environment.getRowCount());
+            this.searchService.loadScrollItems(this.gridSelector, this.grid, this.searchContainer, Environment.getRowCount());
         }
     }
 }
