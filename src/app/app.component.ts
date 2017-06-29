@@ -14,9 +14,13 @@ import {Component} from "@angular/core";
             <a class="navbar-brand" href="#">SharreShopping</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <p class="navbar-text navbar-left">
+                <img src="/images/amazon-color.png" />&nbsp;Amazon
+                <img src="/images/ebay-color.png" />&nbsp;Ebay
+                <img src="/images/flipkart-color.png" />&nbsp;Flipkart
+            </p>
             <ul loginInfo class="nav navbar-nav navbar-right">
             </ul>
-            <p class="navbar-text navbar-right">test</p>
         </div>
     </nav>
     <div class="container-fluid">

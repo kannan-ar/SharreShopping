@@ -15,9 +15,14 @@ import {FacebookService} from "../../services/facebook.service";
         <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
         <div><s>{{item.sellingCurrency}}&nbsp;{{item.sellingAmount}}</s>&nbsp;{{item.mrpCurrency}}&nbsp;{{item.mrpAmount}}</div>
         <div>You saved {{item.discountPercentage}}%</div>
-         <div class="text-right">
-            <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
-            <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
+        <div class="clearfix">
+            <div class="pull-left">
+                <img src="/images/flipkart-color.png" />
+            </div>
+            <div class="pull-right">
+               <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
+               <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
+            </div>
         </div>
     </div>
     `,

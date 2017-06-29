@@ -14,9 +14,14 @@ import {FacebookService} from "../../services/facebook.service";
         <img-holder [thumbnail]="item.galleryURL" [url]="item.viewItemURL"></img-holder>
         <div>{{item.currencyId}}&nbsp;{{item.currentPrice}}</div>
         <p class="description"><a href="{{item.viewItemURL}}" target="_blank">{{item.subtitle}}</a></p>
-        <div class="text-right">
-            <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
-            <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
+        <div class="clearfix">
+            <div class="pull-left">
+                <img src="/images/ebay-color.png" />
+            </div>
+            <div class="pull-right">
+                <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
+                <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
+            </div>
         </div>
     </div>
     `,
