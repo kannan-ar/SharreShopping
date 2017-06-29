@@ -11,7 +11,7 @@ import {PreferenceComponent} from "./preference.component";
     <div *ngIf="!hasSearchItems">
         <deal-of-day></deal-of-day>
         <offers></offers>
-        <preference-list></preference-list>
+        <preference-list [dataChanged]="hasPreference"></preference-list>
     </div>
     <template ngbModalContainer></template>
     `
@@ -20,6 +20,7 @@ import {PreferenceComponent} from "./preference.component";
 export class HomeComponent {
 
     hasSearchItems: boolean;
+    hasPreference: boolean;
 
     constructor(
         private modalService: NgbModal,
@@ -33,6 +34,7 @@ export class HomeComponent {
     checkPreferences() {
         if (!this.preferenceService.hasPreferences()) {
             const modalRef = this.modalService.open(PreferenceComponent);
+            modalRef.result.then((r) => { this.hasPreference = r; }, () => { });
         }
     }
 

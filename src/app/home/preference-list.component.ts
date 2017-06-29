@@ -1,4 +1,4 @@
-﻿import {Component, ViewChild, ViewContainerRef, OnInit} from "@angular/core";
+﻿import {Component, ViewChild, ViewContainerRef, OnInit, Input} from "@angular/core";
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import Masonry from "masonry-layout";
 
@@ -65,6 +65,8 @@ export class PreferenceListComponent {
     private hasItems: boolean;
     private visibility: string;
 
+    @Input() dataChanged: boolean;
+
     @ViewChild('preferenceContainer', { read: ViewContainerRef }) preferenceContainer: ViewContainerRef;
 
     constructor(
@@ -83,6 +85,12 @@ export class PreferenceListComponent {
 
         this.grid = msnry;
         this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer);
+    }
+
+    ngOnChanges() {
+        if (this.dataChanged) {
+            this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer);
+        }
     }
 
     onScroll() {

@@ -9,7 +9,7 @@ import {SearchService} from "../services/search.service";
     template: `
         <div class="modal-header">
             <span class="modal-title">Preferences</span>
-            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss(false)">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -34,11 +34,11 @@ export class PreferenceComponent {
 
     savePreferences() {
         this.preferenceService.savePreferences(this.items);
-        this.activeModal.close();
+        this.activeModal.close(this.items.length > 0);
     }
 
     blockPreferences() {
         this.preferenceService.blockPreferences();
-        this.activeModal.close();
+        this.activeModal.close(false);
     }
 }

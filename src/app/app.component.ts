@@ -16,6 +16,7 @@ import {Component} from "@angular/core";
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul loginInfo class="nav navbar-nav navbar-right">
             </ul>
+            <p class="navbar-text navbar-right">test</p>
         </div>
     </nav>
     <div class="container-fluid">
@@ -29,6 +30,13 @@ import {Component} from "@angular/core";
         `
             .login-info {
                 padding-right:10px;
+            }
+
+            .amazon-box {
+                background-color:#ff9900;
+                width:10px;
+                height:10px;
+                display:block;
             }
         `]
 })
