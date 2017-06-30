@@ -15,6 +15,7 @@ import {Environment} from "../environment";
                 <form>
                     <div class="form-group">
                         <input id="search" name="search" [formControl]="search" type="text" class="form-control input-lg" (keypress)="onKeyword($event)" placeholder="Search with any keywords" />
+                        <div [hidden]="!searchProgress"><progress></progress></div>
                     </div>
                 </form>
             </div>
@@ -25,7 +26,12 @@ import {Environment} from "../environment";
                 <ng-template #searchContainer></ng-template>
             </div>
         </div>
-    `
+    `,
+    styles: [`
+        progress {
+            width: 100%;
+        }
+        `]
 })
 
 export class SearchComponent {
@@ -34,6 +40,7 @@ export class SearchComponent {
     @Output() onItemsLoad = new EventEmitter<boolean>();
     search = new FormControl();
     hasItems: boolean;
+    searchProgress: boolean;
     gridSelector: string = '.search-grid';
 
     constructor(private searchService: SearchService) {
@@ -45,6 +52,7 @@ export class SearchComponent {
                     this.renderSearchResults(false);
                 }
             });
+        this.searchProgress = false;
     }
 
     ngOnInit() {
@@ -71,7 +79,11 @@ export class SearchComponent {
 
     beginSearch(term: string) {
         this.renderSearchResults(true);
-        this.searchService.search(term, this.gridSelector, this.grid, this.searchContainer, Environment.getRowCount());
+        this.searchProgress = true;
+        this.searchService.search(term, this.gridSelector, this.grid, this.searchContainer, Environment.getRowCount())
+            .subscribe(r => {
+                this.searchProgress = false;
+            });
     }
 
     onKeyword(event) {

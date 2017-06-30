@@ -1,6 +1,6 @@
 ﻿import { Jsonp, URLSearchParams } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
@@ -140,8 +140,9 @@ export class EbaySearchService implements ISearchService {
         }
     }
 
-    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): Subject<boolean> {
         let params = new URLSearchParams();
+        let response: Subject<boolean> = new Subject<boolean>();
 
         params.set("OPERATION-NAME", "findItemsByKeywords");
         params.set("SERVICE-NAME", "FindingService");
@@ -158,7 +159,10 @@ export class EbaySearchService implements ISearchService {
                 this.currentIndex = 0;
                 this.transformResults(results);
                 this.loadItems(gridSelector, count, grid, container);
+                response.next(results.length > 0);
             });
+
+        return response;
     }
 
     loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {

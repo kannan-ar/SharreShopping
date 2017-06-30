@@ -1,6 +1,6 @@
 ﻿import { Http } from "@angular/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
@@ -45,7 +45,8 @@ export class FlipkartSearchService implements ISearchService {
         }
     }
 
-    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): void {
+    search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): Subject<boolean> {
+        let response: Subject<boolean> = new Subject<boolean>();
 
         this.http.get(this.url + query)
             .map(response => response.json())
@@ -53,7 +54,10 @@ export class FlipkartSearchService implements ISearchService {
                 this.currentIndex = 0;
                 this.results = results;
                 this.loadItems(gridSelector, count, grid, container);
+                response.next(results.length > 0);
             });
+
+        return response;
     }
    
     removeData(): void {
