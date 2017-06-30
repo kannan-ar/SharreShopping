@@ -1,4 +1,5 @@
 ﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
+import {Subject} from "rxjs/Subject";
 import Masonry from "masonry-layout";
 
 import {SearchService} from "./search.service";
@@ -28,20 +29,29 @@ export class PreferenceService {
         window.localStorage.setItem(this.blockPreferenceName, "1");
     }
 
+    getPreferences(): string[] {
+        return JSON.parse(window.localStorage.getItem(this.itemPreferenceName));
+    }
+
     savePreferences(items: string[]): void {
         if (items.length > 0) {
             window.localStorage.setItem(this.itemPreferenceName, JSON.stringify(items));
         }
     }
 
-    loadPreferences(searchService: SearchService, gridSelector: string, grid: Masonry, container: ViewContainerRef) {
+    loadPreferences(searchService: SearchService, gridSelector: string, grid: Masonry, container: ViewContainerRef): Subject<boolean> {
         let items: any[] = JSON.parse(window.localStorage.getItem(this.itemPreferenceName));
+        let response: Subject<boolean> = new Subject<boolean>();
 
         if (items != null && items.length > 0) {
             items.forEach(item => {
-                searchService.search(item.value, gridSelector, grid, container, this.getCount(items.length));
+                searchService.search(item.value, gridSelector, grid, container, this.getCount(items.length)).subscribe(r => {
+                    response.next(r);
+                });
             });
         }
+
+        return response;
     }
 
     loadScrollItems(searchService: SearchService, gridSelector: string, grid: Masonry, container: ViewContainerRef) {

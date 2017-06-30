@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 @Component({
     selector: "shopping",
     template: `
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -15,12 +15,13 @@ import {Component} from "@angular/core";
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <p class="navbar-text navbar-left">
-                <img src="/images/amazon-color.png" />&nbsp;Amazon
-                <img src="/images/ebay-color.png" />&nbsp;Ebay
+                <img src="/images/amazon-color.png" />&nbsp;Amazon&nbsp;
+                <img src="/images/ebay-color.png" />&nbsp;Ebay&nbsp;
                 <img src="/images/flipkart-color.png" />&nbsp;Flipkart
             </p>
             <ul loginInfo class="nav navbar-nav navbar-right">
             </ul>
+            <right-menu></right-menu>
         </div>
     </nav>
     <div class="container-fluid">

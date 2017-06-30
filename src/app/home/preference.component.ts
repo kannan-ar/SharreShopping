@@ -1,4 +1,4 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, OnInit} from "@angular/core";
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {PreferenceService} from "../services/preference.service";
@@ -30,6 +30,10 @@ export class PreferenceComponent {
         private activeModal: NgbActiveModal,
         private preferenceService: PreferenceService,
         private searchService: SearchService) {
+    }
+
+    ngOnInit() {
+        this.items = this.preferenceService.getPreferences();
     }
 
     savePreferences() {

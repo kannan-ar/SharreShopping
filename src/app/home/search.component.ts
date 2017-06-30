@@ -1,6 +1,5 @@
 import {Component, Output, ViewContainerRef, ViewChild, EventEmitter, OnInit} from "@angular/core";
 import { FormControl } from "@angular/forms";
-import {Observable} from "rxjs/Rx";
 import Masonry from "masonry-layout";
 
 import {SearchService} from "../services/search.service";
@@ -82,6 +81,8 @@ export class SearchComponent {
         this.searchProgress = true;
         this.searchService.search(term, this.gridSelector, this.grid, this.searchContainer, Environment.getRowCount())
             .subscribe(r => {
+                this.searchProgress = false;
+            }, () => {
                 this.searchProgress = false;
             });
     }

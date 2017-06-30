@@ -21,6 +21,11 @@ import {SearchService} from "../services/search.service";
                 </div>
             </div>
         </div>
+        <div class="row top5" [hidden]="!listProgress">
+            <div class="col-sm-12">
+                <progress></progress>
+            </div>
+        </div>
         <div [@preferenceState]="visibility" [hidden]="!hasItems" class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="preference-grid">
                 <ng-template #preferenceContainer></ng-template>
@@ -41,6 +46,10 @@ import {SearchService} from "../services/search.service";
             .preference-list .col-lg-12 {
                 padding-left:0;
                 padding-right:0;
+            }
+
+            progress {
+                width: 100%;
             }
         `],
     animations: [
@@ -64,6 +73,7 @@ export class PreferenceListComponent {
     private grid: Masonry;
     private hasItems: boolean;
     private visibility: string;
+    private listProgress: boolean;
 
     @Input() dataChanged: boolean;
 
@@ -74,6 +84,7 @@ export class PreferenceListComponent {
         private searchService: SearchService) {
         this.visibility = "true";
         this.hasItems = true;
+        this.listProgress = false;
     }
 
     ngOnInit() {
@@ -84,12 +95,28 @@ export class PreferenceListComponent {
         });
 
         this.grid = msnry;
-        this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer);
+
+        if (this.preferenceService.hasPreferences()) {
+            this.listProgress = true;
+            this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer)
+                .subscribe(r => {
+                    this.listProgress = false;
+                });
+        }
+        else {
+            this.hasItems = false;
+        }
     }
 
     ngOnChanges() {
         if (this.dataChanged) {
-            this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer);
+            this.hasItems = true;
+            this.listProgress = true;
+            this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer)
+                .subscribe(r => {
+                    this.hasItems = this.hasItems && r;
+                    this.listProgress = false;
+                });
         }
     }
 

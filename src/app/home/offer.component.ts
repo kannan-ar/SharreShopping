@@ -20,6 +20,11 @@ import {OfferService} from "../services/offer.service";
                 </div>
             </div>
         </div>
+        <div class="row top5" [hidden]="!listProgress">
+            <div class="col-sm-12">
+                <progress></progress>
+            </div>
+        </div>
         <div [@offerState]="visibility" [hidden]="!hasItems" class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
             <div class="offer-grid">
                 <ng-template #offerContainer></ng-template>
@@ -64,12 +69,14 @@ export class OfferComponent {
     private grid: Masonry;
     private hasItems: boolean;
     private visibility: string;
+    private listProgress: boolean;
 
     @ViewChild('offerContainer', { read: ViewContainerRef }) offerContainer: ViewContainerRef;
 
     constructor(
         private offerService: OfferService) {
         this.visibility = "true";
+        this.listProgress = false;
     }
 
     ngOnInit() {
@@ -81,8 +88,15 @@ export class OfferComponent {
 
         this.grid = msnry;
         this.offerService.resetIndex();
+        this.listProgress = true;
+        this.hasItems = true;
+
         this.offerService.loadOffers(this.offerContainer, this.gridSelector, msnry).subscribe((data) => {
-            this.hasItems = this.hasItems || data;
+            this.listProgress = false;
+            this.hasItems = this.hasItems && data;
+        }, () => {
+            this.listProgress = false;
+            this.hasItems = false;
         });
     }
 

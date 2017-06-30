@@ -6,7 +6,7 @@ import {AccountService} from "../services/account/account.service";
 @Component({
     selector: "[loginInfo]",
     template: `
-        <li *ngIf="!isLogged" class="dropdown"><a class="login-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a></li>
+        <li *ngIf="!isLogged" class="dropdown"><a class="login-link" [routerLink]="['/signin']" routerLinkActive="active">Signin&nbsp;</a></li>
         <li *ngIf="isLogged" ngbDropdown>
             <a href="#" id="accountMenu" ngbDropdownToggle>{{info.name}}&nbsp;<span class="glyphicon glyphicon-asterisk"></span></a>
             <ul class="dropdown-menu" aria-labelledby="accountMenu">
