@@ -34,7 +34,7 @@ export class PreferenceService {
     }
 
     savePreferences(items: string[]): void {
-        if (items.length > 0) {
+        if (items != null && items.length > 0) {
             window.localStorage.setItem(this.itemPreferenceName, JSON.stringify(items));
         }
     }

@@ -38,7 +38,7 @@ export class PreferenceComponent {
 
     savePreferences() {
         this.preferenceService.savePreferences(this.items);
-        this.activeModal.close(this.items.length > 0);
+        this.activeModal.close(this.items != null && this.items.length > 0);
     }
 
     blockPreferences() {

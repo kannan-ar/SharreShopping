@@ -6,11 +6,15 @@ import {PreferenceComponent} from "../home/preference.component";
 @Component({
     selector: 'right-menu',
     template: `
-        <p class="navbar-text navbar-right"><span class="right-menu-preference" (click)="showPreference()">Preferences&nbsp;&nbsp;</span></p>
+        <p class="navbar-text navbar-right right-menu"><span class="right-menu-preference" (click)="showPreference()">Preferences&nbsp;&nbsp;</span></p>
     `,
     styles: [`
         .right-menu-preference {
             cursor: pointer;
+        }
+
+        .right-menu {
+            margin-right: 50px;
         }
     `]
 })

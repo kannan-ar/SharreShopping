@@ -110,12 +110,16 @@ export class PreferenceListComponent {
 
     ngOnChanges() {
         if (this.dataChanged) {
+            let hasData: boolean = false;
             this.hasItems = true;
             this.listProgress = true;
+
             this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer)
                 .subscribe(r => {
-                    this.hasItems = this.hasItems && r;
+                    hasData = hasData || r;
                     this.listProgress = false;
+                }, () => { }, () => {
+                    this.hasItems = this.hasItems && hasData;
                 });
         }
     }

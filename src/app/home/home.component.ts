@@ -34,7 +34,7 @@ export class HomeComponent {
     checkPreferences() {
         if (!this.preferenceService.hasPreferences()) {
             const modalRef = this.modalService.open(PreferenceComponent);
-            modalRef.result.then((r) => { this.hasPreference = r; }, () => { });
+            modalRef.result.then((r) => { console.log(r); this.hasPreference = r; }, () => { });
         }
     }
 
