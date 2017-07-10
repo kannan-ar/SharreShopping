@@ -95,17 +95,7 @@ export class PreferenceListComponent {
         });
 
         this.grid = msnry;
-
-        if (this.preferenceService.hasPreferences()) {
-            this.listProgress = true;
-            this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer)
-                .subscribe(r => {
-                    this.listProgress = false;
-                });
-        }
-        else {
-            this.hasItems = false;
-        }
+        this.loadPreferences();
     }
 
     ngOnChanges() {
@@ -114,14 +104,23 @@ export class PreferenceListComponent {
             this.hasItems = true;
             this.listProgress = true;
 
-            this.preferenceService.loadPreferences(this.searchService, this.gridSelector, this.grid, this.preferenceContainer)
-                .subscribe(r => {
-                    hasData = hasData || r;
-                    this.listProgress = false;
-                }, () => { }, () => {
-                    this.hasItems = this.hasItems && hasData;
-                });
+            this.loadPreferences();
         }
+    }
+
+    private loadPreferences(): void {
+        this.preferenceService.getPreferences().subscribe(items => {
+            if (items != null && items.length > 0) {
+                this.listProgress = true;
+                this.preferenceService.loadPreferences(items, this.searchService, this.gridSelector, this.grid, this.preferenceContainer)
+                    .subscribe(r => {
+                        this.listProgress = false;
+                    });
+            }
+            else {
+                this.hasItems = false;
+            }
+        });
     }
 
     onScroll() {

@@ -20,10 +20,10 @@
 
         [Authorize]
         [HttpPost("save")]
-        public IActionResult Save([FromBody] string[] words)
+        public IActionResult Save([FromBody] string[] items)
         {
             PreferenceService service = new PreferenceService(serviceProvider);
-            service.Save(User.Identity as ClaimsIdentity, words);
+            service.Save(User.Identity as ClaimsIdentity, items);
 
             return Ok();
         }

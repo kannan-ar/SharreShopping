@@ -32,10 +32,12 @@ export class HomeComponent {
     }
 
     checkPreferences() {
-        if (!this.preferenceService.hasPreferences()) {
-            const modalRef = this.modalService.open(PreferenceComponent);
-            modalRef.result.then((r) => { console.log(r); this.hasPreference = r; }, () => { });
-        }
+        this.preferenceService.getPreferences().subscribe(items => {
+            if (items == null || (items != null && items.length == 0)) {
+                const modalRef = this.modalService.open(PreferenceComponent);
+                modalRef.result.then((r) => { this.hasPreference = r; }, () => { });
+            }
+        });
     }
 
     onSearch(hasItems: boolean) {

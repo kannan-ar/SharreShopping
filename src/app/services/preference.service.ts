@@ -28,11 +28,6 @@ export class PreferenceService {
         return count;
     }
 
-    hasPreferences(): boolean {
-        return window.localStorage.getItem(this.itemPreferenceName) != null ||
-            window.localStorage.getItem(this.blockPreferenceName) != null;
-    }
-
     blockPreferences(): void {
         window.localStorage.setItem(this.blockPreferenceName, "1");
     }
@@ -48,7 +43,7 @@ export class PreferenceService {
                 });
         }
         else {
-            result.next(JSON.parse(window.localStorage.getItem(this.itemPreferenceName)));
+            setTimeout(() => { result.next(JSON.parse(window.localStorage.getItem(this.itemPreferenceName))) }, 0);
         }
 
         return result;
@@ -64,11 +59,8 @@ export class PreferenceService {
                 });
             }
             else {
-                console.log('2');
                 window.localStorage.setItem(this.itemPreferenceName, JSON.stringify(items));
-                console.log('3');
                 setTimeout(() => { response.next(true) }, 0);
-                console.log('4');
             }
         }
         else {
@@ -78,13 +70,12 @@ export class PreferenceService {
         return response;
     }
 
-    loadPreferences(searchService: SearchService, gridSelector: string, grid: Masonry, container: ViewContainerRef): Subject<boolean> {
-        let items: any[] = JSON.parse(window.localStorage.getItem(this.itemPreferenceName));
+    loadPreferences(items: any[], searchService: SearchService, gridSelector: string, grid: Masonry, container: ViewContainerRef): Subject<boolean> {
         let response: Subject<boolean> = new Subject<boolean>();
 
         if (items != null && items.length > 0) {
             items.forEach(item => {
-                searchService.search(item.value, gridSelector, grid, container, this.getCount(items.length)).subscribe(r => {
+                searchService.search(item, gridSelector, grid, container, this.getCount(items.length)).subscribe(r => {
                     response.next(r);
                 });
             });
@@ -103,7 +94,6 @@ export class PreferenceService {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
         let body = JSON.stringify(items);
-
         return this.http.post("/api/preference/save", body, {
             headers: headers
         });

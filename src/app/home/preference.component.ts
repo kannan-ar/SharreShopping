@@ -24,7 +24,7 @@ import {SearchService} from "../services/search.service";
 })
 
 export class PreferenceComponent {
-    items: string[] = [];
+    items: any[] = [];
 
     constructor(
         private activeModal: NgbActiveModal,
@@ -39,10 +39,8 @@ export class PreferenceComponent {
     }
 
     savePreferences() {
-        console.log('started');
-        this.preferenceService.savePreferences(this.items)
+        this.preferenceService.savePreferences(this.items.map<string>(v => v.value))
             .subscribe(r => {
-            console.log(r);
             this.activeModal.close(this.items != null && this.items.length > 0);
         });
     }
