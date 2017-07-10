@@ -33,12 +33,18 @@ export class PreferenceComponent {
     }
 
     ngOnInit() {
-        this.items = this.preferenceService.getPreferences();
+        this.preferenceService.getPreferences().subscribe(r => {
+            this.items = r;
+        });
     }
 
     savePreferences() {
-        this.preferenceService.savePreferences(this.items);
-        this.activeModal.close(this.items != null && this.items.length > 0);
+        console.log('started');
+        this.preferenceService.savePreferences(this.items)
+            .subscribe(r => {
+            console.log(r);
+            this.activeModal.close(this.items != null && this.items.length > 0);
+        });
     }
 
     blockPreferences() {

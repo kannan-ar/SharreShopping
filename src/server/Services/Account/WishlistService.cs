@@ -1,9 +1,9 @@
 ﻿namespace server.Services.Account
 {
     using System;
-    using StackExchange.Redis;
     using System.Security.Claims;
     using Microsoft.Extensions.DependencyInjection;
+    using StackExchange.Redis;
 
     public class WishlistService
     {

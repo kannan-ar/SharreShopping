@@ -28,7 +28,8 @@
     "Microsoft.Extensions.Configuration.Binder": "1.1.0",
     "StackExchange.Redis": "1.2.1",
     "Microsoft.AspNetCore.Authentication.Facebook": "1.1.1",
-    "Microsoft.AspNetCore.Identity": "1.1.1"
+    "Microsoft.AspNetCore.Identity": "1.1.1",
+    "Microsoft.AspNetCore.SpaServices": "1.1.1"
   },
 
   "tools": {

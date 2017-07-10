@@ -80,8 +80,12 @@
                 SaveTokens = true,
             });
 
-            app.UseMvc();
-            app.UseDefaultFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
+            });
+            
+            //app.UseDefaultFiles();
             app.UseStaticFiles();
         }
     }

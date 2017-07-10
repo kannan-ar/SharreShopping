@@ -24,7 +24,7 @@ export class RightMenuComponent {
         private modalService: NgbModal) {
     }
 
-    showPreference() {
+    showPreference() {    
         const modalRef = this.modalService.open(PreferenceComponent);
     }
 }
