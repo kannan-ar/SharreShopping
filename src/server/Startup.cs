@@ -9,6 +9,7 @@
 
     using Services;
     using Models;
+    using Microsoft.AspNetCore.Authentication.Facebook;
 
     public class Startup
     {
@@ -22,7 +23,7 @@
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+                builder.AddUserSecrets<Startup>();
             }
 
             builder.AddEnvironmentVariables();
@@ -41,9 +42,30 @@
             {
                 Configuration.GetSection("AuthSettings").Bind(options);
             });
-
+            
             services.AddMvc();
             services.AddMemoryCache();
+        
+            services.AddAuthentication(ShoppingContext.MiddlewareName)
+                .AddCookie(ShoppingContext.MiddlewareName)
+                .AddFacebook(options =>
+                {
+                    options.AppId = Configuration["AuthSettings:Facebook:AppId"];
+                    options.AppSecret = Configuration["AuthSettings:Facebook:AppSecret"];
+                    options.SignInScheme = ShoppingContext.MiddlewareName;
+                    options.Scope.Add("email");
+                    options.Scope.Add("publish_actions");
+                    options.SaveTokens = true;
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["AuthSettings:Google:ClientId"];
+                    options.ClientSecret = Configuration["AuthSettings:Google:ClientSecret"];
+                    options.SignInScheme = ShoppingContext.MiddlewareName;
+                    options.Scope.Add("email");
+                    options.Scope.Add("openid");
+                    options.SaveTokens = true;
+                });
 
             services.AddTransient<IHttpService, HttpService>();
             services.AddSingleton<IConfiguration>(Configuration);
@@ -57,6 +79,7 @@
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            /*
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = "SharreShoppingCookieMiddleware",
@@ -79,6 +102,8 @@
                 Scope = { "email", "openid" },
                 SaveTokens = true,
             });
+            */
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
