@@ -107,8 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="account.module.ts" />
-    <TypeScriptCompile Include="account\right-menu.component.ts" />
     <TypeScriptCompile Include="account\signin.component.ts" />
+    <TypeScriptCompile Include="account\top-menu.component.ts" />
     <TypeScriptCompile Include="account\wishlist.component.ts" />
     <TypeScriptCompile Include="app.component.ts" />
     <TypeScriptCompile Include="app.module.ts" />
@@ -152,7 +152,6 @@
     <TypeScriptCompile Include="settings.module.ts" />
     <TypeScriptCompile Include="shared.module.ts" />
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
-    <TypeScriptCompile Include="account\login-info.component.ts" />
     <TypeScriptCompile Include="shared\progress.component.ts" />
     <TypeScriptCompile Include="views\amazon\amazon-product.component.ts" />
     <TypeScriptCompile Include="views\amazon\amazon-wishlist.component.ts" />

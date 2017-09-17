@@ -19,9 +19,8 @@ import {Component} from "@angular/core";
                 <img src="/images/ebay-color.png" />&nbsp;Ebay&nbsp;
                 <img src="/images/flipkart-color.png" />&nbsp;Flipkart
             </p>
-            <ul loginInfo class="nav navbar-nav navbar-right">
+            <ul topMenu class="nav navbar-nav navbar-right">
             </ul>
-            <right-menu></right-menu>
         </div>
     </nav>
     <div class="container-fluid">
