@@ -11,13 +11,14 @@ import { AccountService } from "../services/account/account.service";
         <li *ngIf="!isLogged" ngbDropdown>
             <a href="#" id="anonymousMenu" ngbDropdownToggle>Hi Guest&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
             <ul class="dropdown-menu" aria-labelledby="anonymousMenu">
-                <li><a class="login-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a></li>
-                <li><a (click)="showPreference()">Preferences</a></li>
+                <li><a href="#" class="login-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a></li>
+                <li><a href="#" (click)="showPreference()">Preferences</a></li>
             </ul>
         </li>
         <li *ngIf="isLogged" ngbDropdown>
             <a href="#" id="accountMenu" ngbDropdownToggle>Welcome&nbsp;{{info.name}}&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
             <ul class="dropdown-menu" aria-labelledby="accountMenu">
+                <li><a href="#" (click)="showPreference()">Preferences</a></li>
                 <li><a href="#" [routerLink]="['/wishlist']">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
                 <li><a href="#" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
             </ul>
