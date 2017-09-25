@@ -42,10 +42,10 @@
             {
                 Configuration.GetSection("AuthSettings").Bind(options);
             });
-            
+
             services.AddMvc();
             services.AddMemoryCache();
-        
+
             services.AddAuthentication(ShoppingContext.MiddlewareName)
                 .AddCookie(ShoppingContext.MiddlewareName)
                 .AddFacebook(options =>
@@ -70,7 +70,11 @@
             services.AddTransient<IHttpService, HttpService>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(Configuration["ExternalConnections:RedisConnection"]));
+                ConnectionMultiplexer.Connect(new ConfigurationOptions
+                {
+                    EndPoints = { Configuration["ExternalConnections:RedisConnection"] },
+                    AbortOnConnectFail = false
+                }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,7 +113,7 @@
             {
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
-            
+
             //app.UseDefaultFiles();
             app.UseStaticFiles();
         }
