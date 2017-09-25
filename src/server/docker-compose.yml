@@ -1,8 +1,16 @@
 version: "3"
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-web
     ports:
       - "5000:5000"
+    depends_on:
+      - redis_db
     env_file:
       - web-variables.env
+  redis_db:
+    image: redis:3.2.8
+    ports:
+      - "6379"
