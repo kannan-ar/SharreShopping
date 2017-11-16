@@ -1,12 +1,9 @@
 FROM microsoft/dotnet:latest
-COPY . /app
+COPY /app /app
 WORKDIR /app
- 
-RUN dotnet restore
-RUN dotnet build
  
 EXPOSE 5000/tcp
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT docker
  
-ENTRYPOINT dotnet run
+ENTRYPOINT dotnet server.dll
