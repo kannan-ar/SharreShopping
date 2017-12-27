@@ -15,7 +15,7 @@ import {WishlistService} from "../services/wishlist.service";
         </div>
         <div class="row">
             <div class="wishlist-grid">
-                <template #container></template>
+                <ng-template #container></ng-template>
             </div>
         </div>
     `,

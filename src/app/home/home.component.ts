@@ -13,7 +13,7 @@ import {PreferenceComponent} from "./preference.component";
         <offers></offers>
         <preference-list [dataChanged]="hasPreference"></preference-list>
     </div>
-    <template ngbModalContainer></template>
+    <ng-template ngbModalContainer></ng-template>
     `
 })
 
