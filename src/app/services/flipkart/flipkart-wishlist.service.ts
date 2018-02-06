@@ -1,8 +1,9 @@
-﻿import { Http, Headers } from "@angular/http";
+﻿import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory, ComponentRef } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
+import { FlipkartProduct } from "../../models/flipkart/flipkart-product";
 import {AccountService} from "../account/account.service";
 import {IWishlistService} from "../wishlist.service";
 import {FlipkartWishlistComponent} from "../../views/flipkart/flipkart-wishlist.component";
@@ -13,7 +14,7 @@ export class FlipkartWishlistService implements IWishlistService {
     private componentFactory: ComponentFactory<FlipkartWishlistComponent>;
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(FlipkartWishlistComponent);
     }
@@ -24,7 +25,7 @@ export class FlipkartWishlistService implements IWishlistService {
     }
 
     loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        this.http.get("/api/wishlist/flipkart/" + id).map(response => response.json())
+        this.httpClient.get<FlipkartProduct>("/api/wishlist/flipkart/" + id)
             .subscribe(product => {
                 let flipkartComponent = container.createComponent(this.componentFactory);
                 flipkartComponent.instance.item = product;
@@ -46,7 +47,7 @@ export class FlipkartWishlistService implements IWishlistService {
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        this.http.get("/api/wishlist/flipkart").map(response => response.json())
+        this.httpClient.get<string[]>("/api/wishlist/flipkart")
             .subscribe(results => {
                 this.loadWishlist(results, container, gridSelector, grid);
            });

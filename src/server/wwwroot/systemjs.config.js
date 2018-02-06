@@ -3,6 +3,7 @@
         'app': 'js/app',
         '@angular': 'js/@angular',
         'rxjs': 'js/rxjs',
+        '@angular/common/http': 'js/@angular/common/bundles/common-http.umd.js',
         '@ng-bootstrap/ng-bootstrap': 'js/ng-bootstrap.js',
         '@angular/animations': 'js/@angular/animations/bundles/animations.umd.js',
         '@angular/animations/browser': 'js/@angular/animations/bundles/animations-browser.umd.js',
@@ -11,7 +12,9 @@
         'jquery': 'js/jquery.min.js',
         'masonry-layout': 'js/masonry.pkgd.js',
         'imagesloaded': 'js/imagesloaded.pkgd.js',
-        'ng2-tag-input': 'js/ng2-tag-input.bundle.js'
+        'ng2-material-dropdown': 'js/ng2-dropdown.bundle.js',
+        'ng2-tag-input': 'js/ng2-tag-input.bundle.js',
+        'tslib':'js/tslib.js'
     };
 
     var packages = {
@@ -24,7 +27,6 @@
         'common',
         'compiler',
         'core',
-        'http',
         'platform-browser',
         'platform-browser-dynamic',
         'upgrade',

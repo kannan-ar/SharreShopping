@@ -1,4 +1,4 @@
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
 import { Subject } from "rxjs/Subject";
 
@@ -13,7 +13,7 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
     count: number;
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.currentIndex = 0;
     }
@@ -33,8 +33,7 @@ export class FlipkartDealOfDayService implements IDealOfDayService {
     getDeals(container: ViewContainerRef): Subject<boolean> {
         let response: Subject<boolean> = new Subject<boolean>();
 
-        this.http.get(this.url + "/" + this.currentIndex + "/" + this.count)
-            .map(response => response.json())
+        this.httpClient.get<any[]>(this.url + "/" + this.currentIndex + "/" + this.count)
             .subscribe(items => {
                 this.loadItem(container, items);
                 response.next(items.length > 0);

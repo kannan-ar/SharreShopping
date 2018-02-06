@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs/Rx";
 
 import {LoginInfo} from "../../models/account/login-info";
@@ -7,15 +7,15 @@ import {LoginInfo} from "../../models/account/login-info";
 @Injectable()
 export class AccountService {
     constructor(
-        private http: Http
+        private httpClient: HttpClient
     ) { }
 
     getInfo(): Observable<LoginInfo> {
-        return this.http.get("/api/account/logininfo").map(response => response.json());
+        return this.httpClient.get<LoginInfo>("/api/account/logininfo");
     }
 
     logout(): void {
-        this.http.get("/api/account/logout").subscribe(() => { },
+        this.httpClient.get("/api/account/logout").subscribe(() => { },
         (error) => { console.log(error); },
         () => {
             this.clearLoginTrail();

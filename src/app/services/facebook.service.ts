@@ -1,12 +1,12 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 
 import {AccountService} from "./account/account.service";
 import {FacebookPost} from "../models/facebook-post";
 
 @Injectable()
 export class FacebookService {
-    constructor(private http: Http) {
+    constructor(private httpClient: HttpClient) {
     }
 
     hasFacebookAuth(): boolean {
@@ -14,7 +14,7 @@ export class FacebookService {
     }
 
     postProduct(post: FacebookPost): void {
-        this.http.post("https://graph.facebook.com/v2.9/me/feed",
+        this.httpClient.post("https://graph.facebook.com/v2.9/me/feed",
             {
                 "access_token": AccountService.getToken(),
                 "message": post.message,

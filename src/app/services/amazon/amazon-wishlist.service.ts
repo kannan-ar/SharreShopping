@@ -1,20 +1,20 @@
-﻿import { Http, Headers, RequestOptions } from "@angular/http";
+﻿import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory, ComponentRef } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
-import {IWishlistService} from "../wishlist.service";
-import {AccountService} from "../account/account.service";
-import {AmazonProduct} from "../../models/amazon/amazon-product";
-import {AmazonWishlist} from "../../models/amazon/amazon-wishlist";
-import {AmazonWishlistComponent} from "../../views/amazon/amazon-wishlist.component";
+import { IWishlistService } from "../wishlist.service";
+import { AccountService } from "../account/account.service";
+import { AmazonProduct } from "../../models/amazon/amazon-product";
+import { AmazonWishlist } from "../../models/amazon/amazon-wishlist";
+import { AmazonWishlistComponent } from "../../views/amazon/amazon-wishlist.component";
 
 @Injectable()
 export class AmazonWishlistService implements IWishlistService {
     private componentFactory: ComponentFactory<AmazonWishlistComponent>;
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AmazonWishlistComponent);
     }
@@ -46,24 +46,22 @@ export class AmazonWishlistService implements IWishlistService {
     }
 
     getPendingWishlist(ids: string[], container: ViewContainerRef, gridSelector: string, grid: Masonry) {
-        let headers = new Headers();
+        let headers = new HttpHeaders();
         headers.append("Content-Type", "application/json");
         let body = JSON.stringify(ids);
 
-        this.http.post("/api/wishlist/amazon", body, {
+        this.httpClient.post<AmazonWishlist>("/api/wishlist/amazon", body, {
             headers: headers
-        }).map(response => response.json())
-            .subscribe(results => {
-                this.loadWishlist(results, container, gridSelector, grid);
-                if (results.ids.length > 0) {
-                    this.getPendingWishlist(results.Ids, container, gridSelector, grid);
-                }
-            });
+        }).subscribe(results => {
+            this.loadWishlist(results, container, gridSelector, grid);
+            if (results.ids.length > 0) {
+                this.getPendingWishlist(results.ids, container, gridSelector, grid);
+            }
+        });
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        this.http.get("/api/wishlist/amazon").map(response => response.json())
-            .subscribe(results => {
+        this.httpClient.get<AmazonWishlist>("/api/wishlist/amazon").subscribe(results => {
                 this.loadWishlist(results, container, gridSelector, grid);
 
                 if (results.ids.length > 0) {

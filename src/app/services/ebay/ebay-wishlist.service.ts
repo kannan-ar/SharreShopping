@@ -1,4 +1,4 @@
-﻿import { Http, Headers, URLSearchParams } from "@angular/http";
+﻿import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory, ComponentRef } from "@angular/core";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
@@ -14,7 +14,7 @@ export class EbayWishlistService implements IWishlistService {
     private componentFactory: ComponentFactory<EbayWishlistComponent>;
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbayWishlistComponent);
     }
@@ -38,8 +38,7 @@ export class EbayWishlistService implements IWishlistService {
     }
 
     loadItem(id: string, container: ViewContainerRef, gridSelector: string, grid: Masonry) {
-        this.http.get("/api/wishlist/ebay/" + id)
-            .map(response => response.json())
+        this.httpClient.get<EbayProduct>("/api/wishlist/ebay/" + id)
             .subscribe(result => {
                 this.loadComponent(result, container, gridSelector, grid);
             });
@@ -52,7 +51,7 @@ export class EbayWishlistService implements IWishlistService {
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {
-        this.http.get("/api/wishlist/ebay").map(response => response.json())
+        this.httpClient.get<string[]>("/api/wishlist/ebay")
             .subscribe(results => {
                 this.loadWishlist(results, container, gridSelector, grid);
             });

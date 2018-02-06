@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
-import { Http, Headers } from "@angular/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import Masonry from "masonry-layout";
 
 import { AccountService } from "./account/account.service";
@@ -15,7 +15,7 @@ export class WishlistService {
 
     constructor(
         @Inject('WishlistServices') private services,
-        private http: Http) {
+        private httpClient: HttpClient) {
         this.servicePoints = new Array<IWishlistService>();
 
         this.services.forEach(service => {
@@ -24,11 +24,11 @@ export class WishlistService {
     }
 
     addWishlist(provider: string, id: string): void {
-        this.http.post("/api/wishlist/add/" + provider + "/" + id, "").subscribe();
+        this.httpClient.post("/api/wishlist/add/" + provider + "/" + id, "").subscribe();
     }
 
     removeWishlist(provider: string, id: string): void {
-        this.http.post("/api/wishlist/remove/" + provider + "/" + id, "").subscribe();
+        this.httpClient.post("/api/wishlist/remove/" + provider + "/" + id, "").subscribe();
     }
 
     loadAll(container: ViewContainerRef, gridSelector: string, grid: Masonry): void {

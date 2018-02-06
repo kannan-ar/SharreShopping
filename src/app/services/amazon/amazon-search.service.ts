@@ -1,4 +1,4 @@
-﻿import { Http, Jsonp } from "@angular/http";
+﻿import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import Masonry from "masonry-layout";
@@ -16,7 +16,7 @@ export class AmazonSearchService implements ISearchService {
     private componentFactory: ComponentFactory<AmazonProductComponent>;
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AmazonProductComponent);
     }
@@ -44,8 +44,7 @@ export class AmazonSearchService implements ISearchService {
     search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): Subject<boolean> {
         let response: Subject<boolean> = new Subject<boolean>();
 
-        this.http.get(this.url + query)
-            .map(response => response.json())
+        this.httpClient.get<AmazonProduct[]>(this.url + query)
             .subscribe(results => {
                 this.currentIndex = 0;
                 this.results = results;

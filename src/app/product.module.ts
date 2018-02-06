@@ -2,7 +2,7 @@
 import {CommonModule} from "@angular/common";
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {JsonpModule, RequestOptions, JSONPBackend} from "@angular/http";
+import { HttpClientJsonpModule } from "@angular/common/http";
 
 import {SharedModule} from "./shared.module";
 import {SearchService} from "./services/search.service";
@@ -28,7 +28,7 @@ import {WishlistService} from "./services/wishlist.service";
 import {FacebookService} from "./services/facebook.service";
 
 @NgModule({
-    imports: [CommonModule, JsonpModule, FormsModule, ReactiveFormsModule, InfiniteScrollModule, SharedModule],
+    imports: [CommonModule, HttpClientJsonpModule, FormsModule, ReactiveFormsModule, InfiniteScrollModule, SharedModule],
     exports: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent,
         FlipkartWishlistComponent, AmazonWishlistComponent, EbayWishlistComponent],
     entryComponents: [SearchComponent, FlipkartProductComponent, EbayProductComponent, AmazonProductComponent,

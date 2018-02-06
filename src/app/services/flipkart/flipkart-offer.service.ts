@@ -1,4 +1,4 @@
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from "@angular/core";
 import { Subject } from "rxjs/Subject";
 import Masonry from "masonry-layout";
@@ -14,7 +14,7 @@ export class FlipkartOfferService implements IOfferService {
     currentIndex: number;
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.currentIndex = 0;
     }
@@ -41,8 +41,7 @@ export class FlipkartOfferService implements IOfferService {
     getOffers(container: ViewContainerRef, gridSelector: string, grid: Masonry, count: number): Subject<boolean> {
         let response: Subject<boolean> = new Subject<boolean>();
 
-        this.http.get(this.url + "/" + this.currentIndex + "/" + count)
-            .map(response => response.json())
+        this.httpClient.get<any[]>(this.url + "/" + this.currentIndex + "/" + count)
             .subscribe(items => {
                 this.loadItem(container, gridSelector, grid, items);
                 response.next(items.length > 0);

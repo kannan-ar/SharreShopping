@@ -1,4 +1,4 @@
-﻿import { Http, Headers, Response } from "@angular/http";
+﻿import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, Inject, ViewContainerRef } from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import {AsyncSubject} from "rxjs/AsyncSubject";
@@ -15,7 +15,7 @@ export class PreferenceService {
     private blockPreferenceName: string = 'block_preference';
 
     constructor(
-        private http: Http,
+        private httpClient: HttpClient,
         private accountService: AccountService) { }
 
     private getCount(itemCount: number): number {
@@ -36,8 +36,7 @@ export class PreferenceService {
         let result: Subject<string[]> = new Subject<string[]>();
 
         if (this.accountService.isLogged()) {
-            this.http.get("/api/preference/get")
-                .map(response => response.json())
+            this.httpClient.get<string[]>("/api/preference/get")
                 .subscribe(data => {
                     result.next(data);
                 });
@@ -91,10 +90,10 @@ export class PreferenceService {
     }
 
     saveAccountPreference(items: string[]): Observable<Response> {
-        let headers = new Headers();
-        headers.append("Content-Type", "application/json");
+        let headers = new HttpHeaders().append("Content-Type", "application/json")
+
         let body = JSON.stringify(items);
-        return this.http.post("/api/preference/save", body, {
+        return this.httpClient.post<Response>("/api/preference/save", body, {
             headers: headers
         });
     }

@@ -1,4 +1,4 @@
-﻿import { Jsonp, URLSearchParams } from "@angular/http";
+﻿import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import Masonry from "masonry-layout";
@@ -16,7 +16,7 @@ export class EbaySearchService implements ISearchService {
     private componentFactory: ComponentFactory<EbayProductComponent>;
 
     constructor(
-        private jsonp: Jsonp,
+        private httpClient: HttpClient,
         private componentFactoryResolver: ComponentFactoryResolver) {
         this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(EbayProductComponent);
     }
@@ -141,8 +141,16 @@ export class EbaySearchService implements ISearchService {
     }
 
     search(query: string, gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number): Subject<boolean> {
-        let params = new URLSearchParams();
         let response: Subject<boolean> = new Subject<boolean>();
+        let params = new HttpParams()
+            .set("OPERATION-NAME", "findItemsByKeywords")
+            .set("SERVICE-NAME", "FindingService")
+            .set("SERVICE-VERSION", "1.0.0")
+            .set("GLOBAL-ID", "EBAY-IN")
+            .set("SECURITY-APPNAME", "ShareSho-7fbb-407c-8989-2000fa0722c4")
+            .set("RESPONSE-DATA-FORMAT", "JSON")
+            .set("callback", "JSONP_CALLBACK")
+            .set("keywords", query);
 
         params.set("OPERATION-NAME", "findItemsByKeywords");
         params.set("SERVICE-NAME", "FindingService");
@@ -153,7 +161,10 @@ export class EbaySearchService implements ISearchService {
         params.set("callback", "JSONP_CALLBACK");
         params.set("keywords", query);
 
-        this.jsonp.get(this.url, { search: params })
+        const opt = params.toString();
+        //http://orizens.com/wp/topics/upgrading-to-angular-5-using-httpclient-jsonp-with-parameters/
+        this.httpClient.jsonp(`${this.url}?${opt}`, 'JSONP_CALLBACK')
+            .map((response: Response) => response[1])
             .map(response => response.json())
             .subscribe(results => {
                 this.currentIndex = 0;
