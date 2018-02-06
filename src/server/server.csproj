@@ -9,6 +9,7 @@
     <UserSecretsId>sharreshopping-37CF7286-69F8-463F-8DB0-1806BCF88E7F</UserSecretsId>
     <RuntimeFrameworkVersion>2.0</RuntimeFrameworkVersion>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <ItemGroup>

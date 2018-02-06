@@ -163,6 +163,9 @@
     <TypeScriptCompile Include="views\flipkart\flipkart-wishlist.component.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\amazon-color.png" />
+    <Content Include="assets\images\ebay-color.png" />
+    <Content Include="assets\images\flipkart-color.png" />
     <Content Include="gulpfile.js" />
     <Content Include="my-bs-config.js" />
   </ItemGroup>
