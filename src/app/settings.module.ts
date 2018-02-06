@@ -2,7 +2,7 @@
 import {CommonModule} from "@angular/common";
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { TagInputModule } from 'ng2-tag-input';
+import { TagInputModule } from 'ngx-chips';
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 
 import {PreferenceComponent} from "./home/preference.component";

@@ -18,7 +18,7 @@ var jsFiles = [
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/masonry-layout/dist/masonry.pkgd.js',
     'node_modules/imagesloaded/imagesloaded.pkgd.js',
-    'node_modules/ng2-tag-input/dist/ng2-tag-input.bundle.js',
+    'node_modules/ngx-chips/dist/ngx-chips.bundle.js',
     'node_modules/ng2-material-dropdown/dist/ng2-dropdown.bundle.js',
     'node_modules/tslib/tslib.js'
 ];

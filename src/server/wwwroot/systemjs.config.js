@@ -13,7 +13,7 @@
         'masonry-layout': 'js/masonry.pkgd.js',
         'imagesloaded': 'js/imagesloaded.pkgd.js',
         'ng2-material-dropdown': 'js/ng2-dropdown.bundle.js',
-        'ng2-tag-input': 'js/ng2-tag-input.bundle.js',
+        'ngx-chips': 'js/ngx-chips.bundle.js',
         'tslib':'js/tslib.js'
     };
 
