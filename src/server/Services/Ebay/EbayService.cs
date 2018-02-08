@@ -26,8 +26,8 @@
 
         internal async Task<List<string>> Get(ClaimsIdentity identity)
         {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
+            Lazy<IConnectionMultiplexer> redis = serviceProvider.GetService<Lazy<IConnectionMultiplexer>>();
+            IDatabase db = redis.Value.GetDatabase();
             AccountService accountService = new AccountService();
 
             string email = accountService.GetLoginEmail(identity);

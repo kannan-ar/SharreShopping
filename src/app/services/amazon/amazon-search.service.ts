@@ -50,7 +50,7 @@ export class AmazonSearchService implements ISearchService {
                 this.results = results;
                 this.loadItems(gridSelector, count, grid, container);
                 response.next(results.length > 0);
-            });
+            }, (error) => { });
 
         return response;
     }

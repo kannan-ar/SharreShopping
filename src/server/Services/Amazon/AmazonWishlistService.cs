@@ -91,8 +91,8 @@
 
         internal async Task<AmazonWishlistItems> GetWishlistItems(IServiceProvider serviceProvider, ClaimsIdentity identity)
         {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
+            Lazy<IConnectionMultiplexer> redis = serviceProvider.GetService<Lazy<IConnectionMultiplexer>>();
+            IDatabase db = redis.Value.GetDatabase();
             string email = new AccountService().GetLoginEmail(identity);
             string[] asins = db.SetMembers(string.Concat("wishlist:", email, ":", "amazon")).ToStringArray();
 

@@ -26,16 +26,16 @@
 
         public void Save(ClaimsIdentity identity, string[] words)
         {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
+            Lazy<IConnectionMultiplexer> redis = serviceProvider.GetService<Lazy<IConnectionMultiplexer>>();
+            IDatabase db = redis.Value.GetDatabase();
 
             db.SetAdd(string.Concat("preference:", GetEmail(identity)), words.Select(key => (RedisValue)key).ToArray());
         }
 
         public async Task<List<string>> Get(ClaimsIdentity identity)
         {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
+            Lazy<IConnectionMultiplexer> redis = serviceProvider.GetService<Lazy<IConnectionMultiplexer>>();
+            IDatabase db = redis.Value.GetDatabase();
 
             return await Task.FromResult<List<string>>(new List<string>(
                 db.SetMembers(string.Concat("preference:", GetEmail(identity))).ToStringArray()));

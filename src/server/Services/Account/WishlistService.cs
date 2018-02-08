@@ -16,16 +16,16 @@
 
         private void Save(string provider, string id, string email)
         {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
+            Lazy<IConnectionMultiplexer> redis = serviceProvider.GetService<Lazy<IConnectionMultiplexer>>();
+            IDatabase db = redis.Value.GetDatabase();
 
             db.SetAdd(string.Concat("wishlist:", email, ":", provider), id);
         }
 
         private void Remove(string provider, string id, string email)
         {
-            IConnectionMultiplexer redis = serviceProvider.GetService<IConnectionMultiplexer>();
-            IDatabase db = redis.GetDatabase();
+            Lazy<IConnectionMultiplexer> redis = serviceProvider.GetService<Lazy<IConnectionMultiplexer>>();
+            IDatabase db = redis.Value.GetDatabase();
 
             db.SetRemove(string.Concat("wishlist:", email, ":", provider), id);
         }

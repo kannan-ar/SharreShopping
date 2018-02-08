@@ -10,6 +10,7 @@
     using Services;
     using Models;
     using Microsoft.AspNetCore.Authentication.Facebook;
+    using System;
 
     public class Startup
     {
@@ -69,11 +70,10 @@
 
             services.AddTransient<IHttpService, HttpService>();
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(new ConfigurationOptions
+            services.AddSingleton<Lazy<IConnectionMultiplexer>>(
+                new Lazy<IConnectionMultiplexer>(() =>
                 {
-                    EndPoints = { Configuration["ExternalConnections:RedisConnection"] },
-                    AbortOnConnectFail = false
+                    return ConnectionMultiplexer.Connect(Configuration["ExternalConnections:RedisConnection"]);
                 }));
         }
 

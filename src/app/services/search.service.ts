@@ -32,14 +32,9 @@ export class SearchService {
         let response: Subject<boolean> = new Subject<boolean>();
 
         this.servicePoints.forEach(service => {
-            try {
-                service.search(query, gridSelector, grid, container, count).subscribe(r => {
-                    response.next(r);
-                });
-            }
-            catch (ex) {
-                console.log(ex);
-            }
+            service.search(query, gridSelector, grid, container, count).subscribe(r => {
+                response.next(r);
+            });
         });
 
         return response;
