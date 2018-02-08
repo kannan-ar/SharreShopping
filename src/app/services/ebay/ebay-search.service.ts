@@ -1,12 +1,12 @@
 ﻿import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentFactory } from "@angular/core";
-import {Subject} from "rxjs/Subject";
+import { Subject } from "rxjs/Subject";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 
-import {ISearchService} from "../search.service";
-import {EbayProduct} from "../../models/ebay/ebay-product";
-import {EbayProductComponent} from "../../views/ebay/ebay-product.component";
+import { ISearchService } from "../search.service";
+import { EbayProduct } from "../../models/ebay/ebay-product";
+import { EbayProductComponent } from "../../views/ebay/ebay-product.component";
 
 @Injectable()
 export class EbaySearchService implements ISearchService {
@@ -65,11 +65,11 @@ export class EbaySearchService implements ISearchService {
                 item.condition[0].conditionDisplayName != null && item.condition[0].conditionDisplayName.length > 0) {
                 condition = item.condition[0].conditionDisplayName[0];
             }
-            
+
             if (item.galleryURL != null && item.galleryURL.length > 0) {
                 galleryURL = item.galleryURL[0];
             }
-            
+
             if (item.itemId != null && item.itemId.length > 0) {
                 itemId = item.itemId[0];
             }
@@ -116,9 +116,9 @@ export class EbaySearchService implements ISearchService {
             this.results.push(ebay);
         });
     }
-    
+
     loadItem(gridSelector: string, grid: Masonry, container: ViewContainerRef): void {
-        
+
         const model: EbayProduct = this.results[this.currentIndex++];
         if (model != null) {
             let ebayComponent = container.createComponent(this.componentFactory);
@@ -163,16 +163,14 @@ export class EbaySearchService implements ISearchService {
 
         const opt = params.toString();
         //http://orizens.com/wp/topics/upgrading-to-angular-5-using-httpclient-jsonp-with-parameters/
-        this.httpClient.jsonp(`${this.url}?${opt}`, 'JSONP_CALLBACK')
-            .map((response: Response) => response[1])
-            .map(response => response.json())
+        this.httpClient.jsonp<any[]>(`${this.url}?${opt}`, 'JSONP_CALLBACK')
             .subscribe(results => {
                 this.currentIndex = 0;
                 this.transformResults(results);
                 this.loadItems(gridSelector, count, grid, container);
-                response.next(results.length > 0);
+                response.next(results != undefined && results.length > 0);
             });
-
+        
         return response;
     }
 

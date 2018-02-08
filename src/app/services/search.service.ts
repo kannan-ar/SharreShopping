@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
-import {Subject} from "rxjs/Subject";
+import { Subject } from "rxjs/Subject";
 import Masonry from "masonry-layout";
 
 export interface ISearchService {
@@ -14,14 +14,14 @@ export class SearchService {
 
     private servicePoints: ISearchService[];
 
-    constructor(@Inject('SearchServices') private services) {
+    constructor( @Inject('SearchServices') private services) {
         this.servicePoints = new Array<ISearchService>();
 
         this.services.forEach(service => {
             this.servicePoints.push(service);
         });
     }
-   
+
     loadScrollItems(gridSelector: string, grid: Masonry, container: ViewContainerRef, count: number) {
         this.servicePoints.forEach(service => {
             service.loadScrollItems(gridSelector, grid, container, count);
@@ -32,22 +32,27 @@ export class SearchService {
         let response: Subject<boolean> = new Subject<boolean>();
 
         this.servicePoints.forEach(service => {
-            service.search(query, gridSelector, grid, container, count).subscribe(r => {
-                response.next(r);
-            });
+            try {
+                service.search(query, gridSelector, grid, container, count).subscribe(r => {
+                    response.next(r);
+                });
+            }
+            catch (ex) {
+                console.log(ex);
+            }
         });
 
         return response;
     }
-    
+
     removeComponents(container: ViewContainerRef): void {
         container.clear();
-        
+
         this.servicePoints.forEach(service => {
             service.removeData();
         });
     }
-   
+
     hasData(): boolean {
         let result: boolean = false;
 
