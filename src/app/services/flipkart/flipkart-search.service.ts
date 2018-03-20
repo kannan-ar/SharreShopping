@@ -39,7 +39,7 @@ export class FlipkartSearchService implements ISearchService {
     loadItems(gridSelector: string, count: number, grid: Masonry, container: ViewContainerRef): void {
         let index = 0;
 
-        while (index < count && this.currentIndex < this.results.length) {
+        while (index < count && this.results != null && this.currentIndex < this.results.length) {
             this.loadItem(gridSelector, grid, container);
             ++index;
         }
@@ -53,7 +53,7 @@ export class FlipkartSearchService implements ISearchService {
                 this.currentIndex = 0;
                 this.results = results;
                 this.loadItems(gridSelector, count, grid, container);
-                response.next(results.length > 0);
+                response.next(this.results != null && results.length > 0);
             });
 
         return response;
