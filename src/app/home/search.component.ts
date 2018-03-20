@@ -20,10 +20,8 @@ import {Environment} from "../environment";
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1"></div>
         </div>
-        <div [hidden]="!hasItems" class="row" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-            <div class="search-grid">
-                <ng-template #searchContainer></ng-template>
-            </div>
+        <div [hidden]="!hasItems" class="row search-grid" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+            <ng-template #searchContainer></ng-template>
         </div>
     `,
     styles: [`

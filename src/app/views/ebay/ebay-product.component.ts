@@ -10,15 +10,15 @@ import {FacebookService} from "../../services/facebook.service";
     selector: '[ebaySearch]',
     template: `
     <div class="text-center product-item">
-        <div class="title pull-right"><a href="{{item.viewItemURL}}" target="_blank">{{item.title}}</a></div>
+        <div class="title float-right"><a href="{{item.viewItemURL}}" target="_blank">{{item.title}}</a></div>
         <img-holder [thumbnail]="item.galleryURL" [url]="item.viewItemURL"></img-holder>
         <div>{{item.currencyId}}&nbsp;{{item.currentPrice}}</div>
         <p class="description"><a href="{{item.viewItemURL}}" target="_blank">{{item.subtitle}}</a></p>
         <div class="clearfix">
-            <div class="pull-left">
+            <div class="float-left">
                 <img src="/images/ebay-color.png" />
             </div>
-            <div class="pull-right">
+            <div class="float-right">
                 <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
                 <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
             </div>

@@ -10,13 +10,13 @@ import {OfferService} from "../services/offer.service";
         <div [hidden]="!hasItems" class="row top5">
             <div class="col-sm-12">
                 <div class="offers-header clearfix">
-                    <h4 class="pull-left">Offers</h4>
-                    <h4 class="pull-right align-middle">
+                    <h5 class="float-left">Offers</h5>
+                    <h5 class="float-right align-middle">
                         <label class="switch">
                           <input type="checkbox" checked (change)="changeVisibility($event)">
                           <div class="slider"></div>
                         </label>
-                    </h4>
+                    </h5>
                 </div>
             </div>
         </div>
@@ -25,10 +25,8 @@ import {OfferService} from "../services/offer.service";
                 <progress></progress>
             </div>
         </div>
-        <div [@offerState]="visibility" [hidden]="!hasItems" class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-            <div class="offer-grid">
-                <ng-template #offerContainer></ng-template>
-            </div>
+        <div [@offerState]="visibility" [hidden]="!hasItems" class="row top5 offer-grid" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+            <ng-template #offerContainer></ng-template>
         </div>
         `,
     styles: [`
@@ -42,7 +40,7 @@ import {OfferService} from "../services/offer.service";
                 margin-bottom: 5px;
             }
 
-            .offer-list .col-lg-12 {
+            .offer-grid .col-lg-12 {
                 padding-left:0;
                 padding-right:0;
             }

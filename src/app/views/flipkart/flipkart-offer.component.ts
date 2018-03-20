@@ -6,7 +6,7 @@ import {FlipkartOffer} from "../../models/flipkart/flipkart-offer";
     selector: '[flipkartOffer]',
     template: `
             <div class="text-center product-item">
-                <h4 class="title pull-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></h4>
+                <h6 class="title float-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></h6>
                 <img-holder [thumbnail]="imageUrl" [url]="item.url"></img-holder>
                 <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
             </div>`,

@@ -7,14 +7,14 @@ import {WishlistService} from "../../services/wishlist.service";
 @Component({
     selector: '[amazonWishlist]',
     template: `<div class="text-center product-item">
-                    <div class="title pull-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></div>
+                    <div class="title float-right"><a href="{{item.url}}" target="_blank">{{item.title}}</a></div>
                     <img-holder [thumbnail]="item.imageUrl" [url]="item.url"></img-holder>
                     <div>{{item.formattedPrice}}</div>
                     <div class="clearfix">
-                        <div class="pull-left">
+                        <div class="float-left">
                             <img src="/images/amazon-color.png" />
                         </div>
-                        <div class="pull-right">
+                        <div class="float-right">
                             <a (click)="removeWishlist()" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                         </div>
                     </div>

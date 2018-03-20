@@ -3,23 +3,20 @@ import {Component} from "@angular/core";
 @Component({
     selector: "shopping",
     template: `
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="navbar-header">
-            <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">SharreShopping</a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-            <p class="navbar-text navbar-left">
-                <img src="/images/amazon-color.png" />&nbsp;Amazon&nbsp;
-                <img src="/images/ebay-color.png" />&nbsp;Ebay&nbsp;
-                <img src="/images/flipkart-color.png" />&nbsp;Flipkart
-            </p>
-            <ul topMenu class="nav navbar-nav navbar-right">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">SharreShopping</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <img src="/images/amazon-color.png" />&nbsp;Amazon&nbsp;
+                    <img src="/images/ebay-color.png" />&nbsp;Ebay&nbsp;
+                    <img src="/images/flipkart-color.png" />&nbsp;Flipkart
+                </li>
+            </ul>
+            <ul topMenu class="nav navbar-nav ml-auto">
             </ul>
         </div>
     </nav>

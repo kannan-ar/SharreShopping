@@ -11,13 +11,13 @@ import {SearchService} from "../services/search.service";
         <div [hidden]="!hasItems" class="row top5">
             <div class="col-sm-12">
                 <div class="preference-header clearfix">
-                    <h4 class="pull-left">Preferences</h4>
-                    <h4 class="pull-right align-middle">
+                    <h5 class="float-left">Preferences</h5>
+                    <h5 class="float-right align-middle">
                         <label class="switch">
                           <input type="checkbox" checked (change)="changeVisibility($event)">
                           <div class="slider"></div>
                         </label>
-                    </h4>
+                    </h5>
                 </div>
             </div>
         </div>
@@ -26,10 +26,8 @@ import {SearchService} from "../services/search.service";
                 <progress></progress>
             </div>
         </div>
-        <div [@preferenceState]="visibility" [hidden]="!hasItems" class="row top5 offer-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-            <div class="preference-grid">
-                <ng-template #preferenceContainer></ng-template>
-            </div>
+        <div [@preferenceState]="visibility" [hidden]="!hasItems" class="row top5 preference-grid" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+            <ng-template #preferenceContainer></ng-template>
         </div>
     `,
     styles: [`

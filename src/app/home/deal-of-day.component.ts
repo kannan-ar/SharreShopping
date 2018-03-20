@@ -8,7 +8,7 @@ import {DealOfDayService} from "../services/deal-of-day.service";
        <div [hidden]="!hasItems" class="row">
             <div class="col-sm-12">
                 <div class="deal-of-day-header">
-                    <h4>Deal of the day</h4>
+                    <h5>Deal of the day</h5>
                 </div>
             </div>
         </div>

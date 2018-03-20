@@ -10,16 +10,16 @@ import {FacebookService} from "../../services/facebook.service";
     selector: '[flipkartProduct]',
     template: `
     <div class="text-center product-item">
-        <div class="title pull-right"><a href="{{item.productUrl}}" target="_blank">{{item.title}}</a></div>
+        <div class="title float-right"><a href="{{item.productUrl}}" target="_blank">{{item.title}}</a></div>
         <img-holder [thumbnail]="item.imageUrl" [url]="item.url"></img-holder>
         <p class="description"><a href="{{item.url}}" target="_blank">{{item.description}}</a></p>
         <div><s>{{item.sellingCurrency}}&nbsp;{{item.sellingAmount}}</s>&nbsp;{{item.mrpCurrency}}&nbsp;{{item.mrpAmount}}</div>
         <div>You saved {{item.discountPercentage}}%</div>
         <div class="clearfix">
-            <div class="pull-left">
+            <div class="float-left">
                 <img src="/images/flipkart-color.png" />
             </div>
-            <div class="pull-right">
+            <div class="float-right">
                <a (click)="addWishlist()" role="button"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
                <span *ngIf="canPostFacebook"><a (click)="postInFacebook()" role="button"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></span>
             </div>
