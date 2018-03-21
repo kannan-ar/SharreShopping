@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { PreferenceComponent } from "../home/preference.component";
 import { LoginInfo } from "../models/account/login-info";
@@ -8,22 +9,23 @@ import { AccountService } from "../services/account/account.service";
 @Component({
     selector: "[topMenu]",
     template: `
-        <li *ngIf="!isLogged" class="nav-item dropdown">
-            <a href="#" id="anonymousMenu" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi Guest&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
-            <div class="dropdown-menu" aria-labelledby="anonymousMenu">
-                <a href="#" class="dropdown-item login-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a>
-                <a href="#" class="dropdown-item" (click)="showPreference()">Preferences</a>
+        <li *ngIf="!isLogged" ngbDropdown>
+            <a href="#" id="anonymousMenu" class="nav-link" ngbDropdownToggle>Hi Guest&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+            <div ngbDropdownMenu aria-labelledby="anonymousMenu">
+                <a href="#" class="dropdown-item menu-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a>
+                <a href="#" class="dropdown-item menu-link" (click)="showPreference()">Preferences</a>
             </div>
         </li>
-        <li *ngIf="isLogged" class="nav-item dropdown">
-            <a href="#" id="accountMenu" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome&nbsp;{{info.name}}&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
-            <div class="dropdown-menu" aria-labelledby="accountMenu">
-                <a href="#" class="dropdown-item" (click)="showPreference()">Preferences</a>
-                <a href="#" class="dropdown-item" [routerLink]="['/wishlist']">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a>
-                <a href="#" class="dropdown-item" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a>
+        <li *ngIf="isLogged" ngbDropdown>
+            <a href="#" id="accountMenu" class="nav-link" ngbDropdownToggle>Welcome&nbsp;{{info.name}}&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+            <div ngbDropdownMenu aria-labelledby="accountMenu">
+                <a href="#" class="dropdown-item menu-link" (click)="showPreference()">Preferences</a>
+                <a href="#" class="dropdown-item menu-link" [routerLink]="['/wishlist']">Wishlist <span class="glyphicon glyphicon-heart float-right"></span></a>
+                <a href="#" class="dropdown-item menu-link" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out float-right"></span></a>
             </div>
         </li>
-    `
+    `,
+    providers: [NgbDropdownConfig]
 })
 
 export class TopMenuComponent {
@@ -32,8 +34,10 @@ export class TopMenuComponent {
 
     constructor(
         private modalService: NgbModal,
+        private config: NgbDropdownConfig,
         private accountService: AccountService) {
         this.info = new LoginInfo("");
+        config.placement = 'bottom-right';
     }
 
     ngOnInit() {
