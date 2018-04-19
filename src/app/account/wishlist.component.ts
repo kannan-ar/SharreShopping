@@ -9,7 +9,7 @@ import {WishlistService} from "../services/wishlist.service";
         <div class="row">
             <div class="col-sm-12">
                 <div class="wishlist-header">
-                    <h4>Wishlist Items</h4>
+                    <h5>Wishlist Items</h5>
                 </div>
             </div>
         </div>
