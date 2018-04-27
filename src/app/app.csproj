@@ -153,6 +153,7 @@
     <TypeScriptCompile Include="shared.module.ts" />
     <TypeScriptCompile Include="shared\image-holder.component.ts" />
     <TypeScriptCompile Include="shared\progress.component.ts" />
+    <TypeScriptCompile Include="vendor.ts" />
     <TypeScriptCompile Include="views\amazon\amazon-product.component.ts" />
     <TypeScriptCompile Include="views\amazon\amazon-wishlist.component.ts" />
     <TypeScriptCompile Include="views\ebay\ebay-product.component.ts" />
@@ -168,6 +169,7 @@
     <Content Include="assets\images\flipkart-color.png" />
     <Content Include="gulpfile.js" />
     <Content Include="my-bs-config.js" />
+    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />
