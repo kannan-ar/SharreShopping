@@ -1,6 +1,8 @@
 ﻿var path = require('path');
+const webpack = require('webpack');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     entry: {
@@ -31,6 +33,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new BundleAnalyzerPlugin(),
         new CheckerPlugin(),
         new CopyWebpackPlugin([{ from: './assets/images/*', to: '../images/[name].[ext]', toType: 'template' },
             { from: './assets/fonts/*', to: '../fonts/[name].[ext]', toType: 'template' }])]
