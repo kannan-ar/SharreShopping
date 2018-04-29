@@ -1,8 +1,6 @@
 ﻿var path = require('path');
-const webpack = require('webpack');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     entry: {
@@ -11,7 +9,6 @@ module.exports = {
         styles: './shared/styles/styles.css'
     },
     context: __dirname,
-    devtool: 'eval-source-map',
     resolve: {
         extensions: ['.js', '.ts']
     },
@@ -19,6 +16,26 @@ module.exports = {
         publicPath: '/js/',
         path: path.join(__dirname, '../server/wwwroot/js/'),
         filename: '[name].bundle.js'
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                default: {
+                    minChunks: 2,
+                    enforce: true,
+                    priority: 1
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 2,
+                    name: 'vendors',
+                    enforce: true,
+                    chunks: 'all'
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -33,8 +50,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new BundleAnalyzerPlugin(),
         new CheckerPlugin(),
         new CopyWebpackPlugin([{ from: './assets/images/*', to: '../images/[name].[ext]', toType: 'template' },
-            { from: './assets/fonts/*', to: '../fonts/[name].[ext]', toType: 'template' }])]
+        { from: './assets/fonts/*', to: '../fonts/[name].[ext]', toType: 'template' }])]
 }

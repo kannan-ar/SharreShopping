@@ -167,7 +167,10 @@
     <Content Include="assets\images\amazon-color.png" />
     <Content Include="assets\images\ebay-color.png" />
     <Content Include="assets\images\flipkart-color.png" />
+    <Content Include="webpack.common.js" />
     <Content Include="webpack.config.js" />
+    <Content Include="webpack.dev.js" />
+    <Content Include="webpack.prod.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />

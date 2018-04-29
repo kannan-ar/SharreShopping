@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp"
+    "dev": "webpack"
   },
   "author": "Kannan",
   "license": "ISC",
@@ -14,9 +14,11 @@
     "css-loader": "^0.28.11",
     "style-loader": "^0.21.0",
     "typescript": "^2.8.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
-    "webpack-bundle-analyzer": "^2.11.1"
+    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
     "@angular/animations": "^5.2.9",
