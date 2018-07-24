@@ -1,8 +1,3 @@
-1. a localStorage for preferences. If it is not set, it will consider as a first visit and welcome the user with options to set
-	preferences. A search will done with keywords and load in home page.
-2. When click on user info area and if it is not from home page, there is an issue that it will redirect to home page.
-3. Add color indicator for different shopping sites (Flipkart, Amazon, Ebay).
-4. The scroll should be done in scroll area. It should not scroll the entire page. That means header and search box must remains there.
-5. There must be a progress indicator while loading the items.
-6. Compare this feature.
-7. Offers and deal of the day are caching. What if the caching failed? will it try to fetch from web service next loading?
+1. When click on user info area and if it is not from home page, there is an issue that it will redirect to home page.
+2. Compare this feature.
+3. Offers and deal of the day are caching. What if the caching failed? will it try to fetch from web service next loading?

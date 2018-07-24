@@ -12,6 +12,10 @@ const appRoutes: Routes = [
         component: HomeComponent
     },
     {
+        path: "dashboard",
+        component: HomeComponent
+    },
+    {
         path: "signin",
         component: SigninComponent
     },

@@ -10,15 +10,17 @@ import { AccountService } from "../services/account/account.service";
     selector: "[topMenu]",
     template: `
         <li *ngIf="!isLogged" ngbDropdown>
-            <a href="#" id="anonymousMenu" class="nav-link" ngbDropdownToggle>Hi Guest&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+            <a id="anonymousMenu" class="nav-link lnk" ngbDropdownToggle>Hi Guest&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
             <div ngbDropdownMenu aria-labelledby="anonymousMenu">
-                <a href="#" class="dropdown-item menu-link" [routerLink]="['/signin']" routerLinkActive="active">Signin</a>
+                <a href="#" class="dropdown-item menu-link" [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
+                <a href="#" class="dropdown-item menu-link" [routerLink]="['/signin']">Signin</a>
                 <a href="#" class="dropdown-item menu-link" (click)="showPreference()">Preferences</a>
             </div>
         </li>
         <li *ngIf="isLogged" ngbDropdown>
-            <a href="#" id="accountMenu" class="nav-link" ngbDropdownToggle>Welcome&nbsp;{{info.name}}&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+            <a id="accountMenu" class="nav-link lnk" ngbDropdownToggle>Welcome&nbsp;{{info.name}}&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
             <div ngbDropdownMenu aria-labelledby="accountMenu">
+                <a href="#" class="dropdown-item menu-link" [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
                 <a href="#" class="dropdown-item menu-link" (click)="showPreference()">Preferences</a>
                 <a href="#" class="dropdown-item menu-link" [routerLink]="['/wishlist']">Wishlist <span class="glyphicon glyphicon-heart float-right"></span></a>
                 <a href="#" class="dropdown-item menu-link" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out float-right"></span></a>

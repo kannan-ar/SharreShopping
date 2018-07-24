@@ -58,5 +58,5 @@ TestResult.xml
 *.env
 
 #files#
-project.lock.json
+package-lock.json
 src/server/web-variables.env
