@@ -2,6 +2,8 @@
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -9,42 +11,37 @@
 
     using Services;
     using Models;
-    using Microsoft.AspNetCore.Authentication.Facebook;
     using System;
 
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets<Startup>();
-            }
-
-            builder.AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ShoppingSiteConfig>(options => Configuration.GetSection("ShoppingSites").Bind(options));
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.Configure<AuthConfig>(options =>
             {
                 Configuration.GetSection("AuthSettings").Bind(options);
             });
 
-            services.AddMvc();
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddMemoryCache();
 
             services.AddAuthentication(ShoppingContext.MiddlewareName)
@@ -78,44 +75,27 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            /*
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            if (env.IsDevelopment())
             {
-                AuthenticationScheme = "SharreShoppingCookieMiddleware",
-            });
-
-            app.UseFacebookAuthentication(new FacebookOptions()
+                app.UseDeveloperExceptionPage();
+            }
+            else
             {
-                AppId = Configuration["AuthSettings:Facebook:AppId"],
-                AppSecret = Configuration["AuthSettings:Facebook:AppSecret"],
-                SignInScheme = "SharreShoppingCookieMiddleware",
-                Scope = { "email", "publish_actions" },
-                SaveTokens = true
-            });
+                app.UseHsts();
+            }
 
-            app.UseGoogleAuthentication(new GoogleOptions()
-            {
-                ClientId = Configuration["AuthSettings:Google:ClientId"],
-                ClientSecret = Configuration["AuthSettings:Google:ClientSecret"],
-                SignInScheme = "SharreShoppingCookieMiddleware",
-                Scope = { "email", "openid" },
-                SaveTokens = true,
-            });
-            */
             app.UseAuthentication();
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
-
-            //app.UseDefaultFiles();
-            app.UseStaticFiles();
         }
     }
 }
