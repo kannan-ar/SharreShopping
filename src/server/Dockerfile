@@ -1,9 +1,16 @@
-FROM microsoft/dotnet:latest
-COPY /app /app
+FROM microsoft/dotnet:sdk AS build-env
 WORKDIR /app
- 
-EXPOSE 5000/tcp
-ENV ASPNETCORE_URLS http://*:5000
-ENV ASPNETCORE_ENVIRONMENT docker
- 
-ENTRYPOINT dotnet server.dll
+
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM microsoft/dotnet:aspnetcore-runtime
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "server.dll"]
