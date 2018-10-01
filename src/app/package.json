@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack"
+    "dev": "webpack",
+    "start": "webpack --config webpack.dev.js"
   },
   "author": "Kannan",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
+    "webpack-cli": "^3.1.1",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-merge": "^4.1.2"
   },

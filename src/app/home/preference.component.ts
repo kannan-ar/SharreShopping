@@ -34,7 +34,9 @@ export class PreferenceComponent {
 
     ngOnInit() {
         this.preferenceService.getPreferences().subscribe(r => {
-            this.items = r;
+            if(r != null) {
+                this.items = r;
+            }
         });
     }
 

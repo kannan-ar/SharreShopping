@@ -46,7 +46,7 @@
 
             services.AddAuthentication(ShoppingContext.MiddlewareName)
                 .AddCookie(ShoppingContext.MiddlewareName)
-                .AddFacebook(options =>
+                /*.AddFacebook(options =>
                 {
                     options.AppId = Configuration["AuthSettings:Facebook:AppId"];
                     options.AppSecret = Configuration["AuthSettings:Facebook:AppSecret"];
@@ -54,7 +54,7 @@
                     options.Scope.Add("email");
                     options.Scope.Add("publish_actions");
                     options.SaveTokens = true;
-                })
+                })*/
                 .AddGoogle(options =>
                 {
                     options.ClientId = Configuration["AuthSettings:Google:ClientId"];
@@ -67,6 +67,7 @@
 
             services.AddTransient<IHttpService, HttpService>();
             services.AddSingleton<IConfiguration>(Configuration);
+
             services.AddSingleton<Lazy<IConnectionMultiplexer>>(
                 new Lazy<IConnectionMultiplexer>(() =>
                 {
