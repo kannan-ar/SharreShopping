@@ -1,6 +1,6 @@
 ﻿import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {InfiniteScrollModule} from "angular2-infinite-scroll";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientJsonpModule } from "@angular/common/http";
 

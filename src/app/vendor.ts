@@ -13,8 +13,7 @@ import '@angular/forms';
 import 'jquery';
 import 'masonry-layout';
 import '@ng-bootstrap/ng-bootstrap';
-import 'angular2-infinite-scroll';
+import 'ngx-infinite-scroll';
 import 'ngx-chips';
 import 'imagesloaded';
 
-import "rxjs/Rx";

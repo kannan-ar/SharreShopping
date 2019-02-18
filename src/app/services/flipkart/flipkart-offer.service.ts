@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from "@angular/core";
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 import Masonry from "masonry-layout";
 import imagesLoaded from "imagesloaded";
 

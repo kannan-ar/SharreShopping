@@ -1,3 +1,4 @@
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import {Component, Output, ViewContainerRef, ViewChild, EventEmitter, OnInit} from "@angular/core";
 import { FormControl } from "@angular/forms";
 import Masonry from "masonry-layout";
@@ -41,9 +42,7 @@ export class SearchComponent {
     gridSelector: string = '.search-grid';
 
     constructor(private searchService: SearchService) {
-        this.search.valueChanges
-            .debounceTime(400)
-            .distinctUntilChanged()
+        this.search.valueChanges.pipe(debounceTime(400), distinctUntilChanged())
             .subscribe(term => {
                 if (term === "") {
                     this.renderSearchResults(false);

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 
 import { FlipkartDealOfDayComponent } from "../../views/flipkart/flipkart-deal-of-day.component";
 import { IDealOfDayService } from "../deal-of-day.service";

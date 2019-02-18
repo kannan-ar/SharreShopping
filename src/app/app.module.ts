@@ -4,13 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientJsonpModule } from "@angular/common/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import "rxjs/Rx";
+import {FormsModule} from "@angular/forms";
+//import "rxjs";
 
 import {AppRouting} from "./app.routing";
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
-import {SearchComponent} from "./home/search.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {DealOfDayModule} from "./deal-of-day.module";
 import {OfferModule} from "./offer.module";

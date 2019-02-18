@@ -1,8 +1,6 @@
-﻿import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, Inject, ViewContainerRef } from "@angular/core";
-import {Subject} from "rxjs/Subject";
-import {AsyncSubject} from "rxjs/AsyncSubject";
-import {Observable} from "rxjs/Rx";
+import {Subject, AsyncSubject, Observable} from "rxjs";
 import Masonry from "masonry-layout";
 
 import {SearchService} from "./search.service";

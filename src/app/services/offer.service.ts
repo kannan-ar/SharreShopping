@@ -1,5 +1,5 @@
 import { Injectable, ViewContainerRef, Inject } from "@angular/core";
-import {Subject} from "rxjs/Subject";
+import {Subject} from "rxjs";
 
 import Masonry from "masonry-layout";
 

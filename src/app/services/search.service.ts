@@ -1,5 +1,5 @@
-﻿import { Injectable, Inject, ViewContainerRef } from "@angular/core";
-import { Subject } from "rxjs/Subject";
+import { Injectable, Inject, ViewContainerRef } from "@angular/core";
+import { Subject } from "rxjs";
 import Masonry from "masonry-layout";
 
 export interface ISearchService {
